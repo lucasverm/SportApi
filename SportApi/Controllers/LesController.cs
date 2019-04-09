@@ -5,48 +5,44 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectG05.Models.Domain;
+using SportApi.IRepos;
 
 namespace SportApi.Controllers
 {
-
-    
-
     [Route("api/[controller]")]
     [ApiController]
-    public class AfbeeldingController : ControllerBase
+    public class LesController : ControllerBase
     {
 
-        IAfbeelding _repo;
+        ILes _repo;
 
-        public AfbeeldingController(IAfbeelding repo)
+        public LesController(ILes repo)
         {
             _repo = repo;
         }
 
-
-
-        // GET: api/Afbeelding
+        // GET: api/Les
         [HttpGet]
-        public IEnumerable<Afbeelding> Get()
+        public IEnumerable<Les> Get()
         {
             return _repo.GetAll();
         }
 
-        // GET: api/Afbeelding/5
-        [HttpGet("{id}")]
-        public List<Afbeelding> Get(int id)
+        // GET: api/Les/5
+        [HttpGet("{id}", Name = "Get")]
+        public Les Get(int id)
         {
-            return _repo.GetAlleAfbeeldingDieHorenBijEenSpecifiekLesmateriaal(id);
+            return _repo.GetBy(id);
         }
 
-        // POST: api/Afbeelding
+        // POST: api/Les
         [HttpPost]
-        public void Post(Afbeelding afbeelding)
+        public void Post(Les les)
         {
-            _repo.Add(afbeelding);
+            _repo.Add(les);
         }
 
-        // PUT: api/Afbeelding/5
+        // PUT: api/Les/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
@@ -56,7 +52,8 @@ namespace SportApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            throw new Exception("Not implemented yet");
+            Les les = _repo.GetBy(id);
+            _repo.Delete(les);
         }
     }
 }

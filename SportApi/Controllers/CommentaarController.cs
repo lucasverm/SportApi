@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using ProjectG05.Models.Domain;
 
@@ -33,8 +34,9 @@ namespace SportApi.Controllers
 
         // POST: api/Repositories
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(Commentaar com)
         {
+            _repo.Add(com);
         }
 
         // PUT: api/Repositories/5
@@ -47,6 +49,7 @@ namespace SportApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            throw new Exception("Not implemented yet");
         }
     }
 }

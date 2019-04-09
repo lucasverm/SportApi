@@ -8,45 +8,42 @@ using ProjectG05.Models.Domain;
 
 namespace SportApi.Controllers
 {
-
-    
-
     [Route("api/[controller]")]
     [ApiController]
-    public class AfbeeldingController : ControllerBase
+    public class LesmateriaalController : ControllerBase
     {
 
-        IAfbeelding _repo;
+        ILesmateriaal _repo;
 
-        public AfbeeldingController(IAfbeelding repo)
+        public LesmateriaalController(ILesmateriaal repo)
         {
             _repo = repo;
         }
 
 
 
-        // GET: api/Afbeelding
+        // GET: api/Lesmateriaal
         [HttpGet]
-        public IEnumerable<Afbeelding> Get()
+        public IEnumerable<Lesmateriaal> Get()
         {
             return _repo.GetAll();
         }
 
-        // GET: api/Afbeelding/5
-        [HttpGet("{id}")]
-        public List<Afbeelding> Get(int id)
+        // GET: api/Lesmateriaal/5
+        [HttpGet("{id}", Name = "Get")]
+        public Lesmateriaal Get(int id)
         {
-            return _repo.GetAlleAfbeeldingDieHorenBijEenSpecifiekLesmateriaal(id);
+            return _repo.GetById(id);
         }
 
-        // POST: api/Afbeelding
+        // POST: api/Lesmateriaal
         [HttpPost]
-        public void Post(Afbeelding afbeelding)
+        public void Post([FromBody] Lesmateriaal lesm)
         {
-            _repo.Add(afbeelding);
+            _repo.Add(lesm);
         }
 
-        // PUT: api/Afbeelding/5
+        // PUT: api/Lesmateriaal/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
@@ -56,7 +53,7 @@ namespace SportApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            throw new Exception("Not implemented yet");
+            _repo.Add(_repo.GetById(id));
         }
     }
 }

@@ -1,9 +1,12 @@
-﻿using System;
+﻿using ProjectG05.Models.Domain;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ProjectG05.Models.Domain
+namespace SportApi.IRepos
 {
-    public interface ILesRepository
+    public interface ILes
     {
         #region Methods
 
@@ -11,7 +14,7 @@ namespace ProjectG05.Models.Domain
 
         void Delete(Les les);
 
-        //Les GeefVolgendeLes(DateTime now, Gebruiker lesgever);
+        Les GeefVolgendeLes(DateTime now, Gebruiker lesgever);
 
         IEnumerable<Les> GetAll();
 
