@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectG05.Data;
 using ProjectG05.Models.Domain;
+using SportApi.IRepos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SportApi.Repos
 {
-        public class LesRepository : ILesRepository
+        public class LesRepository : ILes
         {
             #region Fields
 

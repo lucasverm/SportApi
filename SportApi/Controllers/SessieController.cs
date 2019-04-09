@@ -29,7 +29,7 @@ namespace SportApi.Controllers
         }
 
         // GET: api/Sessie/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public Sessie Get(int id)
         {
             return _repo.GetBy(id);

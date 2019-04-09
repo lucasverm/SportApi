@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using ProjectG05.Data;
 using ProjectG05.Data.Repositories;
 using ProjectG05.Models.Domain;
+using SportApi.IRepos;
+using SportApi.Repos;
 
 namespace SportApi
 {
@@ -28,9 +30,16 @@ namespace SportApi
                 (options => options.UseSqlServer(connection));
 
             //services.AddScoped<DataInitializer>();
-
+            
             services.AddTransient<IAfbeelding, AfbeeldingRepository>();
             services.AddTransient<ICommentaar, CommentaarRepository>();
+
+            services.AddTransient<ISessie, SessieRepository>();
+
+
+            services.AddTransient<IGebruiker, GebruikerRepository>();
+            services.AddTransient<ILes, LesRepository>();
+            services.AddTransient<ILesmateriaal, LesmateriaalRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

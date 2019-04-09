@@ -28,7 +28,7 @@ namespace SportApi.Controllers
         }
 
         // GET: api/Gebruiker/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public Gebruiker Get(int id)
         {
             return _repo.GetBy(id);

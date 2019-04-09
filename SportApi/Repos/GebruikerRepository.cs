@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ProjectG05.Data.Repositories
 {
-    public class GebruikerRepository : IGebruikerRepository
+    public class GebruikerRepository : IGebruiker
     {
         #region Fields
 

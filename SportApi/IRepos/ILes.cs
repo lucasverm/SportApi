@@ -14,7 +14,7 @@ namespace SportApi.IRepos
 
         void Delete(Les les);
 
-        Les GeefVolgendeLes(DateTime now, Gebruiker lesgever);
+        //Les GeefVolgendeLes(DateTime now, Gebruiker lesgever);
 
         IEnumerable<Les> GetAll();
 

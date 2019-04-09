@@ -29,7 +29,7 @@ namespace SportApi.Controllers
         }
 
         // GET: api/Les/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public Les Get(int id)
         {
             return _repo.GetBy(id);

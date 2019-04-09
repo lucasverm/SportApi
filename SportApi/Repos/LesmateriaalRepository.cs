@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ProjectG05.Data.Repositories
 {
-    public class LesmateriaalRepository : ILesmateriaalRepository
+    public class LesmateriaalRepository : ILesmateriaal
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<Lesmateriaal> _lesmaterialen;

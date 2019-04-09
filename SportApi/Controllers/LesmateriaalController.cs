@@ -30,7 +30,7 @@ namespace SportApi.Controllers
         }
 
         // GET: api/Lesmateriaal/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public Lesmateriaal Get(int id)
         {
             return _repo.GetById(id);

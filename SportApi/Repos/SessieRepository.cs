@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ProjectG05.Data.Repositories
 {
-    public class SessieRepository : ISessieRepository
+    public class SessieRepository : ISessie
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<Sessie> _sessies;
