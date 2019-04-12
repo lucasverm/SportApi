@@ -9,6 +9,8 @@ using SportApi.DTO_s;
 
 namespace SportApi.Controllers
 {
+    //[ApiConventionType(typeof(DefaultApiConventions))]
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class AfbeeldingController : ControllerBase

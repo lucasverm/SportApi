@@ -2,15 +2,16 @@
 {
     public class Afbeelding
     {
-        public string Adres { get; set; }
-        public int LesmateriaalId { get; set; }
         public int Id { get; set; }
+        public int LesmateriaalId { get; set; }
+        public string Adres { get; set; }
 
         #region Constructors
 
         public Afbeelding()
         {
         }
+
         public Afbeelding(int lesmateriaalId, string adres)
         {
             LesmateriaalId = lesmateriaalId;
@@ -18,6 +19,5 @@
         }
 
         #endregion Constructors
-
     }
 }

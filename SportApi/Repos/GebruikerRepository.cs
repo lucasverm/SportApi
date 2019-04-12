@@ -73,6 +73,11 @@ namespace ProjectG05.Data.Repositories
             return _gebruikers.SingleOrDefault(g => g.Email == email);
         }
 
+        public IEnumerable<Gebruiker> GetAllLesgevers()
+        {
+            return _gebruikers.Where(c => c.GetType() == typeof(Lesgever)).OrderBy(t => t.Voornaam).ToList();
+        }
+
         #endregion Methods
     }
 }

@@ -30,6 +30,7 @@ namespace SportApi
             var connection = @"Server=(localdb)\mssqllocaldb;Database=Project05ApiDatabase;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<ApplicationDbContext>
                 (options => options.UseSqlServer(connection));
+
             services.AddScoped<DataInitializer>();
             services.AddTransient<DataInitializer>();
             services.AddTransient<IAfbeelding, AfbeeldingRepository>();
@@ -44,14 +45,6 @@ namespace SportApi
                 c.Title = "Sport API";
                 c.Version = "v1";
                 c.Description = "The Sport API documentation description.";
-                c.DocumentProcessors.Add(new SecurityDefinitionAppender("JWT Token", new SwaggerSecurityScheme
-                {
-                    Type = SwaggerSecuritySchemeType.ApiKey,
-                    Name = "Authorization",
-                    In = SwaggerSecurityApiKeyLocation.Header,
-                    Description = "Copy 'Bearer' + valid JWT token into field"
-                }));
-                c.OperationProcessors.Add(new OperationSecurityScopeProcessor("JWT Token"));
             });
             services.AddCors(options => options.AddPolicy("AllowAllOrigins", builder => builder.AllowAnyOrigin()));
         }

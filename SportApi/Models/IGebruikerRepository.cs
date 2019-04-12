@@ -18,6 +18,8 @@ namespace ProjectG05.Models.Domain
 
         IEnumerable<Gebruiker> GetAllLeden();
 
+        IEnumerable<Gebruiker> GetAllLesgevers();
+
         Gebruiker GetBy(int id);
 
         Gebruiker GetBy(string email);

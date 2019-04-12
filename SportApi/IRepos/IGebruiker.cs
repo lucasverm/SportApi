@@ -6,6 +6,8 @@ namespace ProjectG05.Models.Domain
     {
         #region Methods
 
+        IEnumerable<Gebruiker> GetAllLesgevers();
+
         void Add(Gebruiker gebruiker);
 
         void Delete(Gebruiker gebruiker);

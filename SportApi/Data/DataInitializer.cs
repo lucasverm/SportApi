@@ -50,6 +50,7 @@ namespace ProjectG05.Data
 
             if (_dbContext.Database.EnsureCreated())
             {
+                //lesmateriaal & afbeelding aanmaken
                 Lesmateriaal lesMat1 = new Lesmateriaal(5, "oefening1", "Uitleg bij oefening 1", "duwen", new List<Afbeelding>(), new List<Video>(), new List<Commentaar>());
                 _dbContext.Lesmaterialen.Add(lesMat1);
                 Afbeelding a1 = new Afbeelding(lesMat1.Id, "adresNaarAfbeelding1");
@@ -58,6 +59,11 @@ namespace ProjectG05.Data
                 _dbContext.Lesmaterialen.Add(lesMat2);
                 Afbeelding a2 = new Afbeelding(lesMat2.Id, "adresNaarAfbeelding1");
                 _dbContext.Afbeeldingen.Add(a1);
+
+                //gebruiker aanmaken
+                Gebruiker g = new Lesgever("Lucas", "Vermeulen", "pinksterbloemstraat", "19", "9030", "Gent", "0495192770", "lucasvermeulen@gmail.com", DateTime.Today, "Man");
+                _dbContext.Gebruikers.Add(g);
+
                 _dbContext.SaveChanges();
             }
         }
