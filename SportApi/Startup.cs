@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NSwag;
+using NSwag.SwaggerGeneration.Processors.Security;
 using ProjectG05.Data;
 using ProjectG05.Data.Repositories;
 using ProjectG05.Models.Domain;
@@ -25,25 +27,37 @@ namespace SportApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=EFGetStarted.AspNetCore.NewDb;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=Project05ApiDatabase;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<ApplicationDbContext>
                 (options => options.UseSqlServer(connection));
-
-            //services.AddScoped<DataInitializer>();
-            
+            services.AddScoped<DataInitializer>();
+            services.AddTransient<DataInitializer>();
             services.AddTransient<IAfbeelding, AfbeeldingRepository>();
             services.AddTransient<ICommentaar, CommentaarRepository>();
-
-            services.AddTransient<ISessie, SessieRepository>();
-
-
+            services.AddScoped<ISessie, SessieRepository>();
             services.AddTransient<IGebruiker, GebruikerRepository>();
-            services.AddTransient<ILes, LesRepository>();
+            services.AddScoped<ILes, LesRepository>();
             services.AddTransient<ILesmateriaal, LesmateriaalRepository>();
+            services.AddOpenApiDocument(c =>
+            {
+                c.DocumentName = "apidocs";
+                c.Title = "Sport API";
+                c.Version = "v1";
+                c.Description = "The Sport API documentation description.";
+                c.DocumentProcessors.Add(new SecurityDefinitionAppender("JWT Token", new SwaggerSecurityScheme
+                {
+                    Type = SwaggerSecuritySchemeType.ApiKey,
+                    Name = "Authorization",
+                    In = SwaggerSecurityApiKeyLocation.Header,
+                    Description = "Copy 'Bearer' + valid JWT token into field"
+                }));
+                c.OperationProcessors.Add(new OperationSecurityScopeProcessor("JWT Token"));
+            });
+            services.AddCors(options => options.AddPolicy("AllowAllOrigins", builder => builder.AllowAnyOrigin()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env/* DataInitializer dataInitializer*/)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataInitializer dataInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -53,10 +67,16 @@ namespace SportApi
             {
                 app.UseHsts();
             }
-
+            app.UseCors("AllowAllOrigins");
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
+
             app.UseMvc();
-            //dataInitializer.InitializeData().Wait();
+
+            app.UseSwaggerUi3();
+            app.UseSwagger();
+            dataInitializer.InitializeData();
         }
     }
 }

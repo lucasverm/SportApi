@@ -30,7 +30,6 @@ namespace ProjectG05.Models.Domain
 
         public Lesmateriaal()
         {
-
         }
 
         public Lesmateriaal(int graad)
@@ -38,32 +37,24 @@ namespace ProjectG05.Models.Domain
             Graad = graad;
         }
 
-        public Lesmateriaal(int id, int graad, string naam, string oefeningUitlegTekst, string catecategorie) : this(id)
+        public Lesmateriaal(int graad, string naam, string oefeningUitlegTekst, string categorie) : this(graad)
         {
-            Graad = graad;
             Naam = naam;
             OefeningUitlegTekst = oefeningUitlegTekst;
-            Categorie = catecategorie;
+            Categorie = categorie;
         }
 
-        public Lesmateriaal(int id, int graad, string naam, string oefeningUitlegTekst, List<Afbeelding> afbeeldingen, List<Video> videos, string catecategorie) : this(id, graad, naam, oefeningUitlegTekst, catecategorie)
+        public Lesmateriaal(int graad, string naam, string oefeningUitlegTekst, string categorie, List<Afbeelding> afbeeldingen, List<Video> videos) : this(graad, naam, oefeningUitlegTekst, categorie)
         {
             Afbeeldingen = afbeeldingen;
             Videos = videos;
         }
 
-        public Lesmateriaal(int id, int graad, string naam, string categorie, string oefeningUitlegTekst, List<Commentaar> commentaren) : this(id, graad, naam, categorie, oefeningUitlegTekst)
+        public Lesmateriaal(int graad, string naam, string oefeningUitlegTekst, string categorie, List<Afbeelding> afbeeldingen, List<Video> videos, List<Commentaar> commentaren) : this(graad, naam, oefeningUitlegTekst, categorie, afbeeldingen, videos)
         {
             Commentaren = commentaren;
         }
 
-
-
-
-
-
         #endregion Constructors
-
-
     }
 }
