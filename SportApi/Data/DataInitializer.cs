@@ -63,7 +63,8 @@ namespace ProjectG05.Data
                 //gebruiker aanmaken
                 Gebruiker g = new Lesgever("Lucas", "Vermeulen", "pinksterbloemstraat", "19", "9030", "Gent", "0495192770", "lucasvermeulen@gmail.com", DateTime.Today, "Man");
                 _dbContext.Gebruikers.Add(g);
-
+                Gebruiker lid = new Lid("Lid", "Achternaam", "lidstraat", "1", "9030", "Gent", "0495192770", "lucas@gmail.com", new DateTime(), "belg", "lucas@ouder.be", "98.05.26-367.73", "Gent", "man", 5);
+                _dbContext.Gebruikers.Add(lid);
                 _dbContext.SaveChanges();
             }
         }

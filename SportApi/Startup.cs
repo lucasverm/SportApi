@@ -32,11 +32,10 @@ namespace SportApi
                 (options => options.UseSqlServer(connection));
 
             services.AddScoped<DataInitializer>();
-            services.AddTransient<DataInitializer>();
             services.AddTransient<IAfbeelding, AfbeeldingRepository>();
             services.AddTransient<ICommentaar, CommentaarRepository>();
             services.AddScoped<ISessie, SessieRepository>();
-            services.AddTransient<IGebruiker, GebruikerRepository>();
+            services.AddScoped<IGebruiker, GebruikerRepository>();
             services.AddScoped<ILes, LesRepository>();
             services.AddTransient<ILesmateriaal, LesmateriaalRepository>();
             services.AddOpenApiDocument(c =>

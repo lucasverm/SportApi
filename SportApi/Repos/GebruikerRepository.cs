@@ -33,6 +33,11 @@ namespace ProjectG05.Data.Repositories
             _gebruikers.Add(gebruiker);
         }
 
+        public void Update(Gebruiker gebruiker)
+        {
+            _gebruikers.Update(gebruiker);
+        }
+
         public void Delete(Gebruiker gebruiker)
         {
             _gebruikers.Remove(gebruiker);

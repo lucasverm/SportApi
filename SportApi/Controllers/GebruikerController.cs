@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Web.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,17 +35,17 @@ namespace SportApi.Controllers
             return _gebruikerRepository.GetBy(id);
         }
 
-        // PUT: api/Gebruiker/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _gebruikerRepository.Delete(_gebruikerRepository.GetBy(id));
+            Gebruiker g = _gebruikerRepository.GetBy(id);
+            if (g == null)
+            {
+                throw new Exception("gebruiker niet gevonden");
+            }
+            _gebruikerRepository.Delete(g);
+            _gebruikerRepository.SaveChanges();
         }
     }
 }

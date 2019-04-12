@@ -26,6 +26,8 @@ namespace ProjectG05.Models.Domain
 
         void SaveChanges();
 
+        void Update(Gebruiker gebruiker);
+
         #endregion Methods
     }
 }
