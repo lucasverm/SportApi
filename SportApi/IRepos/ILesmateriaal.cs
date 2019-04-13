@@ -7,6 +7,8 @@ namespace ProjectG05.Models.Domain
     {
         #region Methods
 
+        void Update(Lesmateriaal lesmateriaal);
+
         void Add(Lesmateriaal lesmateriaal);
 
         void Delete(Lesmateriaal lesmateriaal);

@@ -33,6 +33,30 @@ namespace ProjectG05.Data.Repositories
             SaveChanges();
         }
 
+        public void Update(Sessie sessie)
+        {
+            //alle gebruiker sessies van deze sessie verwijderen
+            List<GebruikerSessie> AlleGebruikerSessies = _gebruikerSessies.ToList();
+            AlleGebruikerSessies.ForEach(GS =>
+            {
+                if (GS.Sessie == sessie)
+                {
+                    _gebruikerSessies.Remove(GS);
+                }
+            });
+
+            //alle gebruikers toevoegen
+            sessie.Aanwezigen.ForEach(a =>
+                {
+                    _gebruikerSessies.Add(new GebruikerSessie(sessie, a));
+                });
+
+            _sessies.Add(sessie);
+            SaveChanges();
+
+
+        }
+
         public Sessie AddAanwezige(Sessie s, Gebruiker g)
         {
             Sessie sessie = this.GetBy(s.Id);

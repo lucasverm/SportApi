@@ -19,6 +19,12 @@ namespace ProjectG05.Data.Repositories
             _lesmaterialen.Add(lesmateriaal);
             SaveChanges();
         }
+
+        public void Update(Lesmateriaal lesmateriaal)
+        {
+            _lesmaterialen.Update(lesmateriaal);
+            SaveChanges();
+        }
         public void Delete(Lesmateriaal lesmateriaal)
         {
             _lesmaterialen.Remove(lesmateriaal);

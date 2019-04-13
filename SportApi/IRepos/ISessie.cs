@@ -7,6 +7,7 @@ namespace ProjectG05.Models.Domain
     {
         #region Methods
 
+        void Update(Sessie sessie);
         void Add(Sessie sessie);
 
         void Delete(Sessie sessie);

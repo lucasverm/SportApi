@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using ProjectG05.Models.Domain;
 using SportApi.DTO_s;
@@ -56,6 +57,7 @@ namespace SportApi.Controllers
             }
             catch(Exception e)
             {
+                Debug.WriteLine(e.Source);
                 return BadRequest(e.Message);
             }
         }

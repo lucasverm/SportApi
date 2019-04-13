@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectG05.Models.Domain;
 using SportApi.DTO_s;
+using System;
 using System.Collections.Generic;
 
 namespace SportApi.Controllers
@@ -18,43 +19,63 @@ namespace SportApi.Controllers
 
         // GET: api/Leden
         [HttpGet]
-        public IEnumerable<Gebruiker> GetLeden()
+        public IEnumerable<Gebruiker> GetAll()
         {
             return _gebruikerRepository.GetAllLeden();
         }
 
         // POST: api/Lid
         [HttpPost]
-        public void PostLid(LidDTO dto)
+        public ActionResult<Gebruiker> PostLid(LidDTO dto)
         {
-            Lid lid = new Lid(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, dto.Geboortedatum, dto.Nationaliteit, dto.EmailOuder, dto.RijksregisterNummer, dto.GeborenTe, dto.Geslacht, dto.InschrijvingsDatum, dto.Graad);
-            _gebruikerRepository.Add(lid);
-            _gebruikerRepository.SaveChanges();
+            try
+            {
+                Gebruiker lid = new Lid(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Postcode,
+                    dto.Stad, dto.TelefoonNummer, dto.Email, dto.Geboortedatum, dto.Nationaliteit,
+                    dto.EmailOuder, dto.RijksregisterNummer, dto.GeborenTe, dto.Geslacht,
+                    dto.InschrijvingsDatum, dto.Graad);
+                _gebruikerRepository.Add(lid);
+                _gebruikerRepository.SaveChanges();
+                return lid;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         // PUT: api/Gebruiker/5
         [HttpPut("{id}")]
-        public void Put(int id, LidDTO dto)
+        public ActionResult<Gebruiker> Put(int id, LidDTO dto)
         {
-            Lid g = (Lid)_gebruikerRepository.GetBy(id);
-            g.Voornaam = dto.Voornaam;
-            g.Naam = dto.Naam;
-            g.Straatnaam = dto.StraatNaam;
-            g.Huisnummer = dto.Huisnummer;
-            g.Postcode = dto.Postcode;
-            g.Stad = dto.Stad;
-            g.Telefoonnummer = dto.TelefoonNummer;
-            g.Email = dto.Email;
-            g.Geboortedatum = dto.Geboortedatum;
-            g.Nationaleit = dto.Nationaliteit;
-            g.EmailOuders = dto.EmailOuder;
-            g.Rijksregisternummer = dto.RijksregisterNummer;
-            g.GeborenTe = dto.GeborenTe;
-            g.Geslacht = dto.Geslacht;
-            g.InschrijvingsDatum = dto.InschrijvingsDatum;
-            g.Graad = dto.Graad;
-            _gebruikerRepository.Update(g);
-            _gebruikerRepository.SaveChanges();
+            try
+            {
+                Lid g = (Lid)_gebruikerRepository.GetBy(id);
+                if (g == null) throw new Exception("Gebruiker kon niet worden gevonden!");
+                g.Voornaam = dto.Voornaam;
+                g.Naam = dto.Naam;
+                g.Straatnaam = dto.StraatNaam;
+                g.Huisnummer = dto.Huisnummer;
+                g.Postcode = dto.Postcode;
+                g.Stad = dto.Stad;
+                g.Telefoonnummer = dto.TelefoonNummer;
+                g.Email = dto.Email;
+                g.Geboortedatum = dto.Geboortedatum;
+                g.Nationaleit = dto.Nationaliteit;
+                g.EmailOuders = dto.EmailOuder;
+                g.Rijksregisternummer = dto.RijksregisterNummer;
+                g.GeborenTe = dto.GeborenTe;
+                g.Geslacht = dto.Geslacht;
+                g.InschrijvingsDatum = dto.InschrijvingsDatum;
+                g.Graad = dto.Graad;
+                _gebruikerRepository.Update(g);
+                _gebruikerRepository.SaveChanges();
+                return g;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

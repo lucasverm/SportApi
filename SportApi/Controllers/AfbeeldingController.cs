@@ -16,10 +16,12 @@ namespace SportApi.Controllers
     public class AfbeeldingController : ControllerBase
     {
         private IAfbeelding _afbeeldingRepository;
+        private ILesmateriaal _lesmateriaalRepository;
 
-        public AfbeeldingController(IAfbeelding afbeeldingRepository)
+        public AfbeeldingController(IAfbeelding afbeeldingRepository, ILesmateriaal lesmateriaalRepository)
         {
             _afbeeldingRepository = afbeeldingRepository;
+            _lesmateriaalRepository = lesmateriaalRepository;
         }
 
         // GET: api/Afbeelding
@@ -44,6 +46,8 @@ namespace SportApi.Controllers
         {
             try
             {
+                if (_lesmateriaalRepository.GetBy(DTO.LesMateriaalId) == null)
+                    return BadRequest("Het opgegeven lesmateriaal kon niet worden gevonden!");
                 Afbeelding a = new Afbeelding(DTO.LesMateriaalId, DTO.Adres);
                 _afbeeldingRepository.Add(a);
                 _afbeeldingRepository.SaveChanges();
@@ -85,6 +89,7 @@ namespace SportApi.Controllers
             Afbeelding a = _afbeeldingRepository.GetBy(id);
             if (a == null) return BadRequest("Afbeelding die u wenst te verwijderen bestaat niet!");
             _afbeeldingRepository.Delete(a);
+            _afbeeldingRepository.SaveChanges();
             return a;
         }
     }

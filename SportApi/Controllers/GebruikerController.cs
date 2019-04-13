@@ -30,10 +30,10 @@ namespace SportApi.Controllers
 
         // GET: api/Gebruiker/5
         [HttpGet("{id}")]
-        public ActionResult<Gebruiker> Get(int id)
+        public ActionResult<Gebruiker> GetBy(int id)
         {
             Gebruiker g = _gebruikerRepository.GetBy(id);
-            if (g == null) return BadRequest("De gebruiker bestaat niet");
+            if (g == null) return NotFound("De gebruiker kon niet worden gevonden");
             return g;
         }
 
@@ -51,7 +51,7 @@ namespace SportApi.Controllers
             }
             catch(Exception e)
             {
-                return BadRequest("e.message");
+                return BadRequest(e.Message);
             }
             
         }

@@ -33,10 +33,10 @@ namespace SportApi.Controllers
 
         // GET: api/Les/5
         [HttpGet("{id}")]
-        public ActionResult<Les> Get(int id)
+        public ActionResult<Les> GetBy(int id)
         {
             Les l = _lesRepository.GetBy(id);
-            if (l == null) return BadRequest("De les kon niet worden gevonden");
+            if (l == null) return NotFound("De les kon niet worden gevonden");
             return l;
         }
 
@@ -84,7 +84,7 @@ namespace SportApi.Controllers
                 l.LedenVoorLes = DTO.Leden;
                 _lesRepository.Update(l);
                 _lesRepository.SaveChanges();
-                return l;
+                return CreatedAtAction(nameof(GetBy), new { id = l.Id }, l);
             }
             catch (Exception e)
             {
