@@ -18,6 +18,10 @@ namespace ProjectG05.Data.Repositories
             _commentaren = context.Commentaren;
         }
 
+        public void Update(Commentaar commentaar)
+        {
+            _commentaren.Update(commentaar);
+        }
         public void Add(Commentaar commentaar)
         {
             _commentaren.Add(commentaar);
@@ -40,10 +44,9 @@ namespace ProjectG05.Data.Repositories
             return _commentaren.FirstOrDefault(l => l.Datum == datum && l.TijdStip == tijdstip);
         }
 
-        public IEnumerable<Commentaar> GetById(int id)
+        public Commentaar GetBy(int id)
         {
-            return _commentaren.Where(c => c.Id == id); //Id is niet specifiek want dit id hoort bij een lesmateriaal. Dus je kan meerdere commentaren hebben met hetzelfde id. (wanneer 2 mensen reageren op het zelfde lesmateriaal)
-            //return _commentaren.Where(c => c.Id == id);
+            return _commentaren.SingleOrDefault(c => c.Id == id);
         }
 
         public void SaveChanges()

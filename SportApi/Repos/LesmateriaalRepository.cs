@@ -34,9 +34,9 @@ namespace ProjectG05.Data.Repositories
             return _lesmaterialen.FirstOrDefault(l => l.Graad == graad);
         }
 
-        public Lesmateriaal GetById(int lesMateriaalId)
+        public Lesmateriaal GetBy(int lesMateriaalId)
         {
-            return _lesmaterialen.FirstOrDefault(l => l.Id == lesMateriaalId);
+            return _lesmaterialen.SingleOrDefault(l => l.Id == lesMateriaalId);
         }
 
         public IEnumerable<Lesmateriaal> GetVoorSpecifiekeGraad(int graad)

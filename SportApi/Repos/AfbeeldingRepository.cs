@@ -35,13 +35,9 @@ namespace ProjectG05.Data.Repositories
 
         public void Delete(Afbeelding afbeelding)
         {
+
             _afbeeldingen.Remove(afbeelding);
         }
-
-        //public IEnumerable<Afbeelding> GetAll()
-        //{
-        //    return _afbeeldingen.OrderBy(t => t.Graad).ToList();
-        //}
 
         public void SaveChanges()
         {
@@ -58,6 +54,15 @@ namespace ProjectG05.Data.Repositories
             return _afbeeldingen.ToList();
         }
 
+        public Afbeelding GetBy(int id)
+        {
+            return _afbeeldingen.SingleOrDefault(a => a.Id == id);
+        }
+
+        public void Update(Afbeelding afbeelding)
+        {
+            _afbeeldingen.Update(afbeelding);
+        }
         #endregion Methods
     }
 }

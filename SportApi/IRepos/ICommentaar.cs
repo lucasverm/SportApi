@@ -6,7 +6,7 @@ namespace ProjectG05.Models.Domain
     public interface ICommentaar
     {
         #region Methods
-
+        void Update(Commentaar commentaar);
         void Add(Commentaar commentaar);
 
         void Delete(Commentaar commentaar);
@@ -15,7 +15,7 @@ namespace ProjectG05.Models.Domain
 
         Commentaar GetBy(DateTime datum, TimeSpan tijdstip);
         void SaveChanges();
-        IEnumerable<Commentaar> GetById(int id);
+        Commentaar GetBy(int id);
 
         #endregion Methods
     }

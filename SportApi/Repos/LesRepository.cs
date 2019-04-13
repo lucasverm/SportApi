@@ -8,100 +8,124 @@ using System.Linq;
 
 namespace SportApi.Repos
 {
-        public class LesRepository : ILes
+    public class LesRepository : ILes
+    {
+        #region Fields
+
+        private readonly ApplicationDbContext _context;
+        private readonly DbSet<Les> _lessen;
+        private readonly DbSet<LesLid> _LesLid;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public LesRepository(ApplicationDbContext context)
         {
-            #region Fields
+            _context = context;
+            _lessen = _context.Lessen;
+            _LesLid = _context.LesLid;
+        }
 
-            private readonly ApplicationDbContext _context;
-            private readonly DbSet<Les> _lessen;
-            private readonly DbSet<LesLid> _LesLid;
+        #endregion Constructors
 
-            #endregion Fields
+        #region Methods
 
-            #region Constructors
-
-            public LesRepository(ApplicationDbContext context)
+        public void Add(Les les)
+        {
+            les.LedenVoorLes.ForEach(a =>
             {
-                _context = context;
-                _lessen = _context.Lessen;
-                _LesLid = _context.LesLid;
-            }
+                _LesLid.Add(new LesLid(les, a));
+            });
+            _lessen.Add(les);
+            SaveChanges();
+        }
 
-            #endregion Constructors
-
-            #region Methods
-
-            public void Add(Les les)
+        public void Update(Les les)
+        {
+            //alle lesleden van deze les verwijderen
+            List<LesLid> alleLesLeden = _LesLid.ToList();
+            alleLesLeden.ForEach(lesLid =>
             {
-                les.LedenVoorLes.ForEach(a =>
+                if (lesLid.Les == les)
                 {
-                    _LesLid.Add(new LesLid(les, a));
-                });
-                _lessen.Add(les);
-                SaveChanges();
-            }
+                    _LesLid.Remove(lesLid);
+                }
+            });
 
-            public void Delete(Les les)
+            //alle lesleden van deze les opnieuw toevoegen
+            les.LedenVoorLes.ForEach(a =>
             {
-                _lessen.Remove(les);
-                List<LesLid> verwijderen = _LesLid.ToList();
-                verwijderen.ForEach(a =>
+                _LesLid.Add(new LesLid(les, a));
+            });
+
+            _lessen.Update(les);
+            SaveChanges();
+        }
+
+        public void Delete(Les les)
+        {
+            _lessen.Remove(les);
+            List<LesLid> verwijderen = _LesLid.ToList();
+            verwijderen.ForEach(a =>
+            {
+                if (a.Les == les)
                 {
-                    if (a.Les == les)
-                    {
-                        _LesLid.Remove(a);
-                    }
-                });
-                SaveChanges();
-            }
+                    _LesLid.Remove(a);
+                }
+            });
+            SaveChanges();
+        }
 
-            
 
-            public IEnumerable<Les> GetAll()
+
+        public IEnumerable<Les> GetAll()
+        {
+            List<Les> alleLessen = _lessen.ToList();
+            alleLessen.ForEach(les =>
             {
-                List<Les> alleLessen = _lessen.ToList();
-                alleLessen.ForEach(les =>
+                les.LedenVoorLes = new List<Lid>();
+                _LesLid.Where(k => k.Les == les).Include(l => l.Les).Include(l => l.Lid).ToList().ForEach(t =>
                 {
-                    les.LedenVoorLes = new List<Lid>();
-                    _LesLid.Where(k => k.Les == les).Include(l => l.Les).Include(l => l.Lid).ToList().ForEach(t =>
-                    {
-                        les.LedenVoorLes.Add(t.Lid);
-                    });
+                    les.LedenVoorLes.Add(t.Lid);
                 });
-                return alleLessen;
-            }
+            });
+            return alleLessen;
+        }
 
-            public List<Les> GeefLessenVanLesgever(Gebruiker lesgever)
+        public List<Les> GeefLessenVanLesgever(Gebruiker lesgever)
+        {
+            List<Les> alleLessenVanLesgever = _lessen.Where(a => a.Lesgever == lesgever).ToList();
+            alleLessenVanLesgever.ForEach(LesVanLesgever =>
             {
-                List<Les> alleLessenVanLesgever = _lessen.Where(a => a.Lesgever == lesgever).ToList();
-                alleLessenVanLesgever.ForEach(LesVanLesgever =>
+                LesVanLesgever.LedenVoorLes = new List<Lid>();
+                _LesLid.Where(LesLid => LesLid.Les == LesVanLesgever).Include(l => l.Les).Include(l => l.Lid).ToList().ForEach(LesLidVanLesgever =>
                 {
-                    LesVanLesgever.LedenVoorLes = new List<Lid>();
-                    _LesLid.Where(LesLid => LesLid.Les == LesVanLesgever).Include(l => l.Les).Include(l => l.Lid).ToList().ForEach(LesLidVanLesgever =>
-                    {
-                        LesVanLesgever.LedenVoorLes.Add(LesLidVanLesgever.Lid);
-                    });
+                    LesVanLesgever.LedenVoorLes.Add(LesLidVanLesgever.Lid);
                 });
-                return alleLessenVanLesgever;
-            }
+            });
+            return alleLessenVanLesgever;
+        }
 
-            public Les GetBy(int id)
+        public Les GetBy(int id)
+        {
+            Les l = _lessen.SingleOrDefault(s => s.Id == id);
+            _LesLid.Where(a => a.Les == l).Include(i => i.Les).Include(t => t.Lid).ToList().ForEach(t =>
             {
-                Les l = _lessen.SingleOrDefault(s => s.Id == id);
-                _LesLid.Where(a => a.Les == l).Include(i => i.Les).Include(t => t.Lid).ToList().ForEach(t =>
-                {
-                    Lid lid = new Lid(t.Lid.Naam, t.Lid.Voornaam, t.Lid.Straatnaam, t.Lid.Huisnummer, t.Lid.Postcode, t.Lid.Stad, t.Lid.Telefoonnummer, t.Lid.Email, t.Lid.Geboortedatum, t.Lid.Nationaleit, t.Lid.EmailOuders, t.Lid.Rijksregisternummer, t.Lid.GeborenTe, t.Lid.Geslacht, t.Lid.InschrijvingsDatum, t.Lid.Graad);
-                    l.LedenVoorLes.Add(lid);
-                });
-                return l;
-            }
+                Lid lid = new Lid(t.Lid.Naam, t.Lid.Voornaam, t.Lid.Straatnaam, t.Lid.Huisnummer, t.Lid.Postcode, t.Lid.Stad, t.Lid.Telefoonnummer, t.Lid.Email, t.Lid.Geboortedatum, t.Lid.Nationaleit, t.Lid.EmailOuders, t.Lid.Rijksregisternummer, t.Lid.GeborenTe, t.Lid.Geslacht, t.Lid.InschrijvingsDatum, t.Lid.Graad);
+                l.LedenVoorLes.Add(lid);
+            });
+            return l;
+        }
 
-            public void SaveChanges()
-            {
-                _context.SaveChanges();
-            }
 
-            #endregion Methods
-        
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
+
+        #endregion Methods
+
     }
 }

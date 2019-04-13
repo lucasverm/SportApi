@@ -24,38 +24,68 @@ namespace SportApi.Controllers
 
         // GET: api/Afbeelding
         [HttpGet]
-        public IEnumerable<Afbeelding> Get()
+        public IEnumerable<Afbeelding> GetAll()
         {
             return _afbeeldingRepository.GetAll();
         }
 
         // GET: api/Afbeelding/5
         [HttpGet("{id}")]
-        public List<Afbeelding> Get(int id)
+        public ActionResult<Afbeelding> GetBy(int id)
         {
-            return _afbeeldingRepository.GetAlleAfbeeldingDieHorenBijEenSpecifiekLesmateriaal(id);
+            Afbeelding a = _afbeeldingRepository.GetBy(id);
+            if (a == null) return NoContent();
+            return a;
         }
 
         // POST: api/Afbeelding
         [HttpPost]
-        public void Post(AfbeeldingDTO DTO)
+        public ActionResult<Afbeelding> Post(AfbeeldingDTO DTO)
         {
-            Afbeelding a = new Afbeelding(DTO.LesMateriaalId, DTO.Adres);
-            _afbeeldingRepository.Add(a);
-            _afbeeldingRepository.SaveChanges();
+            try
+            {
+                Afbeelding a = new Afbeelding(DTO.LesMateriaalId, DTO.Adres);
+                _afbeeldingRepository.Add(a);
+                _afbeeldingRepository.SaveChanges();
+                return CreatedAtAction(nameof(GetBy), new{ id = a.Id}, a);
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
 
         // PUT: api/Afbeelding/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult<Afbeelding> Put(int id, AfbeeldingDTO DTO)
         {
+            try
+            {
+            Afbeelding a = _afbeeldingRepository.GetBy(id);
+            if (a == null)
+            {
+                return BadRequest("De afbeelding die u wenst te wijzigen bestaat niet");
+            }
+                a.LesmateriaalId = DTO.LesMateriaalId;
+                a.Adres = DTO.Adres;
+                _afbeeldingRepository.Add(a);
+                return a;
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<Afbeelding> Delete(int id)
         {
-            throw new Exception("Not implemented yet");
+            Afbeelding a = _afbeeldingRepository.GetBy(id);
+            if (a == null) return BadRequest("Afbeelding die u wenst te verwijderen bestaat niet!");
+            _afbeeldingRepository.Delete(a);
+            return a;
         }
     }
 }

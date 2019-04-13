@@ -33,7 +33,7 @@ namespace SportApi.Controllers
         [HttpGet("{id}")]
         public Lesmateriaal Get(int id)
         {
-            return _repo.GetById(id);
+            return _repo.GetBy(id);
         }
 
         // POST: api/Lesmateriaal
@@ -53,7 +53,7 @@ namespace SportApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _repo.Add(_repo.GetById(id));
+            _repo.Add(_repo.GetBy(id));
         }
     }
 }

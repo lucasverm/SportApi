@@ -11,7 +11,6 @@ namespace ProjectG05.Models.Domain
         public Gebruiker Lid { get; set; }
         public DateTime Datum { get; set; }
         public TimeSpan TijdStip { get; set; }
-        public string Lidnaam { get; set; }
         public Lesmateriaal Lesmateriaal { get; set; }
 
         #endregion Properties
@@ -29,7 +28,6 @@ namespace ProjectG05.Models.Domain
             Lesmateriaal = lesmateriaal;
             Datum = DateTime.Today;
             TijdStip = DateTime.Now.TimeOfDay;
-            Lidnaam = lid.Voornaam + " " + lid.Naam;
         }
 
         #endregion Constructors

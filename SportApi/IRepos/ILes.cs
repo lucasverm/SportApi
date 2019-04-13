@@ -22,6 +22,8 @@ namespace SportApi.IRepos
 
         void SaveChanges();
 
+        void Update(Les les);
+
         #endregion Methods
     }
 }

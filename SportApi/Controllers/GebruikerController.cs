@@ -30,22 +30,30 @@ namespace SportApi.Controllers
 
         // GET: api/Gebruiker/5
         [HttpGet("{id}")]
-        public Gebruiker Get(int id)
+        public ActionResult<Gebruiker> Get(int id)
         {
-            return _gebruikerRepository.GetBy(id);
+            Gebruiker g = _gebruikerRepository.GetBy(id);
+            if (g == null) return BadRequest("De gebruiker bestaat niet");
+            return g;
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<Gebruiker> Delete(int id)
         {
-            Gebruiker g = _gebruikerRepository.GetBy(id);
-            if (g == null)
+            try
             {
-                throw new Exception("gebruiker niet gevonden");
+                Gebruiker g = _gebruikerRepository.GetBy(id);
+                if (g == null) return BadRequest("Gebruiker kon niet worden gevonden");
+                _gebruikerRepository.Delete(g);
+                _gebruikerRepository.SaveChanges();
+                return g;
             }
-            _gebruikerRepository.Delete(g);
-            _gebruikerRepository.SaveChanges();
+            catch(Exception e)
+            {
+                return BadRequest("e.message");
+            }
+            
         }
     }
 }

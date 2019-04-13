@@ -9,6 +9,8 @@ namespace ProjectG05.Models.Domain
     {
         #region Methods
 
+        void Update(Afbeelding afbeelding);
+        Afbeelding GetBy(int id);
         void Add(Afbeelding afbeelding);
 
         void Delete(Afbeelding afbeelding);

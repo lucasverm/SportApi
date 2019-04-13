@@ -17,7 +17,7 @@ namespace ProjectG05.Models.Domain
 
         IEnumerable<Lesmateriaal> GetVoorSpecifiekeGraad(int graad);
 
-        Lesmateriaal GetById(int lesMateriaalId);
+        Lesmateriaal GetBy(int lesMateriaalId);
 
         List<string> GetCategorieënVoorGraad(int graad);
 
