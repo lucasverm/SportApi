@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore; 
 using ProjectG05.Models.Domain;
 using System;
 using System.Collections.Generic;
@@ -16,6 +16,11 @@ namespace ProjectG05.Data.Repositories
         {
             _context = context;
             _commentaren = context.Commentaren;
+        }
+
+        public IEnumerable<Commentaar> GetByLesmateriaal(int id)
+        {
+            return _commentaren.Where(e =>e.Lesmateriaal.Id == id);
         }
 
         public void Update(Commentaar commentaar)
@@ -36,17 +41,17 @@ namespace ProjectG05.Data.Repositories
 
         public IEnumerable<Commentaar> GetAll()
         {
-            return _commentaren.ToList();
+            return _commentaren.Include(e => e.Lesmateriaal).Include(e => e.Lid).ToList();
         }
 
         public Commentaar GetBy(DateTime datum, TimeSpan tijdstip)
         {
-            return _commentaren.FirstOrDefault(l => l.Datum == datum && l.TijdStip == tijdstip);
+            return _commentaren.Include(e => e.Lesmateriaal).Include(e => e.Lid).FirstOrDefault(l => l.Datum == datum && l.TijdStip == tijdstip);
         }
 
         public Commentaar GetBy(int id)
         {
-            return _commentaren.SingleOrDefault(c => c.Id == id);
+            return _commentaren.Include(e => e.Lesmateriaal).Include(e => e.Lid).SingleOrDefault(c => c.Id == id);
         }
 
         public void SaveChanges()

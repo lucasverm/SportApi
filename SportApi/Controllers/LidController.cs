@@ -52,6 +52,8 @@ namespace SportApi.Controllers
             {
                 Lid g = (Lid)_gebruikerRepository.GetBy(id);
                 if (g == null) throw new Exception("Gebruiker kon niet worden gevonden!");
+                if (!(g is Lid)) ;
+                return BadRequest("De opgegeven gebruiker is geen lesgever");
                 g.Voornaam = dto.Voornaam;
                 g.Naam = dto.Naam;
                 g.Straatnaam = dto.StraatNaam;

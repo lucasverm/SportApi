@@ -40,6 +40,15 @@ namespace SportApi.Controllers
             return c;
         }
 
+        /*// GET: api/Repositories/
+        [Route("lesmateriaal")]
+        [HttpGet("{id}")]
+        public IEnumerable<Commentaar> GetByLesmateriaal(int id)
+        {
+            IEnumerable<Commentaar> c = _repo.GetByLesmateriaal(id);
+            return c;
+        }*/
+
         // POST: api/Repositories
         [HttpPost]
         public ActionResult<Commentaar> Post(CommentaarDTO DTO)

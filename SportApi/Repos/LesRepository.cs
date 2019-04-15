@@ -81,7 +81,7 @@ namespace SportApi.Repos
 
         public IEnumerable<Les> GetAll()
         {
-            List<Les> alleLessen = _lessen.ToList();
+            List<Les> alleLessen = _lessen.Include(t => t.Lesgever).ToList();
             alleLessen.ForEach(les =>
             {
                 les.LedenVoorLes = new List<Lid>();
@@ -95,7 +95,7 @@ namespace SportApi.Repos
 
         public List<Les> GeefLessenVanLesgever(Gebruiker lesgever)
         {
-            List<Les> alleLessenVanLesgever = _lessen.Where(a => a.Lesgever == lesgever).ToList();
+            List<Les> alleLessenVanLesgever = _lessen.Where(a => a.Lesgever == lesgever).Include(t => t.Lesgever).Include(t => t.LedenVoorLes).ToList();
             alleLessenVanLesgever.ForEach(LesVanLesgever =>
             {
                 LesVanLesgever.LedenVoorLes = new List<Lid>();
@@ -109,12 +109,17 @@ namespace SportApi.Repos
 
         public Les GetBy(int id)
         {
-            Les l = _lessen.SingleOrDefault(s => s.Id == id);
-            _LesLid.Where(a => a.Les == l).Include(i => i.Les).Include(t => t.Lid).ToList().ForEach(t =>
+            Les l = _lessen.Include(t => t.Lesgever).SingleOrDefault(s => s.Id == id);
+            if(l != null)
             {
-                Lid lid = new Lid(t.Lid.Naam, t.Lid.Voornaam, t.Lid.Straatnaam, t.Lid.Huisnummer, t.Lid.Postcode, t.Lid.Stad, t.Lid.Telefoonnummer, t.Lid.Email, t.Lid.Geboortedatum, t.Lid.Nationaleit, t.Lid.EmailOuders, t.Lid.Rijksregisternummer, t.Lid.GeborenTe, t.Lid.Geslacht, t.Lid.InschrijvingsDatum, t.Lid.Graad);
-                l.LedenVoorLes.Add(lid);
-            });
+                l.LedenVoorLes = new List<Lid>();
+                _LesLid.Where(a => a.Les == l).Include(i => i.Les).Include(t => t.Lid).ToList().ForEach(t =>
+                {
+                    Lid lid = new Lid(t.Lid.Naam, t.Lid.Voornaam, t.Lid.Straatnaam, t.Lid.Huisnummer, t.Lid.Postcode, t.Lid.Stad, t.Lid.Telefoonnummer, t.Lid.Email, t.Lid.Geboortedatum, t.Lid.Nationaleit, t.Lid.EmailOuders, t.Lid.Rijksregisternummer, t.Lid.GeborenTe, t.Lid.Geslacht, t.Lid.InschrijvingsDatum, t.Lid.Graad);
+                    l.LedenVoorLes.Add(lid);
+                });
+            }
+            
             return l;
         }
 

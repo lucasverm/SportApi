@@ -37,7 +37,7 @@ namespace SportApi.Controllers
                 dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, dto.Geboortedatum, dto.Geslacht);
                 _gebruikerRepository.Add(g);
                 _gebruikerRepository.SaveChanges();
-                return CreatedAtAction(nameof(GebruikerController.GetBy), new { id = g.Id }, g);
+                return g;
             }
             catch(Exception e)
             {
@@ -54,6 +54,7 @@ namespace SportApi.Controllers
             {
                 Gebruiker g = _gebruikerRepository.GetBy(id);
                 if (g == null) return BadRequest("De gebruiker kon niet worden gevonden!");
+                if (!(g is Lesgever)) return BadRequest("De gebruiker is geen lesgever!");
                 g.Voornaam = dto.Voornaam;
                 g.Naam = dto.Naam;
                 g.Straatnaam = dto.StraatNaam;

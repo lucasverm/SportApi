@@ -47,17 +47,40 @@ namespace SportApi.Controllers
             try
             {
                 Gebruiker lesgever = _gebruikerRepository.GetBy(DTO.LesgeverId);
-                if (lesgever == null) return BadRequest("Lesgever kon niet worden gevonden");
-                if(DTO.Leden == null)
+                if (lesgever == null)
                 {
-                    DTO.Leden = new List<Lid>();
+                    return BadRequest("Lesgever kon niet worden gevonden");
                 }
-                Les l = new Les(lesgever, DTO.StartUur, DTO.Duur, DTO.Weekdag, DTO.Leden);
+                if (!(lesgever is Lesgever || lesgever is Beheerder))
+                    return BadRequest("Gelieve een lesgever op te geven");
+                List<Lid> LedenVoorLes = new List<Lid>();
+                Boolean LidNietGevonden = false;
+                int LidNietGevondenId = 0;
+                DTO.LedenIds.ForEach(LidId =>
+                {
+                    Gebruiker lid = _gebruikerRepository.GetBy(LidId);
+                    if (lid == null)
+                    {
+                        LidNietGevonden = true;
+                        LidNietGevondenId = LidId;
+                    }
+
+                    else
+                    {
+                        LedenVoorLes.Add((Lid)lid);
+                    }
+                        
+                });
+                if (LidNietGevonden)
+                {
+                    return BadRequest("Lid met id " + LidNietGevondenId + " kon niet worden gevonden!");
+                }
+                Les l = new Les(lesgever, DTO.StartUur, DTO.Duur, DTO.Weekdag, LedenVoorLes);
                 _lesRepository.Add(l);
                 _lesRepository.SaveChanges();
                 return l;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
@@ -70,18 +93,42 @@ namespace SportApi.Controllers
             try
             {
                 Les l = _lesRepository.GetBy(id);
-                if (l == null) return BadRequest("Lesgever kon niet worden gevonden");
+                if (l == null) return BadRequest("Les kon niet worden gevonden");
                 Gebruiker lesgever = _gebruikerRepository.GetBy(DTO.LesgeverId);
-                if (lesgever == null) return BadRequest("Lesgever kon niet worden gevonden");
-                if (DTO.Leden == null)
+                if (lesgever == null)
                 {
-                    DTO.Leden = new List<Lid>();
+                    return BadRequest("Lesgever kon niet worden gevonden");
                 }
+                if (!(lesgever is Lesgever || lesgever is Beheerder))
+                    return BadRequest("Gelieve een lesgever op te geven");
+                List<Lid> LedenVoorLes = new List<Lid>();
+                Boolean LidNietGevonden = false;
+                int LidNietGevondenId = 0;
+                DTO.LedenIds.ForEach(LidId =>
+                {
+                    Gebruiker lid = _gebruikerRepository.GetBy(LidId);
+                    if (lid == null)
+                    {
+                        LidNietGevonden = true;
+                        LidNietGevondenId = LidId;
+                    }
+
+                    else
+                    {
+                        LedenVoorLes.Add((Lid)lid);
+                    }
+
+                });
+                if (LidNietGevonden)
+                {
+                    return BadRequest("Lid met id " + LidNietGevondenId + " kon niet worden gevonden!");
+                }
+
                 l.Lesgever = lesgever;
                 l.StartUur = DTO.StartUur;
                 l.Duur = DTO.Duur;
                 l.Weekdag = DTO.Weekdag;
-                l.LedenVoorLes = DTO.Leden;
+                l.LedenVoorLes = LedenVoorLes;
                 _lesRepository.Update(l);
                 _lesRepository.SaveChanges();
                 return CreatedAtAction(nameof(GetBy), new { id = l.Id }, l);

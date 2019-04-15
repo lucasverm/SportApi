@@ -20,6 +20,7 @@ namespace ProjectG05.Data.Repositories
             SaveChanges();
         }
 
+        
         public void Update(Lesmateriaal lesmateriaal)
         {
             _lesmaterialen.Update(lesmateriaal);

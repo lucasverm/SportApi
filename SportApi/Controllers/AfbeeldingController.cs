@@ -51,12 +51,13 @@ namespace SportApi.Controllers
                 Afbeelding a = new Afbeelding(DTO.LesMateriaalId, DTO.Adres);
                 _afbeeldingRepository.Add(a);
                 _afbeeldingRepository.SaveChanges();
-                return CreatedAtAction(nameof(GetBy), new{ id = a.Id}, a);
-            }catch(Exception e)
+                return CreatedAtAction(nameof(GetBy), new { id = a.Id }, a);
+            }
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
-            
+
         }
 
         // PUT: api/Afbeelding/5
@@ -65,21 +66,26 @@ namespace SportApi.Controllers
         {
             try
             {
-            Afbeelding a = _afbeeldingRepository.GetBy(id);
-            if (a == null)
-            {
-                return BadRequest("De afbeelding die u wenst te wijzigen bestaat niet");
-            }
+                Afbeelding a = _afbeeldingRepository.GetBy(id);
+                if (a == null)
+                {
+                    return BadRequest("De afbeelding die u wenst te wijzigen bestaat niet");
+                }
+                Lesmateriaal lesMateriaal = _lesmateriaalRepository.GetBy(DTO.LesMateriaalId);
+                if (lesMateriaal == null)
+                {
+                    return BadRequest("Het opgegeven lesmateriaal bestaat niet!");
+                }
                 a.LesmateriaalId = DTO.LesMateriaalId;
                 a.Adres = DTO.Adres;
                 _afbeeldingRepository.Add(a);
                 return a;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
-            
+
         }
 
         // DELETE: api/ApiWithActions/5

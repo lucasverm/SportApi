@@ -11,6 +11,8 @@ namespace ProjectG05.Models.Domain
 
         void Delete(Commentaar commentaar);
 
+        IEnumerable<Commentaar> GetByLesmateriaal(int id);
+
         IEnumerable<Commentaar> GetAll();
 
         Commentaar GetBy(DateTime datum, TimeSpan tijdstip);

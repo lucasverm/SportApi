@@ -14,12 +14,12 @@ namespace ProjectG05.Data
 
         private ApplicationDbContext _dbContext;
 
-        private List<Beheerder> beheerders;
+        private List<Beheerder> _beheerders;
 
-        private List<Gebruiker> lesgevers;
+        private List<Gebruiker> _lesgevers;
 
-        private List<Lid> leden;
-        private List<NietLid> Nietleden;
+        private List<Lid> _leden;
+        private List<NietLid> _Nietleden;
 
         private ILes _lesRepository;
 
@@ -34,10 +34,10 @@ namespace ProjectG05.Data
             _dbContext = dbContext;
             _lesRepository = lesRepo;
             _sessieRepository = sessieRepository;
-            beheerders = new List<Beheerder>();
-            lesgevers = new List<Gebruiker>();
-            leden = new List<Lid>();
-            Nietleden = new List<NietLid>();
+            this._beheerders = new List<Beheerder>();
+            _lesgevers = new List<Gebruiker>();
+            _leden = new List<Lid>();
+            _Nietleden = new List<NietLid>();
         }
 
         #endregion Constructors
@@ -65,6 +65,15 @@ namespace ProjectG05.Data
                 _dbContext.Gebruikers.Add(g);
                 Gebruiker lid = new Lid("Lid", "Achternaam", "lidstraat", "1", "9030", "Gent", "0495192770", "lucas@gmail.com", new DateTime(), "belg", "lucas@ouder.be", "98.05.26-367.73", "Gent", "man", 5);
                 _dbContext.Gebruikers.Add(lid);
+                lid = new Lid("Lid2", "Achternaam", "lidstraat", "1", "9030", "Gent", "0495192770", "lucas@gmail.com", new DateTime(), "belg", "lucas@ouder.be", "98.05.26-367.73", "Gent", "man", 5);
+                _dbContext.Gebruikers.Add(lid);
+
+                //lessen aanmaken
+                List<Lid> LedenVoorLes = new List<Lid>();
+                LedenVoorLes.Add((Lid)lid);
+
+                Les l = new Les(g, new TimeSpan(12, 30, 0), new TimeSpan(2, 0, 0), DayOfWeek.Friday, LedenVoorLes);
+                _dbContext.Lessen.Add(l);
                 _dbContext.SaveChanges();
             }
         }

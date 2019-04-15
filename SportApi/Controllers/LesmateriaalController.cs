@@ -79,6 +79,8 @@ namespace SportApi.Controllers
                 Lesmateriaal l = _lesmateriaalRepository.GetBy(id);
                 if (l == null)
                     return BadRequest("Het opgegeven lesmateriaal kon niet worden gevonden!");
+
+               
                 l.Graad = DTO.Graad;
                 l.Naam = DTO.Naam;
                 l.OefeningUitlegTekst = DTO.UitlegOefeningTekst;

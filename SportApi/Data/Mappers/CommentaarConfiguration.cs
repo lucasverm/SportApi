@@ -12,8 +12,9 @@ namespace ProjectG05.Data.Mappers
         {
             builder.ToTable("Commentaren");
             builder.HasKey(t => t.Id);
+            builder.Property(t => t.Id).ValueGeneratedOnAdd();
             builder.HasOne(t => t.Lid).WithMany().IsRequired();
-            builder.HasOne(c => c.Lesmateriaal).WithMany().HasForeignKey(c => c.Id);
+            //builder.HasOne(c => c.Lesmateriaal).WithMany().HasForeignKey(c => c.Id).IsRequired();
         }
 
         #endregion Methods
