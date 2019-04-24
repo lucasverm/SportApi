@@ -55,10 +55,14 @@ namespace ProjectG05.Data
                 _dbContext.Lesmaterialen.Add(lesMat1);
                 Afbeelding a1 = new Afbeelding(lesMat1.Id, "adresNaarAfbeelding1");
                 _dbContext.Afbeeldingen.Add(a1);
+                Video v1 = new Video(lesMat1.Id, "adresNaarVideo1");
+                _dbContext.Videos.Add(v1);
                 Lesmateriaal lesMat2 = new Lesmateriaal(5, "oefening2", "Uitleg bij oefening 2", "duwen", new List<Afbeelding>(), new List<Video>(), new List<Commentaar>());
                 _dbContext.Lesmaterialen.Add(lesMat2);
-                Afbeelding a2 = new Afbeelding(lesMat2.Id, "adresNaarAfbeelding1");
-                _dbContext.Afbeeldingen.Add(a1);
+                Afbeelding a2 = new Afbeelding(lesMat2.Id, "adresNaarAfbeelding2");
+                _dbContext.Afbeeldingen.Add(a2);
+                Video v2 = new Video(lesMat2.Id, "adresNaarVideo1");
+                _dbContext.Videos.Add(v2);
 
                 //gebruiker aanmaken
                 Gebruiker g = new Lesgever("Lucas", "Vermeulen", "pinksterbloemstraat", "19", "9030", "Gent", "0495192770", "lucasvermeulen@gmail.com", DateTime.Today, "Man");
