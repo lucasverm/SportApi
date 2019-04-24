@@ -78,7 +78,8 @@ namespace SportApi.Controllers
                 }
                 a.LesmateriaalId = DTO.LesMateriaalId;
                 a.Adres = DTO.Adres;
-                _afbeeldingRepository.Add(a);
+                _afbeeldingRepository.Update(a);
+                _afbeeldingRepository.SaveChanges();
                 return a;
             }
             catch (Exception e)

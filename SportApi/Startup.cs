@@ -38,6 +38,7 @@ namespace SportApi
             services.AddTransient<ICommentaar, CommentaarRepository>();
             services.AddScoped<ISessie, SessieRepository>();
             services.AddScoped<IGebruiker, GebruikerRepository>();
+            services.AddScoped<IVideo, VideoRepository>();
             services.AddScoped<ILes, LesRepository>();
             services.AddTransient<ILesmateriaal, LesmateriaalRepository>();
             services.AddOpenApiDocument(c =>

@@ -44,6 +44,20 @@ namespace SportApi.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<Lid> GetBy(int id)
+        {
+            Gebruiker g = _gebruikerRepository.GetBy(id);
+            if (g == null) return NotFound("Het Lid kon niet worden gevonden");
+            if (g.Type != "Lid")
+            {
+                return BadRequest("De gevraagde gebruiker is niet van het type lid");
+            }  
+            Lid l = (Lid)_gebruikerRepository.GetBy(id);
+            
+            return l;
+        }
+
         // PUT: api/Gebruiker/5
         [HttpPut("{id}")]
         public ActionResult<Gebruiker> Put(int id, LidDTO dto)
@@ -52,8 +66,8 @@ namespace SportApi.Controllers
             {
                 Lid g = (Lid)_gebruikerRepository.GetBy(id);
                 if (g == null) throw new Exception("Gebruiker kon niet worden gevonden!");
-                if (!(g is Lid)) ;
-                return BadRequest("De opgegeven gebruiker is geen lesgever");
+                if (!(g is Lid))
+                    return BadRequest("De opgegeven gebruiker is geen lesgever");
                 g.Voornaam = dto.Voornaam;
                 g.Naam = dto.Naam;
                 g.Straatnaam = dto.StraatNaam;

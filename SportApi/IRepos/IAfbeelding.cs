@@ -5,19 +5,19 @@ using System.Threading.Tasks;
 
 namespace ProjectG05.Models.Domain
 {
-    public interface IAfbeelding
+    public interface IVideo
     {
         #region Methods
 
-        void Update(Afbeelding afbeelding);
-        Afbeelding GetBy(int id);
-        void Add(Afbeelding afbeelding);
+        void Update(Video video);
+        Video GetBy(int id);
+        void Add(Video video);
 
-        void Delete(Afbeelding afbeelding);
+        void Delete(Video video);
 
-        IEnumerable<Afbeelding> GetAll();
+        IEnumerable<Video> GetAll();
 
-        List<Afbeelding> GetAlleAfbeeldingDieHorenBijEenSpecifiekLesmateriaal(int id);
+        List<Video> GetAlleVideoDieHorenBijEenSpecifiekLesmateriaal(int id);
 
         void SaveChanges();
 

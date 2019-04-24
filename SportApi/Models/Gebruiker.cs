@@ -166,6 +166,8 @@ namespace ProjectG05.Models.Domain
                 this._postcode = value;
             }
         }
+
+        public String Type { get; set; }
         public string Stad
         {
             get
@@ -196,7 +198,7 @@ namespace ProjectG05.Models.Domain
         {
         }
 
-        public Gebruiker(string voornaam, string naam, string straatnaam,string huisnummer,string postcode,string stad, string telefoonnummer, string email, DateTime geboortedatum,string geslacht)
+        public Gebruiker(string voornaam, string naam, string straatnaam,string huisnummer,string postcode,string stad, string telefoonnummer, string email, DateTime geboortedatum,string geslacht, string type)
         {
             Voornaam = voornaam;
             Naam = naam;
@@ -209,6 +211,7 @@ namespace ProjectG05.Models.Domain
             Sessies = new List<Sessie>();
             Geboortedatum = geboortedatum;
             Geslacht = geslacht;
+            Type = type;
         }
 
         public override string ToString()

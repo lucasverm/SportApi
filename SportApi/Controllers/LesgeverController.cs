@@ -46,6 +46,20 @@ namespace SportApi.Controllers
             
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<Lesgever> GetBy(int id)
+        {
+            Gebruiker g = _gebruikerRepository.GetBy(id);
+            if (g == null) return NotFound("De Lesgever kon niet worden gevonden");
+            if (g.Type != "Lesgever")
+            {
+                return BadRequest("De gevraagde gebruiker is niet van het type Lesgever");
+            }
+            Lesgever l = (Lesgever)_gebruikerRepository.GetBy(id);
+            
+            return l;
+        }
+
         // PUT: api/Gebruiker/5
         [HttpPut("{id}")]
         public ActionResult<Gebruiker> Put(int id, LesgeverDTO dto)
