@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -30,7 +31,8 @@ namespace SportApi
             var connection = @"Server=(localdb)\mssqllocaldb;Database=Project05ApiDatabase;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<ApplicationDbContext>
                 (options => options.UseSqlServer(connection));
-
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddScoped<DataInitializer>();
             services.AddTransient<IAfbeelding, AfbeeldingRepository>();
             services.AddTransient<ICommentaar, CommentaarRepository>();
@@ -68,7 +70,7 @@ namespace SportApi
 
             app.UseSwaggerUi3();
             app.UseSwagger();
-            dataInitializer.InitializeData();
+            dataInitializer.InitializeData().Wait();
         }
     }
 }
