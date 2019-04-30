@@ -35,6 +35,7 @@ namespace SportApi
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddScoped<DataInitializer>();
             services.AddTransient<IAfbeelding, AfbeeldingRepository>();
+            services.AddTransient<IActiviteit, ActiviteitRepository>();
             services.AddTransient<ICommentaar, CommentaarRepository>();
             services.AddScoped<ISessie, SessieRepository>();
             services.AddScoped<IGebruiker, GebruikerRepository>();

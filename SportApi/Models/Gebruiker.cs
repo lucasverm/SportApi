@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace ProjectG05.Models.Domain
 {
-    public abstract class Gebruiker
+    public class Gebruiker
     {
         #region Fields
         private string _name; 
