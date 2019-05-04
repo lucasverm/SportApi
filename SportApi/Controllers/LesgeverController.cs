@@ -34,7 +34,7 @@ namespace SportApi.Controllers
             try
             {
                 Gebruiker g = new Lesgever(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer,
-                dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, dto.Geboortedatum, dto.Geslacht);
+                dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, dto.GeboorteDatum, dto.Geslacht);
                 _gebruikerRepository.Add(g);
                 _gebruikerRepository.SaveChanges();
                 return g;
@@ -77,7 +77,7 @@ namespace SportApi.Controllers
                 g.Stad = dto.Stad;
                 g.Telefoonnummer = dto.TelefoonNummer;
                 g.Email = dto.Email;
-                g.Geboortedatum = dto.Geboortedatum;
+                g.GeboorteDatum = dto.GeboorteDatum;
                 g.Geslacht = dto.Geslacht;
                 _gebruikerRepository.Update(g);
                 _gebruikerRepository.SaveChanges();

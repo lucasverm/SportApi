@@ -31,8 +31,8 @@ namespace SportApi.Controllers
             try
             {
                 Gebruiker lid = new Lid(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Postcode,
-                    dto.Stad, dto.TelefoonNummer, dto.Email, dto.Geboortedatum, dto.Nationaliteit,
-                    dto.EmailOuder, dto.RijksregisterNummer, dto.GeborenTe, dto.Geslacht,
+                    dto.Stad, dto.TelefoonNummer, dto.Email, dto.GeboorteDatum, dto.Nationaliteit,
+                    dto.EmailOuders, dto.RijksregisterNummer, dto.GeborenTe, dto.Geslacht,
                     dto.InschrijvingsDatum, dto.Graad);
                 _gebruikerRepository.Add(lid);
                 _gebruikerRepository.SaveChanges();
@@ -76,9 +76,9 @@ namespace SportApi.Controllers
                 g.Stad = dto.Stad;
                 g.Telefoonnummer = dto.TelefoonNummer;
                 g.Email = dto.Email;
-                g.Geboortedatum = dto.Geboortedatum;
-                g.Nationaleit = dto.Nationaliteit;
-                g.EmailOuders = dto.EmailOuder;
+                g.GeboorteDatum = dto.GeboorteDatum;
+                g.Nationaliteit = dto.Nationaliteit;
+                g.EmailOuders = dto.EmailOuders;
                 g.Rijksregisternummer = dto.RijksregisterNummer;
                 g.GeborenTe = dto.GeborenTe;
                 g.Geslacht = dto.Geslacht;

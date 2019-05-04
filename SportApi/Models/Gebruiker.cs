@@ -9,7 +9,7 @@ namespace ProjectG05.Models.Domain
     {
         #region Fields
         private string _name; 
-        private DateTime _geboortedatum;
+        private DateTime _geboorteDatum;
         private string _voornaam;
         private string _telefoonnummer;
         private string _straatnaam;
@@ -102,14 +102,14 @@ namespace ProjectG05.Models.Domain
             }
         }
 
-        public DateTime Geboortedatum {
-            get { return this._geboortedatum; }
+        public DateTime GeboorteDatum {
+            get { return this._geboorteDatum; }
             set {
                 if (string.IsNullOrWhiteSpace(value.ToString()))
                     throw new ArgumentException("Vul uw geboortedatum in.");
                 if (DateTime.Now < value)
                     throw new ArgumentException("Kies een mogelijke geboortedatum.");
-                this._geboortedatum = value;
+                this._geboorteDatum = value;
             }
         }
         public string Straatnaam {
@@ -209,7 +209,7 @@ namespace ProjectG05.Models.Domain
             Telefoonnummer = telefoonnummer;
             Email = email;
             Sessies = new List<Sessie>();
-            Geboortedatum = geboortedatum;
+            GeboorteDatum = geboortedatum;
             Geslacht = geslacht;
             Type = type;
         }

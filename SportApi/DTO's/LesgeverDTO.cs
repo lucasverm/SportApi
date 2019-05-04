@@ -30,7 +30,7 @@ namespace SportApi.DTO_s
         public string Email { get; set; }
 
         [Required]
-        public DateTime Geboortedatum { get; set; }
+        public DateTime GeboorteDatum { get; set; }
 
         [Required]
         public string Geslacht { get; set; }

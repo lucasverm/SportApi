@@ -60,16 +60,16 @@ namespace ProjectG05.Data
                 ////les met 1 en 2 op dinsdag 12:30 - 14:30
                 TimeSpan duur = new TimeSpan(2, 0, 0);
                 TimeSpan startUur = new TimeSpan(13, 30, 0);
-                Les les = new Les(lesgevers[2], startUur, duur, DayOfWeek.Tuesday, leden.GetRange(0, 4));
+                Les les = new Les(lesgevers[0], startUur, duur, DayOfWeek.Tuesday, leden.GetRange(0, 3));
                 this._lesRepository.Add(les);
 
-                ////les met 2 en 3 op donderdag 12:30 - 14:30
-                Les les2 = new Les(lesgevers[1], startUur, duur, DayOfWeek.Thursday, leden.GetRange(1, 5));
-                this._lesRepository.Add(les2);
+                //////les met 2 en 3 op donderdag 12:30 - 14:30
+                //Les les2 = new Les(lesgevers[1], startUur, duur, DayOfWeek.Thursday, leden.GetRange(1, 5));
+                //this._lesRepository.Add(les2);
 
-                ////les voor beheerder
-                Les les3 = new Les(beheerders[0], startUur, duur, DayOfWeek.Thursday, leden.GetRange(1, 5));
-                this._lesRepository.Add(les3);
+                //////les voor beheerder
+                //Les les3 = new Les(beheerders[0], startUur, duur, DayOfWeek.Thursday, leden.GetRange(1, 5));
+                //this._lesRepository.Add(les3);
 
 
                 _dbContext.SaveChanges();
@@ -87,16 +87,16 @@ namespace ProjectG05.Data
             _dbContext.Gebruikers.Add(beheerder);
             beheerders.Add(beheerder);
 
-            eMailAddress = "beheerder2@hogent.be";
-            user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
-            await _userManager.CreateAsync(user, "Test123@!");
-            await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "beheerder"));
-            beheerder = new Beheerder("Beheerder2", "beheerder2", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "M");
-            _dbContext.Gebruikers.Add(beheerder);
-            beheerders.Add(beheerder);
-            lesgevers.Add(beheerder);
+            //eMailAddress = "beheerder2@hogent.be";
+            //user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
+            //await _userManager.CreateAsync(user, "Test123@!");
+            //await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "beheerder"));
+            //beheerder = new Beheerder("Beheerder2", "beheerder2", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "M");
+            //_dbContext.Gebruikers.Add(beheerder);
+            //beheerders.Add(beheerder);
+            //lesgevers.Add(beheerder);
 
-            //lesgever
+            ////lesgever
             eMailAddress = "lesgever2@hogent.be";
             user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
             await _userManager.CreateAsync(user, "Test123@!");
@@ -105,23 +105,23 @@ namespace ProjectG05.Data
             _dbContext.Gebruikers.Add(lesgever);
             lesgevers.Add(lesgever);
 
-            eMailAddress = "tom@jiu-jitsu-gent.be";
-            user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
-            await _userManager.CreateAsync(user, "Test123@!");
-            await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "lesgever"));
-            lesgever = new Lesgever("Tom", "Joris", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "M");
-            _dbContext.Gebruikers.Add(lesgever);
-            lesgevers.Add(lesgever);
+            //eMailAddress = "tom@jiu-jitsu-gent.be";
+            //user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
+            //await _userManager.CreateAsync(user, "Test123@!");
+            //await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "lesgever"));
+            //lesgever = new Lesgever("Tom", "Joris", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "M");
+            //_dbContext.Gebruikers.Add(lesgever);
+            //lesgevers.Add(lesgever);
 
-            //lid
-            eMailAddress = "lid@hogent.be";
-            user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
-            user.SecurityStamp = Guid.NewGuid().ToString();
-            await _userManager.CreateAsync(user, "Test123@!");
-            await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "lid"));
-            Lid lid = new Lid("Wouter", "Opsommer", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 50);
-            _dbContext.Gebruikers.Add(lid);
-            leden.Add(lid);
+            ////lid
+            //eMailAddress = "lid@hogent.be";
+            //user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
+            //user.SecurityStamp = Guid.NewGuid().ToString();
+            //await _userManager.CreateAsync(user, "Test123@!");
+            //await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "lid"));
+            //Lid lid = new Lid("Wouter", "Opsommer", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 50);
+            //_dbContext.Gebruikers.Add(lid);
+            //leden.Add(lid);
             Lid lid1 = new Lid("Lucas", "Vermeulen", "nederstraat", "5", "9000", "Gent", "0495192770", "lid2@Lid2.com", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 2);
             _dbContext.Gebruikers.Add(lid1);
             leden.Add(lid1);
@@ -131,88 +131,88 @@ namespace ProjectG05.Data
             Lid lid3 = new Lid("Elias", "Gryp", "nederstraat", "5", "9000", "Gent", "0495192770", "elias.gryp@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
             _dbContext.Gebruikers.Add(lid3);
             leden.Add(lid3);
-            lid = new Lid("Adam", "Maertens", "nederstraat", "5", "9000", "Gent", "0495192770", "adam.maertens@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
+            Lid lid = new Lid("Adam", "Maertens", "nederstraat", "5", "9000", "Gent", "0495192770", "adam.maertens@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
             _dbContext.Gebruikers.Add(lid);
             leden.Add(lid);
-            Lid lid4 = new Lid("Jan", "Muysons", "nederstraat", "5", "9000", "Gent", "0495192770", "Jan.Muysons@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
-            _dbContext.Gebruikers.Add(lid4);
-            leden.Add(lid4);
-            lid = new Lid("Hans", "Mortrue", "nederstraat", "5", "9000", "Gent", "0495192770", "Hans.Mortrue@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
-            _dbContext.Gebruikers.Add(lid);
-            leden.Add(lid);
-            lid = new Lid("Rani", "Tjack", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 8);
-            _dbContext.Gebruikers.Add(lid);
-            leden.Add(lid);
-            lid = new Lid("Michael", "Meirlaan", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 7);
-            _dbContext.Gebruikers.Add(lid);
-            leden.Add(lid);
-            lid = new Lid("Tijl", "Zwartjes", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 6);
-            _dbContext.Gebruikers.Add(lid);
-            leden.Add(lid);
-            lid = new Lid("Stef", "Bondroit", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 4);
-            _dbContext.Gebruikers.Add(lid);
-            leden.Add(lid);
-            lid = new Lid("Jens", "Crucke", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 3);
-            _dbContext.Gebruikers.Add(lid);
-            leden.Add(lid);
-            lid = new Lid("Michiel", "Robbe", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 3);
-            _dbContext.Gebruikers.Add(lid);
-            leden.Add(lid);
-            lid = new Lid("Nathan", "Delcourt", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 5);
-            _dbContext.Gebruikers.Add(lid);
-            leden.Add(lid);
-            lid = new Lid("Stefan", "Vermote", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 4);
-            _dbContext.Gebruikers.Add(lid);
-            leden.Add(lid);
-            lid = new Lid("Sebastian", "Vandergote", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 2);
-            _dbContext.Gebruikers.Add(lid);
-            leden.Add(lid);
-            lid = new Lid("Frederic", "Dhondt", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 2);
-            _dbContext.Gebruikers.Add(lid);
-            leden.Add(lid);
+            //Lid lid4 = new Lid("Jan", "Muysons", "nederstraat", "5", "9000", "Gent", "0495192770", "Jan.Muysons@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
+            //_dbContext.Gebruikers.Add(lid4);
+            //leden.Add(lid4);
+            //lid = new Lid("Hans", "Mortrue", "nederstraat", "5", "9000", "Gent", "0495192770", "Hans.Mortrue@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
+            //_dbContext.Gebruikers.Add(lid);
+            //leden.Add(lid);
+            //lid = new Lid("Rani", "Tjack", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 8);
+            //_dbContext.Gebruikers.Add(lid);
+            //leden.Add(lid);
+            //lid = new Lid("Michael", "Meirlaan", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 7);
+            //_dbContext.Gebruikers.Add(lid);
+            //leden.Add(lid);
+            //lid = new Lid("Tijl", "Zwartjes", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 6);
+            //_dbContext.Gebruikers.Add(lid);
+            //leden.Add(lid);
+            //lid = new Lid("Stef", "Bondroit", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 4);
+            //_dbContext.Gebruikers.Add(lid);
+            //leden.Add(lid);
+            //lid = new Lid("Jens", "Crucke", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 3);
+            //_dbContext.Gebruikers.Add(lid);
+            //leden.Add(lid);
+            //lid = new Lid("Michiel", "Robbe", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 3);
+            //_dbContext.Gebruikers.Add(lid);
+            //leden.Add(lid);
+            //lid = new Lid("Nathan", "Delcourt", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 5);
+            //_dbContext.Gebruikers.Add(lid);
+            //leden.Add(lid);
+            //lid = new Lid("Stefan", "Vermote", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 4);
+            //_dbContext.Gebruikers.Add(lid);
+            //leden.Add(lid);
+            //lid = new Lid("Sebastian", "Vandergote", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 2);
+            //_dbContext.Gebruikers.Add(lid);
+            //leden.Add(lid);
+            //lid = new Lid("Frederic", "Dhondt", "nederstraat", "5", "9000", "Gent", "0495192770", "rani.tjack@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "V", 2);
+            //_dbContext.Gebruikers.Add(lid);
+            //leden.Add(lid);
 
-            //nietLid
-            eMailAddress = "NietLid@hogent.be";
+            ////nietLid
+            eMailAddress = "Nietlid@hogent.be";
             user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
             user.SecurityStamp = Guid.NewGuid().ToString();
             await _userManager.CreateAsync(user, "Test123@!");
             await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "nietLid"));
             NietLid nietLid = new NietLid("Lucas", "Vermeulen", "nederstraat", "5", "9000", "Gent", "0499764654", eMailAddress, new DateTime(1998, 5, 24), "M");
             _dbContext.Gebruikers.Add(nietLid);
-            nietLid = new NietLid("Thomas", "Schuddinck", "nederstraat", "5", "9000", "Gent", "0499764654", eMailAddress, new DateTime(1998, 5, 24), "M");
-            _dbContext.Gebruikers.Add(nietLid);
-            nietLid = new NietLid("Keelan", "Savat", "nederstraat", "5", "9000", "Gent", "0499764654", eMailAddress, new DateTime(1998, 5, 24), "M");
-            _dbContext.Gebruikers.Add(nietLid);
-            nietLid = new NietLid("Sofie", "Seru", "nederstraat", "5", "9000", "Gent", "0499764654", eMailAddress, new DateTime(1998, 5, 24), "M");
-            _dbContext.Gebruikers.Add(nietLid);
+            //nietLid = new NietLid("Thomas", "Schuddinck", "nederstraat", "5", "9000", "Gent", "0499764654", eMailAddress, new DateTime(1998, 5, 24), "M");
+            //_dbContext.Gebruikers.Add(nietLid);
+            //nietLid = new NietLid("Keelan", "Savat", "nederstraat", "5", "9000", "Gent", "0499764654", eMailAddress, new DateTime(1998, 5, 24), "M");
+            //_dbContext.Gebruikers.Add(nietLid);
+            //nietLid = new NietLid("Sofie", "Seru", "nederstraat", "5", "9000", "Gent", "0499764654", eMailAddress, new DateTime(1998, 5, 24), "M");
+            //_dbContext.Gebruikers.Add(nietLid);
 
-            List<Afbeelding> Oefening1 = new List<Afbeelding>();
-            Afbeelding afb1 = new Afbeelding(1, "achterwaartse_stand_1.jpg");
-            Afbeelding afb2 = new Afbeelding(5, "achterwaartse_stand_3.jpg");
-            Afbeelding afb3 = new Afbeelding(3, "logo.png");
-            Afbeelding afb4 = new Afbeelding(4, "logo.png");
-            Afbeelding afb5 = new Afbeelding(3, "achterwaartse_stand_1.jpg");
+            //List<Afbeelding> Oefening1 = new List<Afbeelding>();
+            //Afbeelding afb1 = new Afbeelding(1, "achterwaartse_stand_1.jpg");
+            //Afbeelding afb2 = new Afbeelding(5, "achterwaartse_stand_3.jpg");
+            //Afbeelding afb3 = new Afbeelding(3, "logo.png");
+            //Afbeelding afb4 = new Afbeelding(4, "logo.png");
+            //Afbeelding afb5 = new Afbeelding(3, "achterwaartse_stand_1.jpg");
 
 
-            Afbeelding afb6 = new Afbeelding(6, "achterwaartse_stand_3.jpg");
-            Oefening1.Add(afb2);
+            //Afbeelding afb6 = new Afbeelding(6, "achterwaartse_stand_3.jpg");
+            //Oefening1.Add(afb2);
 
-            _dbContext.Afbeeldingen.Add(afb3);
+            //_dbContext.Afbeeldingen.Add(afb3);
 
-            _dbContext.Afbeeldingen.Add(afb5);
+            //_dbContext.Afbeeldingen.Add(afb5);
 
-            Video vid1 = new Video(1, "1 Dan aanval trekken en duwen-nekklem.mp4");
-            Video vid2 = new Video(2, "1ste Dan verdediging op trap maag-beenveeg.mp4");
-            Video vid3 = new Video(3, "2de Dan Posaanval zelfde kant-schouderklem.mp4");
-            Video vid4 = new Video(4, "1 Dan aanval trekken en duwen-nekklem.mp4");
-            Video vid5 = new Video(5, "1ste Dan verdediging op trap maag-beenveeg.mp4");
-            Video vid6 = new Video(6, "2de Dan Posaanval zelfde kant-schouderklem.mp4");
-            _dbContext.Videos.Add(vid1);
-            _dbContext.Videos.Add(vid2);
-            _dbContext.Videos.Add(vid3);
-            _dbContext.Videos.Add(vid4);
-            _dbContext.Videos.Add(vid5);
-            _dbContext.Videos.Add(vid6);
+            //Video vid1 = new Video(1, "1 Dan aanval trekken en duwen-nekklem.mp4");
+            //Video vid2 = new Video(2, "1ste Dan verdediging op trap maag-beenveeg.mp4");
+            //Video vid3 = new Video(3, "2de Dan Posaanval zelfde kant-schouderklem.mp4");
+            //Video vid4 = new Video(4, "1 Dan aanval trekken en duwen-nekklem.mp4");
+            //Video vid5 = new Video(5, "1ste Dan verdediging op trap maag-beenveeg.mp4");
+            //Video vid6 = new Video(6, "2de Dan Posaanval zelfde kant-schouderklem.mp4");
+            //_dbContext.Videos.Add(vid1);
+            //_dbContext.Videos.Add(vid2);
+            //_dbContext.Videos.Add(vid3);
+            //_dbContext.Videos.Add(vid4);
+            //_dbContext.Videos.Add(vid5);
+            //_dbContext.Videos.Add(vid6);
 
             //Lesmateriaal oefening1 = new Lesmateriaal(1, 2, "Schoppen", "Schop met je voeten");
             //Lesmateriaal oefening2 = new Lesmateriaal(2, 2, "Slaan", "slaan met je voeten");
@@ -229,195 +229,195 @@ namespace ProjectG05.Data
 
 
 
-            //6de graad
-            //bassistanden
-            //1ste oef: Vorderen (categorie basisstanden)
-            Afbeelding afb7 = new Afbeelding(1, "vorderen.jpg");
-            Lesmateriaal oefening1 = new Lesmateriaal(1, "Vorderen", "Het vorderen naar voor gebeurt zonder de stand of de positie van het bovenlichaam te veranderen en door met de heupen op één lijn snel naar voor te stoten. Breng de voet van het achterste been naast de voet van het afzetbeen (voorste been waar overwegend het gewicht op rust). Het oude achterste been glijdt schuin naar voor terwijl de knie van het afzetbeen gestrekt wordt en de voetzool, vooral de hiel, krachtig tegen de grond gedrukt wordt (waardoor de voet 30° draait). Tijdens de verplaatsing wordt het lichaamsgewicht van de ene voet naar de andere verplaatst. Maak een draaibeweging zodat het vorderen in de tegenovergestelde richting opnieuw kan worden uitgevoerd (doe dit na herhaaldelijk de vorderbeweging te hebben uitgevoerd). Maak de draaibeweging door het achterste been bij te trekken, het lichaam 180° terug te draaien en het oude achterste been naar voor te brengen. De draaibeweging kan/mag ook worden uitgevoerd door het voorste been (afzetbeen) naar het achterste been te brengen, 180° te draaien en het oude voorste been verder diagonaal terug naar voor te brengen. Achteruit vorderen moet eveneens ingeoefend worden.", "basisstanden");
-            Commentaar commentaar1 = new Commentaar(lid1, oefening1, "Mooie oefening");
-            _dbContext.Commentaren.Add(commentaar1);
-            _dbContext.Afbeeldingen.Add(afb7);
-            _dbContext.Lesmaterialen.Add(oefening1);
-            _dbContext.SaveChanges();
-            //2de oef: Voorwaartse stand (basisstanden)
-            Afbeelding afb8 = new Afbeelding(2, "voorwaartsestand1.jpg");
-            Afbeelding afb9 = new Afbeelding(2, "voorwaartsestand2.jpg");
-            Afbeelding afb10 = new Afbeelding(2, "voorwaartsestand3.jpg");
-            Lesmateriaal oefening2 = new Lesmateriaal(1, "Voorwaartse stand", "De benen zijn gespreid en staan in een rechthoekige driehoek (zie tekening). Het achterste been is gestrekt en het voorste been is gebogen zodat de knie zich recht boven de voet bevindt. De voorste voet staat recht naar voor en de achterste voet staat schuin op 30°. De heupen zijn omlaag gebracht, het bovenlichaam staat loodrecht ten opzichte van de grond en is naar voor gericht. Het gezicht is recht naar voor. Ongeveer 60% van het gewicht rust op het voorste en 40% op het achterste been.", "basisstanden");
-            Commentaar commentaar2 = new Commentaar(lid1, oefening2, "Uitdagend!");
-            _dbContext.Commentaren.Add(commentaar2);
-            _dbContext.Afbeeldingen.Add(afb8);
-            _dbContext.Afbeeldingen.Add(afb9);
-            _dbContext.Afbeeldingen.Add(afb10);
-            _dbContext.Lesmaterialen.Add(oefening2);
-            _dbContext.SaveChanges();
-            //3de oef: achterwaartse stand (basisstanden) 
-            Afbeelding afb11 = new Afbeelding(3, "achterwaartsestand2.jpg");
-            Afbeelding afb12 = new Afbeelding(3, "achterwaartse_stand_1.jpg");
-            Afbeelding afb13 = new Afbeelding(3, "achterwaartse_stand_3.jpg");
-            Lesmateriaal oefening3 = new Lesmateriaal(1, "Achterwaartse stand", "De benen zijn gespreid en staan op één lijn. De knie van het achterste been is sterk gebogen, naar buiten gedraaid en bevindt zich recht boven de voet. Het voorste been is licht gebogen. De voorste voet staat recht naar voor en de achterste voet staat schuin op 90° in T of L stand. De heupen zijn omlaag gebracht, het bovenlichaam staat loodrecht ten opzichte van de grond en is half weggedraaid. Het gezicht is recht naar voor. Ongeveer 30% van het gewicht rust op het voorste en 70% op het achterste been.", "basisstanden");
-            _dbContext.Afbeeldingen.Add(afb11);
-            _dbContext.Afbeeldingen.Add(afb12);
-            _dbContext.Afbeeldingen.Add(afb13);
-            _dbContext.Lesmaterialen.Add(oefening3);
-            _dbContext.SaveChanges();
-            //basisslagen
-            //4de oef: voorwaartse stoot (basisslagen)
-            Afbeelding afb14 = new Afbeelding(4, "voorwaartsestoot1.jpg");
-            Afbeelding afb15 = new Afbeelding(4, "voorwaartsestoot2.jpg");
-            Lesmateriaal oefening4 = new Lesmateriaal(1, "Voorwaartse stoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een voorwaartse rechtlijnige beweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een halve cirkel. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de plexus. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
-            _dbContext.Afbeeldingen.Add(afb14);
-            _dbContext.Afbeeldingen.Add(afb15);
-            _dbContext.Lesmaterialen.Add(oefening4);
-            _dbContext.SaveChanges();
-            //5de oef: omhooggaande stoot (basisslagen)
-            Afbeelding afb16 = new Afbeelding(5, "Omhooggaandestoot1.jpg");
-            Afbeelding afb17 = new Afbeelding(5, "Omhooggaandestoot2.jpg");
-            Afbeelding afb18 = new Afbeelding(5, "Omhooggaandestoot3.jpg");
-            Lesmateriaal oefening5 = new Lesmateriaal(1, "Omhooggaande stoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een omhooggaande rechtlijnige beweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een halve cirkel. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de strot of het gezicht. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
-            Commentaar commentaar3 = new Commentaar(lid3, oefening5, "Hier zou ik wel wat meer uitleg van de leerkracht kunnen gebruikeren");
-            _dbContext.Commentaren.Add(commentaar3);
-            _dbContext.Afbeeldingen.Add(afb16);
-            _dbContext.Afbeeldingen.Add(afb17);
-            _dbContext.Afbeeldingen.Add(afb18);
-            _dbContext.Lesmaterialen.Add(oefening5);
-            _dbContext.SaveChanges();
-            //6de oef: Verticale stoot (bassislagen)
-            Afbeelding afb19 = new Afbeelding(6, "verticalestoot1.jpg");
-            Afbeelding afb20 = new Afbeelding(6, "verticalestoot2.jpg");
-            Afbeelding afb21 = new Afbeelding(6, "verticalestoot3.jpg");
-            Lesmateriaal oefening6 = new Lesmateriaal(1, "Verticale stoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een voorwaartse of omhooggaande rechtlijnige beweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een kwart van een cirkel. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de plexus, de strot of het gezicht. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
-            _dbContext.Afbeeldingen.Add(afb19);
-            _dbContext.Afbeeldingen.Add(afb20);
-            _dbContext.Afbeeldingen.Add(afb21);
-            _dbContext.Lesmaterialen.Add(oefening6);
-            _dbContext.SaveChanges();
-            //7de oef: Hoekstoot (bassislagen)
-            Afbeelding afb22 = new Afbeelding(7, "hoekstoot1.jpg");
-            Afbeelding afb23 = new Afbeelding(7, "hoekstoot2.jpg");
-            Afbeelding afb24 = new Afbeelding(7, "hoekstoot3.jpg");
-            Afbeelding afb25 = new Afbeelding(7, "hoekstoot4.jpg");
-            Lesmateriaal oefening7 = new Lesmateriaal(1, "Hoekstoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een voorwaartse hoekbeweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een halve cirkel. Raak met het voorste deel van de vuist (de elleboog is volledig geplooid), met name de knokkels van de wijs- en middenvinger, de kin, de slaap of de plexus. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
-            Commentaar commentaar4 = new Commentaar(lid4, oefening7, "Heel goed beschreven");
-            _dbContext.Commentaren.Add(commentaar4);
-            _dbContext.Afbeeldingen.Add(afb22);
-            _dbContext.Afbeeldingen.Add(afb23);
-            _dbContext.Afbeeldingen.Add(afb24);
-            _dbContext.Afbeeldingen.Add(afb25);
-            _dbContext.Lesmaterialen.Add(oefening7);
-            _dbContext.SaveChanges();
-            //8ste oef: Ronde stoot (bassislagen)
-            Afbeelding afb26 = new Afbeelding(8, "rondestoot1.jpg");
-            Afbeelding afb27 = new Afbeelding(8, "rondestoot2.jpg");
-            Afbeelding afb28 = new Afbeelding(8, "rondestoot3.jpg");
-            Afbeelding afb29 = new Afbeelding(8, "rondestoot4.png");
-            Lesmateriaal oefening8 = new Lesmateriaal(1, "Ronde stoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een omhooggaande gedraaide beweging naar buiten en terug naar binnen. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een driekwart draai van een cirkel. Raak met het voorste deel van de vuist (pols is licht naar buiten geplooid), met name de knokkels van de wijs- en middenvinger, de slaap. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
-            _dbContext.Afbeeldingen.Add(afb26);
-            _dbContext.Afbeeldingen.Add(afb27);
-            _dbContext.Afbeeldingen.Add(afb28);
-            _dbContext.Afbeeldingen.Add(afb29);
-            _dbContext.Lesmaterialen.Add(oefening8);
-            _dbContext.SaveChanges();
-            //9de oef: Stoot van dichtbij (basislagen)
-            Afbeelding afb30 = new Afbeelding(9, "stootVanDichtbij.jpg");
-            Afbeelding afb31 = new Afbeelding(9, "stootVanDichtbij2.jpg");
-            Afbeelding afb32 = new Afbeelding(9, "stootVanDichtbij3.jpg");
-            Afbeelding afb33 = new Afbeelding(9, "stootVanDichtbij4.jpg");
-            Lesmateriaal oefening9 = new Lesmateriaal(1, "Stoot van dichtbij", "De elleboog van de stootarm moet licht langs het lichaam strijken. De arm maakt een opwaartse hoekbeweging. De vuist moet stevig gebald zijn en stoot recht naar boven. Zorg dat de binnenkant van de vuist naar binnen wijst. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de kin, de zijkant of het middengedeelte van het lichaam. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
-            _dbContext.Afbeeldingen.Add(afb30);
-            _dbContext.Afbeeldingen.Add(afb31);
-            _dbContext.Afbeeldingen.Add(afb32);
-            _dbContext.Afbeeldingen.Add(afb33);
-            _dbContext.Lesmaterialen.Add(oefening9);
-            _dbContext.SaveChanges();
+            //      //6de graad
+            //      //bassistanden
+            //      //1ste oef: Vorderen (categorie basisstanden)
+            //      Afbeelding afb7 = new Afbeelding(1, "vorderen.jpg");
+            //      Lesmateriaal oefening1 = new Lesmateriaal(1, "Vorderen", "Het vorderen naar voor gebeurt zonder de stand of de positie van het bovenlichaam te veranderen en door met de heupen op één lijn snel naar voor te stoten. Breng de voet van het achterste been naast de voet van het afzetbeen (voorste been waar overwegend het gewicht op rust). Het oude achterste been glijdt schuin naar voor terwijl de knie van het afzetbeen gestrekt wordt en de voetzool, vooral de hiel, krachtig tegen de grond gedrukt wordt (waardoor de voet 30° draait). Tijdens de verplaatsing wordt het lichaamsgewicht van de ene voet naar de andere verplaatst. Maak een draaibeweging zodat het vorderen in de tegenovergestelde richting opnieuw kan worden uitgevoerd (doe dit na herhaaldelijk de vorderbeweging te hebben uitgevoerd). Maak de draaibeweging door het achterste been bij te trekken, het lichaam 180° terug te draaien en het oude achterste been naar voor te brengen. De draaibeweging kan/mag ook worden uitgevoerd door het voorste been (afzetbeen) naar het achterste been te brengen, 180° te draaien en het oude voorste been verder diagonaal terug naar voor te brengen. Achteruit vorderen moet eveneens ingeoefend worden.", "basisstanden");
+            //      //Commentaar commentaar1 = new Commentaar(lid1, oefening1, "Mooie oefening");
+            //      //_dbContext.Commentaren.Add(commentaar1);
+            //      _dbContext.Afbeeldingen.Add(afb7);
+            //      _dbContext.Lesmaterialen.Add(oefening1);
+            //      _dbContext.SaveChanges();
+            //      //2de oef: Voorwaartse stand (basisstanden)
+            //      Afbeelding afb8 = new Afbeelding(2, "voorwaartsestand1.jpg");
+            //      Afbeelding afb9 = new Afbeelding(2, "voorwaartsestand2.jpg");
+            //      Afbeelding afb10 = new Afbeelding(2, "voorwaartsestand3.jpg");
+            //      Lesmateriaal oefening2 = new Lesmateriaal(1, "Voorwaartse stand", "De benen zijn gespreid en staan in een rechthoekige driehoek (zie tekening). Het achterste been is gestrekt en het voorste been is gebogen zodat de knie zich recht boven de voet bevindt. De voorste voet staat recht naar voor en de achterste voet staat schuin op 30°. De heupen zijn omlaag gebracht, het bovenlichaam staat loodrecht ten opzichte van de grond en is naar voor gericht. Het gezicht is recht naar voor. Ongeveer 60% van het gewicht rust op het voorste en 40% op het achterste been.", "basisstanden");
+            //      //Commentaar commentaar2 = new Commentaar(lid1, oefening2, "Uitdagend!");
+            //      //_dbContext.Commentaren.Add(commentaar2);
+            //      _dbContext.Afbeeldingen.Add(afb8);
+            //      _dbContext.Afbeeldingen.Add(afb9);
+            //      _dbContext.Afbeeldingen.Add(afb10);
+            //      _dbContext.Lesmaterialen.Add(oefening2);
+            //      _dbContext.SaveChanges();
+            //      //3de oef: achterwaartse stand (basisstanden) 
+            //      Afbeelding afb11 = new Afbeelding(3, "achterwaartsestand2.jpg");
+            //      Afbeelding afb12 = new Afbeelding(3, "achterwaartse_stand_1.jpg");
+            //      Afbeelding afb13 = new Afbeelding(3, "achterwaartse_stand_3.jpg");
+            //      Lesmateriaal oefening3 = new Lesmateriaal(1, "Achterwaartse stand", "De benen zijn gespreid en staan op één lijn. De knie van het achterste been is sterk gebogen, naar buiten gedraaid en bevindt zich recht boven de voet. Het voorste been is licht gebogen. De voorste voet staat recht naar voor en de achterste voet staat schuin op 90° in T of L stand. De heupen zijn omlaag gebracht, het bovenlichaam staat loodrecht ten opzichte van de grond en is half weggedraaid. Het gezicht is recht naar voor. Ongeveer 30% van het gewicht rust op het voorste en 70% op het achterste been.", "basisstanden");
+            //      _dbContext.Afbeeldingen.Add(afb11);
+            //      _dbContext.Afbeeldingen.Add(afb12);
+            //      _dbContext.Afbeeldingen.Add(afb13);
+            //      _dbContext.Lesmaterialen.Add(oefening3);
+            //      _dbContext.SaveChanges();
+            //      //basisslagen
+            //      //4de oef: voorwaartse stoot (basisslagen)
+            //      Afbeelding afb14 = new Afbeelding(4, "voorwaartsestoot1.jpg");
+            //      Afbeelding afb15 = new Afbeelding(4, "voorwaartsestoot2.jpg");
+            //      Lesmateriaal oefening4 = new Lesmateriaal(1, "Voorwaartse stoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een voorwaartse rechtlijnige beweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een halve cirkel. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de plexus. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
+            //      _dbContext.Afbeeldingen.Add(afb14);
+            //      _dbContext.Afbeeldingen.Add(afb15);
+            //      _dbContext.Lesmaterialen.Add(oefening4);
+            //      _dbContext.SaveChanges();
+            //      //5de oef: omhooggaande stoot (basisslagen)
+            //      Afbeelding afb16 = new Afbeelding(5, "Omhooggaandestoot1.jpg");
+            //      Afbeelding afb17 = new Afbeelding(5, "Omhooggaandestoot2.jpg");
+            //      Afbeelding afb18 = new Afbeelding(5, "Omhooggaandestoot3.jpg");
+            //      Lesmateriaal oefening5 = new Lesmateriaal(1, "Omhooggaande stoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een omhooggaande rechtlijnige beweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een halve cirkel. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de strot of het gezicht. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
+            //      //Commentaar commentaar3 = new Commentaar(lid3, oefening5, "Hier zou ik wel wat meer uitleg van de leerkracht kunnen gebruikeren");
+            //      //_dbContext.Commentaren.Add(commentaar3);
+            //      _dbContext.Afbeeldingen.Add(afb16);
+            //      _dbContext.Afbeeldingen.Add(afb17);
+            //      _dbContext.Afbeeldingen.Add(afb18);
+            //      _dbContext.Lesmaterialen.Add(oefening5);
+            //      _dbContext.SaveChanges();
+            //      //6de oef: Verticale stoot (bassislagen)
+            //      Afbeelding afb19 = new Afbeelding(6, "verticalestoot1.jpg");
+            //      Afbeelding afb20 = new Afbeelding(6, "verticalestoot2.jpg");
+            //      Afbeelding afb21 = new Afbeelding(6, "verticalestoot3.jpg");
+            //      Lesmateriaal oefening6 = new Lesmateriaal(1, "Verticale stoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een voorwaartse of omhooggaande rechtlijnige beweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een kwart van een cirkel. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de plexus, de strot of het gezicht. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
+            //      _dbContext.Afbeeldingen.Add(afb19);
+            //      _dbContext.Afbeeldingen.Add(afb20);
+            //      _dbContext.Afbeeldingen.Add(afb21);
+            //      _dbContext.Lesmaterialen.Add(oefening6);
+            //      _dbContext.SaveChanges();
+            //      //7de oef: Hoekstoot (bassislagen)
+            //      Afbeelding afb22 = new Afbeelding(7, "hoekstoot1.jpg");
+            //      Afbeelding afb23 = new Afbeelding(7, "hoekstoot2.jpg");
+            //      Afbeelding afb24 = new Afbeelding(7, "hoekstoot3.jpg");
+            //      Afbeelding afb25 = new Afbeelding(7, "hoekstoot4.jpg");
+            //      Lesmateriaal oefening7 = new Lesmateriaal(1, "Hoekstoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een voorwaartse hoekbeweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een halve cirkel. Raak met het voorste deel van de vuist (de elleboog is volledig geplooid), met name de knokkels van de wijs- en middenvinger, de kin, de slaap of de plexus. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
+            //      //Commentaar commentaar4 = new Commentaar(lid4, oefening7, "Heel goed beschreven");
+            //      //_dbContext.Commentaren.Add(commentaar4);
+            //      _dbContext.Afbeeldingen.Add(afb22);
+            //      _dbContext.Afbeeldingen.Add(afb23);
+            //      _dbContext.Afbeeldingen.Add(afb24);
+            //      _dbContext.Afbeeldingen.Add(afb25);
+            //      _dbContext.Lesmaterialen.Add(oefening7);
+            //      _dbContext.SaveChanges();
+            //      //8ste oef: Ronde stoot (bassislagen)
+            //      Afbeelding afb26 = new Afbeelding(8, "rondestoot1.jpg");
+            //      Afbeelding afb27 = new Afbeelding(8, "rondestoot2.jpg");
+            //      Afbeelding afb28 = new Afbeelding(8, "rondestoot3.jpg");
+            //      Afbeelding afb29 = new Afbeelding(8, "rondestoot4.png");
+            //      Lesmateriaal oefening8 = new Lesmateriaal(1, "Ronde stoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een omhooggaande gedraaide beweging naar buiten en terug naar binnen. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een driekwart draai van een cirkel. Raak met het voorste deel van de vuist (pols is licht naar buiten geplooid), met name de knokkels van de wijs- en middenvinger, de slaap. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
+            //      _dbContext.Afbeeldingen.Add(afb26);
+            //      _dbContext.Afbeeldingen.Add(afb27);
+            //      _dbContext.Afbeeldingen.Add(afb28);
+            //      _dbContext.Afbeeldingen.Add(afb29);
+            //      _dbContext.Lesmaterialen.Add(oefening8);
+            //      _dbContext.SaveChanges();
+            //      //9de oef: Stoot van dichtbij (basislagen)
+            //      Afbeelding afb30 = new Afbeelding(9, "stootVanDichtbij.jpg");
+            //      Afbeelding afb31 = new Afbeelding(9, "stootVanDichtbij2.jpg");
+            //      Afbeelding afb32 = new Afbeelding(9, "stootVanDichtbij3.jpg");
+            //      Afbeelding afb33 = new Afbeelding(9, "stootVanDichtbij4.jpg");
+            //      Lesmateriaal oefening9 = new Lesmateriaal(1, "Stoot van dichtbij", "De elleboog van de stootarm moet licht langs het lichaam strijken. De arm maakt een opwaartse hoekbeweging. De vuist moet stevig gebald zijn en stoot recht naar boven. Zorg dat de binnenkant van de vuist naar binnen wijst. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de kin, de zijkant of het middengedeelte van het lichaam. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
+            //      _dbContext.Afbeeldingen.Add(afb30);
+            //      _dbContext.Afbeeldingen.Add(afb31);
+            //      _dbContext.Afbeeldingen.Add(afb32);
+            //      _dbContext.Afbeeldingen.Add(afb33);
+            //      _dbContext.Lesmaterialen.Add(oefening9);
+            //      _dbContext.SaveChanges();
 
 
-            //5de graad
-            //bassistanden
-            //10ste oef: Vorderen (categorie basisstanden)
-            Afbeelding afb34 = new Afbeelding(10, "vorderen.jpg");
-            Lesmateriaal oefening10 = new Lesmateriaal(2, "Vorderen", "Het vorderen naar voor gebeurt zonder de stand of de positie van het bovenlichaam te veranderen en door met de heupen op één lijn snel naar voor te stoten. Breng de voet van het achterste been naast de voet van het afzetbeen (voorste been waar overwegend het gewicht op rust). Het oude achterste been glijdt schuin naar voor terwijl de knie van het afzetbeen gestrekt wordt en de voetzool, vooral de hiel, krachtig tegen de grond gedrukt wordt (waardoor de voet 30° draait). Tijdens de verplaatsing wordt het lichaamsgewicht van de ene voet naar de andere verplaatst. Maak een draaibeweging zodat het vorderen in de tegenovergestelde richting opnieuw kan worden uitgevoerd (doe dit na herhaaldelijk de vorderbeweging te hebben uitgevoerd). Maak de draaibeweging door het achterste been bij te trekken, het lichaam 180° terug te draaien en het oude achterste been naar voor te brengen. De draaibeweging kan/mag ook worden uitgevoerd door het voorste been (afzetbeen) naar het achterste been te brengen, 180° te draaien en het oude voorste been verder diagonaal terug naar voor te brengen. Achteruit vorderen moet eveneens ingeoefend worden.", "basisstanden");
-            _dbContext.Afbeeldingen.Add(afb34);
-            _dbContext.Lesmaterialen.Add(oefening10);
-            _dbContext.SaveChanges();
-            //2de oef: Voorwaartse stand (basisstanden)
-            Afbeelding afb35 = new Afbeelding(11, "voorwaartsestand1.jpg");
-            Afbeelding afb36 = new Afbeelding(11, "voorwaartsestand2.jpg");
-            Afbeelding afb37 = new Afbeelding(11, "voorwaartsestand3.jpg");
-            Lesmateriaal oefening11 = new Lesmateriaal(2, "Voorwaartse stand", "De benen zijn gespreid en staan in een rechthoekige driehoek (zie tekening). Het achterste been is gestrekt en het voorste been is gebogen zodat de knie zich recht boven de voet bevindt. De voorste voet staat recht naar voor en de achterste voet staat schuin op 30°. De heupen zijn omlaag gebracht, het bovenlichaam staat loodrecht ten opzichte van de grond en is naar voor gericht. Het gezicht is recht naar voor. Ongeveer 60% van het gewicht rust op het voorste en 40% op het achterste been.", "basisstanden");
-            Commentaar commentaar5 = new Commentaar(lid4, oefening11, "Heel goed beschreven");
-            _dbContext.Commentaren.Add(commentaar5);
-            _dbContext.Afbeeldingen.Add(afb35);
-            _dbContext.Afbeeldingen.Add(afb36);
-            _dbContext.Afbeeldingen.Add(afb37);
-            _dbContext.Lesmaterialen.Add(oefening11);
-            _dbContext.SaveChanges();
-            //3de oef: achterwaartse stand (basisstanden) 
-            Afbeelding afb38 = new Afbeelding(12, "achterwaartsestand2.jpg");
-            Afbeelding afb39 = new Afbeelding(12, "achterwaartse_stand_1.jpg");
-            Afbeelding afb40 = new Afbeelding(12, "achterwaartse_stand_3.jpg");
-            Lesmateriaal oefening12 = new Lesmateriaal(2, "Achterwaartse stand", "De benen zijn gespreid en staan op één lijn. De knie van het achterste been is sterk gebogen, naar buiten gedraaid en bevindt zich recht boven de voet. Het voorste been is licht gebogen. De voorste voet staat recht naar voor en de achterste voet staat schuin op 90° in T of L stand. De heupen zijn omlaag gebracht, het bovenlichaam staat loodrecht ten opzichte van de grond en is half weggedraaid. Het gezicht is recht naar voor. Ongeveer 30% van het gewicht rust op het voorste en 70% op het achterste been.", "basisstanden");
-            _dbContext.Afbeeldingen.Add(afb38);
-            _dbContext.Afbeeldingen.Add(afb39);
-            _dbContext.Afbeeldingen.Add(afb40);
-            _dbContext.Lesmaterialen.Add(oefening12);
-            _dbContext.SaveChanges();
-            //basisslagen
-            //4de oef: voorwaartse stoot (basisslagen)
-            Afbeelding afb41 = new Afbeelding(13, "voorwaartsestoot1.jpg");
-            Afbeelding afb42 = new Afbeelding(13, "voorwaartsestoot2.jpg");
-            Lesmateriaal oefening13 = new Lesmateriaal(2, "Voorwaartse stoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een voorwaartse rechtlijnige beweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een halve cirkel. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de plexus. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
-            _dbContext.Afbeeldingen.Add(afb41);
-            _dbContext.Afbeeldingen.Add(afb42);
-            _dbContext.Lesmaterialen.Add(oefening13);
-            _dbContext.SaveChanges();
-            //5de oef: omhooggaande stoot (basisslagen)
-            Afbeelding afb43 = new Afbeelding(14, "Omhooggaandestoot1.jpg");
-            Afbeelding afb44 = new Afbeelding(14, "Omhooggaandestoot2.jpg");
-            Afbeelding afb45 = new Afbeelding(14, "Omhooggaandestoot3.jpg");
-            Lesmateriaal oefening14 = new Lesmateriaal(2, "Omhooggaande stoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een omhooggaande rechtlijnige beweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een halve cirkel. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de strot of het gezicht. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
-            Commentaar commentaar6 = new Commentaar(lid3, oefening14, "Een van de gemakkelijkere oefeningen");
-            _dbContext.Commentaren.Add(commentaar6);
-            _dbContext.Afbeeldingen.Add(afb43);
-            _dbContext.Afbeeldingen.Add(afb44);
-            _dbContext.Afbeeldingen.Add(afb45);
-            _dbContext.Lesmaterialen.Add(oefening14);
-            _dbContext.SaveChanges();
-            //6de oef: Verticale stoot (bassislagen)
-            Afbeelding afb46 = new Afbeelding(15, "verticalestoot1.jpg");
-            Afbeelding afb47 = new Afbeelding(15, "verticalestoot2.jpg");
-            Afbeelding afb48 = new Afbeelding(15, "verticalestoot3.jpg");
-            Lesmateriaal oefening15 = new Lesmateriaal(2, "Verticale stoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een voorwaartse of omhooggaande rechtlijnige beweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een kwart van een cirkel. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de plexus, de strot of het gezicht. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
-            _dbContext.Afbeeldingen.Add(afb46);
-            _dbContext.Afbeeldingen.Add(afb47);
-            _dbContext.Afbeeldingen.Add(afb48);
-            _dbContext.Lesmaterialen.Add(oefening15);
-            _dbContext.SaveChanges();
-            //7de oef: Hoekstoot (bassislagen)
-            Afbeelding afb49 = new Afbeelding(16, "hoekstoot1.jpg");
-            Afbeelding afb50 = new Afbeelding(16, "hoekstoot2.jpg");
-            Afbeelding afb51 = new Afbeelding(16, "hoekstoot3.jpg");
-            Afbeelding afb52 = new Afbeelding(16, "hoekstoot4.jpg");
-            Lesmateriaal oefening16 = new Lesmateriaal(2, "Hoekstoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een voorwaartse hoekbeweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een halve cirkel. Raak met het voorste deel van de vuist (de elleboog is volledig geplooid), met name de knokkels van de wijs- en middenvinger, de kin, de slaap of de plexus. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
-            Commentaar commentaar7 = new Commentaar(lid2, oefening16, "Deze voer ik altijd uit met plezier!");
-            _dbContext.Commentaren.Add(commentaar7);
-            _dbContext.Afbeeldingen.Add(afb49);
-            _dbContext.Afbeeldingen.Add(afb50);
-            _dbContext.Afbeeldingen.Add(afb51);
-            _dbContext.Afbeeldingen.Add(afb52);
-            _dbContext.Lesmaterialen.Add(oefening16);
-            _dbContext.SaveChanges();
-            //8ste oef: Ronde stoot (bassislagen)
-            Afbeelding afb53 = new Afbeelding(17, "rondestoot1.jpg");
-            Afbeelding afb54 = new Afbeelding(17, "rondestoot2.jpg");
-            Afbeelding afb55 = new Afbeelding(17, "rondestoot3.jpg");
-            Afbeelding afb56 = new Afbeelding(17, "rondestoot4.png");
-            Lesmateriaal oefening17 = new Lesmateriaal(2, "Ronde stoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een omhooggaande gedraaide beweging naar buiten en terug naar binnen. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een driekwart draai van een cirkel. Raak met het voorste deel van de vuist (pols is licht naar buiten geplooid), met name de knokkels van de wijs- en middenvinger, de slaap. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
-            _dbContext.Afbeeldingen.Add(afb53);
-            _dbContext.Afbeeldingen.Add(afb54);
-            _dbContext.Afbeeldingen.Add(afb55);
-            _dbContext.Afbeeldingen.Add(afb56);
-            _dbContext.Lesmaterialen.Add(oefening17);
+            //      //5de graad
+            //      //bassistanden
+            //      //10ste oef: Vorderen (categorie basisstanden)
+            //      Afbeelding afb34 = new Afbeelding(10, "vorderen.jpg");
+            //      Lesmateriaal oefening10 = new Lesmateriaal(2, "Vorderen", "Het vorderen naar voor gebeurt zonder de stand of de positie van het bovenlichaam te veranderen en door met de heupen op één lijn snel naar voor te stoten. Breng de voet van het achterste been naast de voet van het afzetbeen (voorste been waar overwegend het gewicht op rust). Het oude achterste been glijdt schuin naar voor terwijl de knie van het afzetbeen gestrekt wordt en de voetzool, vooral de hiel, krachtig tegen de grond gedrukt wordt (waardoor de voet 30° draait). Tijdens de verplaatsing wordt het lichaamsgewicht van de ene voet naar de andere verplaatst. Maak een draaibeweging zodat het vorderen in de tegenovergestelde richting opnieuw kan worden uitgevoerd (doe dit na herhaaldelijk de vorderbeweging te hebben uitgevoerd). Maak de draaibeweging door het achterste been bij te trekken, het lichaam 180° terug te draaien en het oude achterste been naar voor te brengen. De draaibeweging kan/mag ook worden uitgevoerd door het voorste been (afzetbeen) naar het achterste been te brengen, 180° te draaien en het oude voorste been verder diagonaal terug naar voor te brengen. Achteruit vorderen moet eveneens ingeoefend worden.", "basisstanden");
+            //      _dbContext.Afbeeldingen.Add(afb34);
+            //      _dbContext.Lesmaterialen.Add(oefening10);
+            //      _dbContext.SaveChanges();
+            //      //2de oef: Voorwaartse stand (basisstanden)
+            //      Afbeelding afb35 = new Afbeelding(11, "voorwaartsestand1.jpg");
+            //      Afbeelding afb36 = new Afbeelding(11, "voorwaartsestand2.jpg");
+            //      Afbeelding afb37 = new Afbeelding(11, "voorwaartsestand3.jpg");
+            //      Lesmateriaal oefening11 = new Lesmateriaal(2, "Voorwaartse stand", "De benen zijn gespreid en staan in een rechthoekige driehoek (zie tekening). Het achterste been is gestrekt en het voorste been is gebogen zodat de knie zich recht boven de voet bevindt. De voorste voet staat recht naar voor en de achterste voet staat schuin op 30°. De heupen zijn omlaag gebracht, het bovenlichaam staat loodrecht ten opzichte van de grond en is naar voor gericht. Het gezicht is recht naar voor. Ongeveer 60% van het gewicht rust op het voorste en 40% op het achterste been.", "basisstanden");
+            ////      Commentaar commentaar5 = new Commentaar(lid4, oefening11, "Heel goed beschreven");
+            // //     _dbContext.Commentaren.Add(commentaar5);
+            //      _dbContext.Afbeeldingen.Add(afb35);
+            //      _dbContext.Afbeeldingen.Add(afb36);
+            //      _dbContext.Afbeeldingen.Add(afb37);
+            //      _dbContext.Lesmaterialen.Add(oefening11);
+            //      _dbContext.SaveChanges();
+            //      //3de oef: achterwaartse stand (basisstanden) 
+            //      Afbeelding afb38 = new Afbeelding(12, "achterwaartsestand2.jpg");
+            //      Afbeelding afb39 = new Afbeelding(12, "achterwaartse_stand_1.jpg");
+            //      Afbeelding afb40 = new Afbeelding(12, "achterwaartse_stand_3.jpg");
+            //      Lesmateriaal oefening12 = new Lesmateriaal(2, "Achterwaartse stand", "De benen zijn gespreid en staan op één lijn. De knie van het achterste been is sterk gebogen, naar buiten gedraaid en bevindt zich recht boven de voet. Het voorste been is licht gebogen. De voorste voet staat recht naar voor en de achterste voet staat schuin op 90° in T of L stand. De heupen zijn omlaag gebracht, het bovenlichaam staat loodrecht ten opzichte van de grond en is half weggedraaid. Het gezicht is recht naar voor. Ongeveer 30% van het gewicht rust op het voorste en 70% op het achterste been.", "basisstanden");
+            //      _dbContext.Afbeeldingen.Add(afb38);
+            //      _dbContext.Afbeeldingen.Add(afb39);
+            //      _dbContext.Afbeeldingen.Add(afb40);
+            //      _dbContext.Lesmaterialen.Add(oefening12);
+            //      _dbContext.SaveChanges();
+            //      //basisslagen
+            //      //4de oef: voorwaartse stoot (basisslagen)
+            //      Afbeelding afb41 = new Afbeelding(13, "voorwaartsestoot1.jpg");
+            //      Afbeelding afb42 = new Afbeelding(13, "voorwaartsestoot2.jpg");
+            //      Lesmateriaal oefening13 = new Lesmateriaal(2, "Voorwaartse stoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een voorwaartse rechtlijnige beweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een halve cirkel. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de plexus. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
+            //      _dbContext.Afbeeldingen.Add(afb41);
+            //      _dbContext.Afbeeldingen.Add(afb42);
+            //      _dbContext.Lesmaterialen.Add(oefening13);
+            //      _dbContext.SaveChanges();
+            //      //5de oef: omhooggaande stoot (basisslagen)
+            //      Afbeelding afb43 = new Afbeelding(14, "Omhooggaandestoot1.jpg");
+            //      Afbeelding afb44 = new Afbeelding(14, "Omhooggaandestoot2.jpg");
+            //      Afbeelding afb45 = new Afbeelding(14, "Omhooggaandestoot3.jpg");
+            //      Lesmateriaal oefening14 = new Lesmateriaal(2, "Omhooggaande stoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een omhooggaande rechtlijnige beweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een halve cirkel. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de strot of het gezicht. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
+            //    //  Commentaar commentaar6 = new Commentaar(lid3, oefening14, "Een van de gemakkelijkere oefeningen");
+            // //     _dbContext.Commentaren.Add(commentaar6);
+            //      _dbContext.Afbeeldingen.Add(afb43);
+            //      _dbContext.Afbeeldingen.Add(afb44);
+            //      _dbContext.Afbeeldingen.Add(afb45);
+            //      _dbContext.Lesmaterialen.Add(oefening14);
+            //      _dbContext.SaveChanges();
+            //      //6de oef: Verticale stoot (bassislagen)
+            //      Afbeelding afb46 = new Afbeelding(15, "verticalestoot1.jpg");
+            //      Afbeelding afb47 = new Afbeelding(15, "verticalestoot2.jpg");
+            //      Afbeelding afb48 = new Afbeelding(15, "verticalestoot3.jpg");
+            //      Lesmateriaal oefening15 = new Lesmateriaal(2, "Verticale stoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een voorwaartse of omhooggaande rechtlijnige beweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een kwart van een cirkel. Raak met het voorste deel van de vuist, met name de knokkels van de wijs- en middenvinger, de plexus, de strot of het gezicht. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
+            //      _dbContext.Afbeeldingen.Add(afb46);
+            //      _dbContext.Afbeeldingen.Add(afb47);
+            //      _dbContext.Afbeeldingen.Add(afb48);
+            //      _dbContext.Lesmaterialen.Add(oefening15);
+            //      _dbContext.SaveChanges();
+            //      //7de oef: Hoekstoot (bassislagen)
+            //      Afbeelding afb49 = new Afbeelding(16, "hoekstoot1.jpg");
+            //      Afbeelding afb50 = new Afbeelding(16, "hoekstoot2.jpg");
+            //      Afbeelding afb51 = new Afbeelding(16, "hoekstoot3.jpg");
+            //      Afbeelding afb52 = new Afbeelding(16, "hoekstoot4.jpg");
+            //      Lesmateriaal oefening16 = new Lesmateriaal(2, "Hoekstoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een voorwaartse hoekbeweging. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een halve cirkel. Raak met het voorste deel van de vuist (de elleboog is volledig geplooid), met name de knokkels van de wijs- en middenvinger, de kin, de slaap of de plexus. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
+            ////      Commentaar commentaar7 = new Commentaar(lid2, oefening16, "Deze voer ik altijd uit met plezier!");
+            //  //    _dbContext.Commentaren.Add(commentaar7);
+            //      _dbContext.Afbeeldingen.Add(afb49);
+            //      _dbContext.Afbeeldingen.Add(afb50);
+            //      _dbContext.Afbeeldingen.Add(afb51);
+            //      _dbContext.Afbeeldingen.Add(afb52);
+            //      _dbContext.Lesmaterialen.Add(oefening16);
+            //      _dbContext.SaveChanges();
+            //      //8ste oef: Ronde stoot (bassislagen)
+            //      Afbeelding afb53 = new Afbeelding(17, "rondestoot1.jpg");
+            //      Afbeelding afb54 = new Afbeelding(17, "rondestoot2.jpg");
+            //      Afbeelding afb55 = new Afbeelding(17, "rondestoot3.jpg");
+            //      Afbeelding afb56 = new Afbeelding(17, "rondestoot4.png");
+            //      Lesmateriaal oefening17 = new Lesmateriaal(2, "Ronde stoot", "De elleboog van de stootarm moet licht langs het lichaam strijken en de onderarm moet naar binnen draaien. De arm maakt een omhooggaande gedraaide beweging naar buiten en terug naar binnen. De vuist moet stevig gebald zijn en beschrijft tijdens de beweging een driekwart draai van een cirkel. Raak met het voorste deel van de vuist (pols is licht naar buiten geplooid), met name de knokkels van de wijs- en middenvinger, de slaap. De andere arm wordt zo snel mogelijk terug naar de heup getrokken.", "basisslagen");
+            //      _dbContext.Afbeeldingen.Add(afb53);
+            //      _dbContext.Afbeeldingen.Add(afb54);
+            //      _dbContext.Afbeeldingen.Add(afb55);
+            //      _dbContext.Afbeeldingen.Add(afb56);
+            //      _dbContext.Lesmaterialen.Add(oefening17);
             //_dbContext.SaveChanges();
             ////9de oef: Stoot van dichtbij (basislagen)
             //Afbeelding afb57 = new Afbeelding(18, "stootVanDichtbij.jpg");

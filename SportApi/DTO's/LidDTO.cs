@@ -31,13 +31,13 @@ namespace SportApi.DTO_s
         public string Email { get; set; }
 
         [Required]
-        public DateTime Geboortedatum { get; set; }
+        public DateTime GeboorteDatum { get; set; }
 
         [Required]
         public String Nationaliteit { get; set; }
 
         [Required]
-        public String EmailOuder { get; set; }
+        public String EmailOuders { get; set; }
 
         [Required]
         public String RijksregisterNummer { get; set; }
