@@ -19,6 +19,10 @@ namespace ProjectG05.Data
 
         public DbSet<Les> Lessen { get; set; }
 
+        public DbSet<GebruikerActiviteit> GebruikerActiviteit { get; set; }
+
+        public DbSet<Activiteit> Activiteiten { get; set; }
+
 
         public DbSet<Sessie> Sessies { get; set; }
 
@@ -50,6 +54,8 @@ namespace ProjectG05.Data
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new LidConfiguration());
             builder.ApplyConfiguration(new LesLidConfiguration());
+            builder.ApplyConfiguration(new ActiviteitConfiguration());
+            builder.ApplyConfiguration(new GebruikerActiviteitConfiguration());
             builder.ApplyConfiguration(new LesgeverConfiguration());
             builder.ApplyConfiguration(new BeheerderConfiguration());
             builder.ApplyConfiguration(new SessieConfiguration());
