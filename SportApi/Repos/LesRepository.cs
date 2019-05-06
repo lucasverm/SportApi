@@ -77,8 +77,6 @@ namespace SportApi.Repos
             SaveChanges();
         }
 
-
-
         public IEnumerable<Les> GetAll()
         {
             List<Les> alleLessen = _lessen.Include(t => t.Lesgever).ToList();
@@ -110,20 +108,18 @@ namespace SportApi.Repos
         public Les GetBy(int id)
         {
             Les l = _lessen.Include(t => t.Lesgever).SingleOrDefault(s => s.Id == id);
-            if(l != null)
+            if (l != null)
             {
                 l.LedenVoorLes = new List<Lid>();
                 _LesLid.Where(a => a.Les == l).Include(i => i.Les).Include(t => t.Lid).ToList().ForEach(t =>
                 {
-                    Lid lid = new Lid(t.Lid.Naam, t.Lid.Voornaam, t.Lid.Straatnaam, t.Lid.Huisnummer, t.Lid.Postcode, t.Lid.Stad, t.Lid.Telefoonnummer, t.Lid.Email, t.Lid.GeboorteDatum, t.Lid.Nationaliteit, t.Lid.EmailOuders, t.Lid.Rijksregisternummer, t.Lid.GeborenTe, t.Lid.Geslacht, t.Lid.InschrijvingsDatum, t.Lid.Graad);
+                    Lid lid = new Lid(t.Lid.Naam, t.Lid.Voornaam, t.Lid.Straatnaam, t.Lid.Huisnummer, t.Lid.Busnummer, t.Lid.Postcode, t.Lid.Stad, t.Lid.Telefoonnummer, t.Lid.Email, t.Lid.GeboorteDatum, t.Lid.Nationaliteit, t.Lid.EmailOuders, t.Lid.Rijksregisternummer, t.Lid.GeborenTe, t.Lid.Geslacht, t.Lid.InschrijvingsDatum, t.Lid.Graad);
                     l.LedenVoorLes.Add(lid);
                 });
             }
-            
+
             return l;
         }
-
-
 
         public void SaveChanges()
         {
@@ -131,6 +127,5 @@ namespace SportApi.Repos
         }
 
         #endregion Methods
-
     }
 }

@@ -41,7 +41,6 @@ namespace ProjectG05.Data
             lesgevers = new List<Gebruiker>();
             leden = new List<Lid>();
             Nietleden = new List<NietLid>();
-
         }
 
         #endregion Constructors
@@ -50,7 +49,6 @@ namespace ProjectG05.Data
 
         public async Task InitializeData()
         {
-
             _dbContext.Database.EnsureDeleted();
 
             if (_dbContext.Database.EnsureCreated())
@@ -71,7 +69,6 @@ namespace ProjectG05.Data
                 //Les les3 = new Les(beheerders[0], startUur, duur, DayOfWeek.Thursday, leden.GetRange(1, 5));
                 //this._lesRepository.Add(les3);
 
-
                 _dbContext.SaveChanges();
             }
         }
@@ -83,7 +80,7 @@ namespace ProjectG05.Data
             IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
             await _userManager.CreateAsync(user, "Test123@!");
             await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "beheerder"));
-            Beheerder beheerder = new Beheerder("Alain", "Lescur", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1992, 5, 24), "M");
+            Beheerder beheerder = new Beheerder("Alain", "Lescur", "nederstraat", "5", "B", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1992, 5, 24), "M");
             _dbContext.Gebruikers.Add(beheerder);
             beheerders.Add(beheerder);
 
@@ -101,7 +98,7 @@ namespace ProjectG05.Data
             user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
             await _userManager.CreateAsync(user, "Test123@!");
             await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "lesgever"));
-            Lesgever lesgever = new Lesgever("Tom", "De Bakker", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "M");
+            Lesgever lesgever = new Lesgever("Tom", "De Bakker", "nederstraat", "5", "B", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "M");
             _dbContext.Gebruikers.Add(lesgever);
             lesgevers.Add(lesgever);
 
@@ -122,16 +119,16 @@ namespace ProjectG05.Data
             //Lid lid = new Lid("Wouter", "Opsommer", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 50);
             //_dbContext.Gebruikers.Add(lid);
             //leden.Add(lid);
-            Lid lid1 = new Lid("Lucas", "Vermeulen", "nederstraat", "5", "9000", "Gent", "0495192770", "lid2@Lid2.com", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 2);
+            Lid lid1 = new Lid("Lucas", "Vermeulen", "nederstraat", "5", "B", "9000", "Gent", "0495192770", "lid2@Lid2.com", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 2);
             _dbContext.Gebruikers.Add(lid1);
             leden.Add(lid1);
-            Lid lid2 = new Lid("Bert", "Van Eeckhoutte", "nederstraat", "5", "9000", "Gent", "0495192770", "lid3@Lid3.com", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
+            Lid lid2 = new Lid("Bert", "Van Eeckhoutte", "nederstraat", "5", "B", "9000", "Gent", "0495192770", "lid3@Lid3.com", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
             _dbContext.Gebruikers.Add(lid2);
             leden.Add(lid2);
-            Lid lid3 = new Lid("Elias", "Gryp", "nederstraat", "5", "9000", "Gent", "0495192770", "elias.gryp@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
+            Lid lid3 = new Lid("Elias", "Gryp", "nederstraat", "5", "B", "9000", "Gent", "0495192770", "elias.gryp@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
             _dbContext.Gebruikers.Add(lid3);
             leden.Add(lid3);
-            Lid lid = new Lid("Adam", "Maertens", "nederstraat", "5", "9000", "Gent", "0495192770", "adam.maertens@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
+            Lid lid = new Lid("Adam", "Maertens", "nederstraat", "5", "B", "9000", "Gent", "0495192770", "adam.maertens@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
             _dbContext.Gebruikers.Add(lid);
             leden.Add(lid);
             //Lid lid4 = new Lid("Jan", "Muysons", "nederstraat", "5", "9000", "Gent", "0495192770", "Jan.Muysons@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
@@ -177,7 +174,7 @@ namespace ProjectG05.Data
             user.SecurityStamp = Guid.NewGuid().ToString();
             await _userManager.CreateAsync(user, "Test123@!");
             await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "nietLid"));
-            NietLid nietLid = new NietLid("Lucas", "Vermeulen", "nederstraat", "5", "9000", "Gent", "0499764654", eMailAddress, new DateTime(1998, 5, 24), "M");
+            NietLid nietLid = new NietLid("Lucas", "Vermeulen", "nederstraat", "5", "B", "9000", "Gent", "0499764654", eMailAddress, new DateTime(1998, 5, 24), "M");
             _dbContext.Gebruikers.Add(nietLid);
             //nietLid = new NietLid("Thomas", "Schuddinck", "nederstraat", "5", "9000", "Gent", "0499764654", eMailAddress, new DateTime(1998, 5, 24), "M");
             //_dbContext.Gebruikers.Add(nietLid);
@@ -192,7 +189,6 @@ namespace ProjectG05.Data
             //Afbeelding afb3 = new Afbeelding(3, "logo.png");
             //Afbeelding afb4 = new Afbeelding(4, "logo.png");
             //Afbeelding afb5 = new Afbeelding(3, "achterwaartse_stand_1.jpg");
-
 
             //Afbeelding afb6 = new Afbeelding(6, "achterwaartse_stand_3.jpg");
             //Oefening1.Add(afb2);
@@ -227,8 +223,6 @@ namespace ProjectG05.Data
             //_dbContext.Lesmaterialen.Add(oefening5);
             //_dbContext.Lesmaterialen.Add(oefening6);
 
-
-
             //      //6de graad
             //      //bassistanden
             //      //1ste oef: Vorderen (categorie basisstanden)
@@ -251,7 +245,7 @@ namespace ProjectG05.Data
             //      _dbContext.Afbeeldingen.Add(afb10);
             //      _dbContext.Lesmaterialen.Add(oefening2);
             //      _dbContext.SaveChanges();
-            //      //3de oef: achterwaartse stand (basisstanden) 
+            //      //3de oef: achterwaartse stand (basisstanden)
             //      Afbeelding afb11 = new Afbeelding(3, "achterwaartsestand2.jpg");
             //      Afbeelding afb12 = new Afbeelding(3, "achterwaartse_stand_1.jpg");
             //      Afbeelding afb13 = new Afbeelding(3, "achterwaartse_stand_3.jpg");
@@ -331,7 +325,6 @@ namespace ProjectG05.Data
             //      _dbContext.Lesmaterialen.Add(oefening9);
             //      _dbContext.SaveChanges();
 
-
             //      //5de graad
             //      //bassistanden
             //      //10ste oef: Vorderen (categorie basisstanden)
@@ -352,7 +345,7 @@ namespace ProjectG05.Data
             //      _dbContext.Afbeeldingen.Add(afb37);
             //      _dbContext.Lesmaterialen.Add(oefening11);
             //      _dbContext.SaveChanges();
-            //      //3de oef: achterwaartse stand (basisstanden) 
+            //      //3de oef: achterwaartse stand (basisstanden)
             //      Afbeelding afb38 = new Afbeelding(12, "achterwaartsestand2.jpg");
             //      Afbeelding afb39 = new Afbeelding(12, "achterwaartse_stand_1.jpg");
             //      Afbeelding afb40 = new Afbeelding(12, "achterwaartse_stand_3.jpg");
@@ -465,7 +458,7 @@ namespace ProjectG05.Data
             //_dbContext.Afbeeldingen.Add(afb71);
             //_dbContext.Lesmaterialen.Add(oefening22);
             //_dbContext.SaveChanges();
-            ////3de oef: achterwaartse stand (basisstanden) 
+            ////3de oef: achterwaartse stand (basisstanden)
             //Afbeelding afb72 = new Afbeelding(23, "achterwaartsestand2.jpg");
             //Afbeelding afb73 = new Afbeelding(23, "achterwaartse_stand_1.jpg");
             //Afbeelding afb74 = new Afbeelding(23, "achterwaartse_stand_3.jpg");
@@ -481,11 +474,9 @@ namespace ProjectG05.Data
             //Commentaar commentaar14 = new Commentaar(lid2, oefening24, "Goed ter verdediging!");
             //_dbContext.SaveChanges();
 
-
             //Lesmateriaal oefening25 = new Lesmateriaal(5, "De aanvaller grijpt de linkerpols.", "Geef de aanvaller ter afleiding een trap op het scheenbeen en draai met de romp naar links. Draai de romp onmiddellijk in de andere richting. Draai tezelfdertijd (richting duimen) de pols uit de greep van de aanvaller en keer terug met een slag meskant hand op de neusbrug.", "Polsbevrijdingen");
             //_dbContext.Lesmaterialen.Add(oefening25);
             //_dbContext.SaveChanges();
-
 
             //VOORBEELD
             //Afbeelding afb14 = new Afbeelding(4, "voorwaartsestoot1.jpg");
@@ -495,9 +486,6 @@ namespace ProjectG05.Data
             //_dbContext.Afbeeldingen.Add(afb15);
             //_dbContext.Lesmaterialen.Add(oefening14);
             //_dbContext.SaveChanges();
-
-
-
 
             _dbContext.SaveChanges();
         }

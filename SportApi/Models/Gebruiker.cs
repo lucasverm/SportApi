@@ -8,7 +8,8 @@ namespace ProjectG05.Models.Domain
     public class Gebruiker
     {
         #region Fields
-        private string _name; 
+
+        private string _name;
         private DateTime _geboorteDatum;
         private string _voornaam;
         private string _telefoonnummer;
@@ -18,38 +19,40 @@ namespace ProjectG05.Models.Domain
         private string _stad;
         private string _email;
         private string _geslacht;
-        #endregion
+
+        #endregion Fields
+
         #region Properties
+
         public String Email {
             get {
-                return this._email; }
+                return this._email;
+            }
             set {
                 Regex emailReg = new Regex(@".+@\w+.\w+");
                 Match match = emailReg.Match(value);
                 if (!match.Success)
                     throw new ArgumentException("Het gegeven e-mailadres voldoet niet aan de norm.");
                 this._email = value;
-                
             }
         }
 
-        public string Geslacht
-        {
-            get
-            {
+        public string Geslacht {
+            get {
                 return this._geslacht;
             }
-            set
-            {
+            set {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Vul uw geslacht in.");
                 this._geslacht = value;
-                
             }
         }
+
         public int Id { get; set; }
-        public String Naam { get { return this._name; } set
-            {
+
+        public String Naam {
+            get { return this._name; }
+            set {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Vul uw familienaam in.");
                 Regex regEnkelLetters = new Regex(@"\D+");
@@ -64,11 +67,9 @@ namespace ProjectG05.Models.Domain
             }
         }
 
-        public String Telefoonnummer
-        {
+        public String Telefoonnummer {
             get { return this._telefoonnummer; }
-            set
-            {
+            set {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Vul uw telefoon/gsmnummer in.");
                 if (value.Length < 10)
@@ -81,13 +82,12 @@ namespace ProjectG05.Models.Domain
                 this._telefoonnummer = value;
             }
         }
+
         public List<Sessie> Sessies { get; set; }
 
-        public String Voornaam
-        {
+        public String Voornaam {
             get { return this._voornaam; }
-            set
-            {
+            set {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Vul uw voornaam in.");
                 Regex regEnkelLetters = new Regex(@"\D+");
@@ -112,6 +112,7 @@ namespace ProjectG05.Models.Domain
                 this._geboorteDatum = value;
             }
         }
+
         public string Straatnaam {
             get {
                 return this._straatnaam;
@@ -130,14 +131,12 @@ namespace ProjectG05.Models.Domain
                 this._straatnaam = value;
             }
         }
-        public string Huisnummer
-        {
-            get
-            {
+
+        public string Huisnummer {
+            get {
                 return this._huisnummer;
             }
-            set
-            {
+            set {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Vul uw huisnummer in.");
                 Regex huisnmrReg = new Regex(@"\d+\w?");
@@ -147,17 +146,17 @@ namespace ProjectG05.Models.Domain
                 this._huisnummer = value;
             }
         }
-        public string Postcode
-        {
-            get
-            {
+
+        public String Busnummer { get; set; }
+
+        public string Postcode {
+            get {
                 return this._postcode;
             }
-            set
-            {
+            set {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Vul uw postcode in.");
-                if(value.Length > 4)
+                if (value.Length > 4)
                     throw new ArgumentException("De opgegeven postcode voldoet niet aan de norm.");
                 Regex postcodeReg = new Regex(@"\d{4}");
                 Match match = postcodeReg.Match(value);
@@ -168,14 +167,12 @@ namespace ProjectG05.Models.Domain
         }
 
         public String Type { get; set; }
-        public string Stad
-        {
-            get
-            {
+
+        public string Stad {
+            get {
                 return this._stad;
             }
-            set
-            {
+            set {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Vul uw stad in.");
                 Regex stadReg = new Regex(@"\D+");
@@ -198,7 +195,7 @@ namespace ProjectG05.Models.Domain
         {
         }
 
-        public Gebruiker(string voornaam, string naam, string straatnaam,string huisnummer,string postcode,string stad, string telefoonnummer, string email, DateTime geboortedatum,string geslacht, string type)
+        public Gebruiker(string voornaam, string naam, string straatnaam, string huisnummer, string busnummer, string postcode, string stad, string telefoonnummer, string email, DateTime geboortedatum, string geslacht, string type)
         {
             Voornaam = voornaam;
             Naam = naam;
@@ -212,6 +209,7 @@ namespace ProjectG05.Models.Domain
             GeboorteDatum = geboortedatum;
             Geslacht = geslacht;
             Type = type;
+            Busnummer = busnummer;
         }
 
         public override string ToString()
@@ -225,8 +223,6 @@ namespace ProjectG05.Models.Domain
         {
             string[] date = value.Split("-");
             return new DateTime(Int32.Parse(date[0]), Int32.Parse(date[1]), Int32.Parse(date[2]));
-
         }
-
     }
 }

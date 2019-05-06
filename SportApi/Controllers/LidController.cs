@@ -30,7 +30,7 @@ namespace SportApi.Controllers
         {
             try
             {
-                Gebruiker lid = new Lid(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Postcode,
+                Gebruiker lid = new Lid(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer, dto.Postcode,
                     dto.Stad, dto.TelefoonNummer, dto.Email, dto.GeboorteDatum, dto.Nationaliteit,
                     dto.EmailOuders, dto.RijksregisterNummer, dto.GeborenTe, dto.Geslacht,
                     dto.InschrijvingsDatum, dto.Graad);
@@ -52,9 +52,9 @@ namespace SportApi.Controllers
             if (g.Type != "Lid")
             {
                 return BadRequest("De gevraagde gebruiker is niet van het type lid");
-            }  
+            }
             Lid l = (Lid)_gebruikerRepository.GetBy(id);
-            
+
             return l;
         }
 

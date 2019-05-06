@@ -77,8 +77,6 @@ namespace SportApi.Repos
             SaveChanges();
         }
 
-
-
         public IEnumerable<Activiteit> GetAll()
         {
             List<Activiteit> alleActiviteitsen = _activiteiten.ToList();
@@ -93,7 +91,6 @@ namespace SportApi.Repos
             return alleActiviteitsen;
         }
 
-
         public Activiteit GetBy(int id)
         {
             Activiteit act = _activiteiten.SingleOrDefault(s => s.Id == id);
@@ -102,7 +99,7 @@ namespace SportApi.Repos
                 act.GebruikersVoorActiviteit = new List<Gebruiker>();
                 _gebruikerActiviteit.Where(a => a.Activiteit == act).Include(i => i.Activiteit).Include(t => t.Gebruiker).ToList().ForEach(t =>
                 {
-                    Gebruiker gebruiker = new Gebruiker(t.Gebruiker.Voornaam, t.Gebruiker.Naam, t.Gebruiker.Straatnaam, t.Gebruiker.Huisnummer, t.Gebruiker.Postcode, t.Gebruiker.Stad, t.Gebruiker.Telefoonnummer, t.Gebruiker.Email, t.Gebruiker.Geboortedatum, t.Gebruiker.Geslacht, t.Gebruiker.Type);
+                    Gebruiker gebruiker = new Gebruiker(t.Gebruiker.Voornaam, t.Gebruiker.Naam, t.Gebruiker.Straatnaam, t.Gebruiker.Huisnummer, t.Gebruiker.Busnummer, t.Gebruiker.Postcode, t.Gebruiker.Stad, t.Gebruiker.Telefoonnummer, t.Gebruiker.Email, t.Gebruiker.GeboorteDatum, t.Gebruiker.Geslacht, t.Gebruiker.Type);
                     act.GebruikersVoorActiviteit.Add(gebruiker);
                 });
             }
@@ -110,14 +107,11 @@ namespace SportApi.Repos
             return act;
         }
 
-
-
         public void SaveChanges()
         {
             _context.SaveChanges();
         }
 
         #endregion Methods
-
     }
 }

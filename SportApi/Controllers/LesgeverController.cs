@@ -33,17 +33,16 @@ namespace SportApi.Controllers
         {
             try
             {
-                Gebruiker g = new Lesgever(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer,
+                Gebruiker g = new Lesgever(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
                 dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, dto.GeboorteDatum, dto.Geslacht);
                 _gebruikerRepository.Add(g);
                 _gebruikerRepository.SaveChanges();
                 return g;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
-            
         }
 
         [HttpGet("{id}")]
@@ -56,7 +55,7 @@ namespace SportApi.Controllers
                 return BadRequest("De gevraagde gebruiker is niet van het type Lesgever");
             }
             Lesgever l = (Lesgever)_gebruikerRepository.GetBy(id);
-            
+
             return l;
         }
 
@@ -82,11 +81,11 @@ namespace SportApi.Controllers
                 _gebruikerRepository.Update(g);
                 _gebruikerRepository.SaveChanges();
                 return g;
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
-           
         }
     }
 }
