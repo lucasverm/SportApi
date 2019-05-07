@@ -34,7 +34,7 @@ namespace SportApi.DTO_s
         public string Email { get; set; }
 
         [Required]
-        public DateTime GeboorteDatum { get; set; }
+        public String Geb { get; set; }
 
         [Required]
         public String Nationaliteit { get; set; }
@@ -51,7 +51,7 @@ namespace SportApi.DTO_s
         [Required]
         public string Geslacht { get; set; }
 
-        public DateTime InschrijvingsDatum { get; set; }
+        public string InschrijvingsDatum { get; set; }
 
         public int Graad { get; set; }
     }

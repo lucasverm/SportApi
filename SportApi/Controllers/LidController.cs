@@ -3,6 +3,7 @@ using ProjectG05.Models.Domain;
 using SportApi.DTO_s;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SportApi.Controllers
 {
@@ -30,10 +31,11 @@ namespace SportApi.Controllers
         {
             try
             {
+                DateTime inschrijvingsdatum = DateTime.Today;
                 Gebruiker lid = new Lid(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer, dto.Postcode,
-                    dto.Stad, dto.TelefoonNummer, dto.Email, dto.GeboorteDatum, dto.Nationaliteit,
+                    dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Nationaliteit,
                     dto.EmailOuders, dto.RijksregisterNummer, dto.GeborenTe, dto.Geslacht,
-                    dto.InschrijvingsDatum, dto.Graad);
+                    inschrijvingsdatum, dto.Graad);
                 _gebruikerRepository.Add(lid);
                 _gebruikerRepository.SaveChanges();
                 return lid;
@@ -76,13 +78,13 @@ namespace SportApi.Controllers
                 g.Stad = dto.Stad;
                 g.Telefoonnummer = dto.TelefoonNummer;
                 g.Email = dto.Email;
-                g.GeboorteDatum = dto.GeboorteDatum;
+                g.GeboorteDatum = zetDatumOm(dto.Geb);
                 g.Nationaliteit = dto.Nationaliteit;
                 g.EmailOuders = dto.EmailOuders;
                 g.Rijksregisternummer = dto.RijksregisterNummer;
                 g.GeborenTe = dto.GeborenTe;
                 g.Geslacht = dto.Geslacht;
-                g.InschrijvingsDatum = dto.InschrijvingsDatum;
+        //       g.InschrijvingsDatum = zetDatumOm(dto.InschrijvingsDatum);
                 g.Graad = dto.Graad;
                 _gebruikerRepository.Update(g);
                 _gebruikerRepository.SaveChanges();
@@ -92,6 +94,47 @@ namespace SportApi.Controllers
             {
                 return BadRequest(e.Message);
             }
+        }
+
+        private DateTime zetDatumOm(string datum)
+        {
+            StringBuilder sB = new StringBuilder();
+            sB.Append(datum.Substring(4, 2)).Append("/");
+            sB.Append(kiesMaand(datum.Substring(0, 3))).Append("/");
+            sB.Append(datum.Substring(8, 4));
+            return DateTime.Parse(sB.ToString());
+        }
+
+        private string kiesMaand(string maand)
+        {
+            switch (maand.ToLower())
+            {
+                case "jan":
+                    return "01";
+                case "feb":
+                    return "02";
+                case "mar":
+                    return "03";
+                case "apr":
+                    return "04";
+                case "may":
+                    return "05";
+                case "jun":
+                    return "06";
+                case "jul":
+                    return "07";
+                case "aug":
+                    return "08";
+                case "sep":
+                    return "09";
+                case "oct":
+                    return "10";
+                case "nov":
+                    return "11";
+                case "dec":
+                    return "12";
+            }
+            return null;
         }
     }
 }
