@@ -18,7 +18,6 @@ namespace SportApi.DTO_s
         [Required]
         public string Huisnummer { get; set; }
 
-        [Required]
         public string Busnummer { get; set; }
 
         [Required]
@@ -54,5 +53,12 @@ namespace SportApi.DTO_s
         public string InschrijvingsDatum { get; set; }
 
         public int Graad { get; set; }
+
+        public Boolean AkkoordMetHuishoudelijkRegelement { get; set; }
+
+        public Boolean ToestemmingAudioVisueelMateriaal { get; set; }
+
+        public Boolean WenstInfoTeKrijgenOverClubAangelegenheden { get; set; }
+        public Boolean WenstInfoTeKrijgenOverFederaleAangelegenhedenEnPromoties { get; set; }
     }
 }

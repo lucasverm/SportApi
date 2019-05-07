@@ -17,7 +17,6 @@ namespace SportApi.DTO_s
         [Required]
         public string Huisnummer { get; set; }
 
-        [Required]
         public string Busnummer { get; set; }
 
         [Required]

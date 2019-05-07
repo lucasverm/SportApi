@@ -84,8 +84,11 @@ namespace SportApi.Controllers
                 g.Rijksregisternummer = dto.RijksregisterNummer;
                 g.GeborenTe = dto.GeborenTe;
                 g.Geslacht = dto.Geslacht;
-        //       g.InschrijvingsDatum = zetDatumOm(dto.InschrijvingsDatum);
                 g.Graad = dto.Graad;
+                g.WenstInfoTeKrijgenOverClubAangelegenheden = dto.WenstInfoTeKrijgenOverClubAangelegenheden;
+                g.WenstInfoTeKrijgenOverFederaleAangelegenhedenEnPromoties = dto.WenstInfoTeKrijgenOverFederaleAangelegenhedenEnPromoties;
+                g.ToestemmingAudioVisueelMateriaal = dto.ToestemmingAudioVisueelMateriaal;
+                g.AkkoordMetHuishoudelijkRegelement = dto.AkkoordMetHuishoudelijkRegelement;
                 _gebruikerRepository.Update(g);
                 _gebruikerRepository.SaveChanges();
                 return g;
