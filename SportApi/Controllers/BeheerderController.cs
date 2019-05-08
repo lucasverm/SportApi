@@ -13,13 +13,13 @@ namespace SportApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LesgeverController : ControllerBase
+    public class BeheerderController : ControllerBase
     {
         private IGebruiker _gebruikerRepository;
 
         private readonly UserManager<IdentityUser> _userManager;
 
-        public LesgeverController(IGebruiker gebruikerRepository, UserManager<IdentityUser> userManager)
+        public BeheerderController(IGebruiker gebruikerRepository, UserManager<IdentityUser> userManager)
         {
             _gebruikerRepository = gebruikerRepository;
             _userManager = userManager;
@@ -29,7 +29,7 @@ namespace SportApi.Controllers
         [HttpGet]
         public IEnumerable<Gebruiker> GetAll()
         {
-            return _gebruikerRepository.GetAllLesgevers();
+            return _gebruikerRepository.GetAllBeheerders();
         }
 
         // POST: api/Gebruiker
@@ -38,13 +38,13 @@ namespace SportApi.Controllers
         {
             try
             {
-                Gebruiker g = new Lesgever(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
+                Gebruiker g = new Beheerder(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
                 dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, dto.GeboorteDatum, dto.Geslacht);
 
                 string eMailAddress = dto.Email;
                 IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
                 await _userManager.CreateAsync(user, "Test123@!");
-                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "lesgever"));
+                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "beheerder"));
 
                 _gebruikerRepository.Add(g);
                 _gebruikerRepository.SaveChanges();
@@ -60,10 +60,10 @@ namespace SportApi.Controllers
         public ActionResult<Lesgever> GetBy(int id)
         {
             Gebruiker g = _gebruikerRepository.GetBy(id);
-            if (g == null) return NotFound("De Lesgever kon niet worden gevonden");
-            if (g.Type != "Lesgever")
+            if (g == null) return NotFound("De Beheerder kon niet worden gevonden");
+            if (g.Type != "Beheerder")
             {
-                return BadRequest("De gevraagde gebruiker is niet van het type Lesgever");
+                return BadRequest("De gevraagde gebruiker is niet van het type Beheerder");
             }
             Lesgever l = (Lesgever)_gebruikerRepository.GetBy(id);
 
@@ -78,7 +78,7 @@ namespace SportApi.Controllers
             {
                 Gebruiker g = _gebruikerRepository.GetBy(id);
                 if (g == null) return BadRequest("De gebruiker kon niet worden gevonden!");
-                if (!(g is Lesgever)) return BadRequest("De gebruiker is geen lesgever!");
+                if (!(g is Beheerder)) return BadRequest("De gebruiker is geen beheerder!");
                 g.Voornaam = dto.Voornaam;
                 g.Naam = dto.Naam;
                 g.Straatnaam = dto.StraatNaam;

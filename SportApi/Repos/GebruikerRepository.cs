@@ -83,6 +83,11 @@ namespace ProjectG05.Data.Repositories
             return _gebruikers.Where(c => c.GetType() == typeof(Lesgever)).OrderBy(t => t.Voornaam).ToList();
         }
 
+        public IEnumerable<Gebruiker> GetAllBeheerders()
+        {
+            return _gebruikers.Where(c => c.GetType() == typeof(Beheerder)).OrderBy(t => t.Voornaam).ToList();
+        }
+
         #endregion Methods
     }
 }

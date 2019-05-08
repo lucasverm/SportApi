@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using ProjectG05.Models.Domain;
 using SportApi.DTO_s;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Text;
 
 namespace SportApi.Controllers
@@ -13,9 +15,12 @@ namespace SportApi.Controllers
     {
         private IGebruiker _gebruikerRepository;
 
-        public LidController(IGebruiker gebruikerRepository)
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public LidController(IGebruiker gebruikerRepository, UserManager<IdentityUser> userManager)
         {
             _gebruikerRepository = gebruikerRepository;
+            _userManager = userManager;
         }
 
         // GET: api/Leden
@@ -27,7 +32,7 @@ namespace SportApi.Controllers
 
         // POST: api/Lid
         [HttpPost]
-        public ActionResult<Gebruiker> PostLid(LidDTO dto)
+        public async System.Threading.Tasks.Task<ActionResult<Gebruiker>> PostLidAsync(LidDTO dto)
         {
             try
             {
@@ -36,6 +41,12 @@ namespace SportApi.Controllers
                     dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Nationaliteit,
                     dto.EmailOuders, dto.RijksregisterNummer, dto.GeborenTe, dto.Geslacht,
                     inschrijvingsdatum, dto.Graad);
+
+                string eMailAddress = dto.Email;
+                IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
+                await _userManager.CreateAsync(user, "Test123@!");
+                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "lid"));
+
                 _gebruikerRepository.Add(lid);
                 _gebruikerRepository.SaveChanges();
                 return lid;
@@ -114,26 +125,37 @@ namespace SportApi.Controllers
             {
                 case "jan":
                     return "01";
+
                 case "feb":
                     return "02";
+
                 case "mar":
                     return "03";
+
                 case "apr":
                     return "04";
+
                 case "may":
                     return "05";
+
                 case "jun":
                     return "06";
+
                 case "jul":
                     return "07";
+
                 case "aug":
                     return "08";
+
                 case "sep":
                     return "09";
+
                 case "oct":
                     return "10";
+
                 case "nov":
                     return "11";
+
                 case "dec":
                     return "12";
             }

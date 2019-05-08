@@ -8,6 +8,8 @@ namespace ProjectG05.Models.Domain
 
         IEnumerable<Gebruiker> GetAllLesgevers();
 
+        IEnumerable<Gebruiker> GetAllBeheerders();
+
         void Add(Gebruiker gebruiker);
 
         void Delete(Gebruiker gebruiker);
