@@ -89,7 +89,8 @@ namespace SportApi.Controllers
                 g.Stad = dto.Stad;
                 g.Telefoonnummer = dto.TelefoonNummer;
                 g.Email = dto.Email;
-                g.GeboorteDatum = zetDatumOm(dto.Geb);
+                //  g.GeboorteDatum = zetDatumOm(dto.Geb);
+                g.GeboorteDatum = DateTime.Parse(dto.GeboorteDatum);
                 g.Nationaliteit = dto.Nationaliteit;
                 g.EmailOuders = dto.EmailOuders;
                 g.Rijksregisternummer = dto.RijksregisterNummer;
@@ -129,13 +130,13 @@ namespace SportApi.Controllers
                 case "feb":
                     return "02";
 
-                case "mar":
+                case "mrt":
                     return "03";
 
                 case "apr":
                     return "04";
 
-                case "may":
+                case "mei":
                     return "05";
 
                 case "jun":
@@ -150,7 +151,7 @@ namespace SportApi.Controllers
                 case "sep":
                     return "09";
 
-                case "oct":
+                case "okt":
                     return "10";
 
                 case "nov":

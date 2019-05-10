@@ -6,6 +6,7 @@ namespace SportApi.DTO_s
 {
     public class LidDTO
     {
+
         [Required]
         public string Voornaam { get; set; }
 
@@ -60,5 +61,7 @@ namespace SportApi.DTO_s
 
         public Boolean WenstInfoTeKrijgenOverClubAangelegenheden { get; set; }
         public Boolean WenstInfoTeKrijgenOverFederaleAangelegenhedenEnPromoties { get; set; }
+
+        public string GeboorteDatum { get; set; }
     }
 }
