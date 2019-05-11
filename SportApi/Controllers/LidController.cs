@@ -27,29 +27,67 @@ namespace SportApi.Controllers
         [HttpGet]
         public IEnumerable<Gebruiker> GetAll()
         {
-            return _gebruikerRepository.GetAllLeden();
+            return _gebruikerRepository.GetAll();
         }
 
         // POST: api/Lid
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult<Gebruiker>> PostLidAsync(LidDTO dto)
         {
+            DateTime inschrijvingsdatum = DateTime.Today;
+            Gebruiker g;
             try
             {
-                DateTime inschrijvingsdatum = DateTime.Today;
-                Gebruiker lid = new Lid(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer, dto.Postcode,
-                    dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Nationaliteit,
-                    dto.EmailOuders, dto.RijksregisterNummer, dto.GeborenTe, dto.Geslacht,
-                    inschrijvingsdatum, dto.Graad);
+                if (dto.Type.Equals("Lid"))
+                {
+                    g = new Lid(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer, dto.Postcode,
+                   dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Nationaliteit,
+                   dto.EmailOuders, dto.RijksregisterNummer, dto.GeborenTe, dto.Geslacht,
+                   inschrijvingsdatum, dto.AkkoordMetHuishoudelijkRegelement, dto.ToestemmingAudioVisueelMateriaal, dto.WenstInfoTeKrijgenOverClubAangelegenheden, dto.WenstInfoTeKrijgenOverFederaleAangelegenhedenEnPromoties, dto.Graad);
+                    _gebruikerRepository.Add(g);
+                    _gebruikerRepository.SaveChanges();
+                    return g;
+                }
 
-                string eMailAddress = dto.Email;
-                IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
-                await _userManager.CreateAsync(user, "Test123@!");
-                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "lid"));
+                if (dto.Type.Equals("NietLid"))
+                {
+                    g = new NietLid(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
+                dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
+                    _gebruikerRepository.Add(g);
+                    _gebruikerRepository.SaveChanges();
+                    return g;
+                }
+                if (dto.Type.Equals("Beheerder"))
+                {
+                    g = new Beheerder(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
+                dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
+                    _gebruikerRepository.Add(g);
+                    _gebruikerRepository.SaveChanges();
+                    return g;
+                }
+                if (dto.Type.Equals("Lesgever"))
+                {
+                    g = new Lesgever(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
+                dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
+                    _gebruikerRepository.Add(g);
+                    _gebruikerRepository.SaveChanges();
+                    return g;
+                }
+                //if (dto.Type.Equals("OudLid"))
+                //{
+                //    g = new(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
+                //dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
+                //}
+                if (!dto.Type.Equals("NietLid"))
+                {
+                    string eMailAddress = dto.Email;
+                    IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
+                    await _userManager.CreateAsync(user, "Test123@!");
+                    await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, dto.Type.ToLower()));
+                    _gebruikerRepository.SaveChanges();
+                }  
 
-                _gebruikerRepository.Add(lid);
-                _gebruikerRepository.SaveChanges();
-                return lid;
+                return null;
             }
             catch (Exception e)
             {
@@ -77,31 +115,58 @@ namespace SportApi.Controllers
         {
             try
             {
-                Lid g = (Lid)_gebruikerRepository.GetBy(id);
-                if (g == null) throw new Exception("Gebruiker kon niet worden gevonden!");
-                if (!(g is Lid))
-                    return BadRequest("De opgegeven gebruiker is geen lesgever");
-                g.Voornaam = dto.Voornaam;
-                g.Naam = dto.Naam;
-                g.Straatnaam = dto.StraatNaam;
-                g.Huisnummer = dto.Huisnummer;
-                g.Postcode = dto.Postcode;
-                g.Stad = dto.Stad;
-                g.Telefoonnummer = dto.TelefoonNummer;
-                g.Email = dto.Email;
-                //  g.GeboorteDatum = zetDatumOm(dto.Geb);
-                g.GeboorteDatum = DateTime.Parse(dto.GeboorteDatum);
-                g.Nationaliteit = dto.Nationaliteit;
-                g.EmailOuders = dto.EmailOuders;
-                g.Rijksregisternummer = dto.RijksregisterNummer;
-                g.GeborenTe = dto.GeborenTe;
-                g.Geslacht = dto.Geslacht;
-                g.Graad = dto.Graad;
-                g.WenstInfoTeKrijgenOverClubAangelegenheden = dto.WenstInfoTeKrijgenOverClubAangelegenheden;
-                g.WenstInfoTeKrijgenOverFederaleAangelegenhedenEnPromoties = dto.WenstInfoTeKrijgenOverFederaleAangelegenhedenEnPromoties;
-                g.ToestemmingAudioVisueelMateriaal = dto.ToestemmingAudioVisueelMateriaal;
-                g.AkkoordMetHuishoudelijkRegelement = dto.AkkoordMetHuishoudelijkRegelement;
-                _gebruikerRepository.Update(g);
+                if (dto.Type.ToLower().Equals("lid"))
+                {
+                    Lid lid = (Lid)_gebruikerRepository.GetBy(id);
+                    if (lid == null) throw new Exception("Gebruiker kon niet worden gevonden!");
+                    initialiseerAttributenLid(lid, dto);
+                    initialiseerAttributenGebruiker(lid, dto);
+                    _gebruikerRepository.SaveChanges();
+                    return lid;
+                }
+                else 
+                {
+                    if (dto.Type.ToLower().Equals("nietlid"))
+                {
+                        NietLid nietLid = (NietLid)_gebruikerRepository.GetBy(id);
+                        if (nietLid == null) throw new Exception("Gebruiker kon niet worden gevonden!");
+                        nietLid = (NietLid)initialiseerAttributenGebruiker(nietLid , dto);
+                        _gebruikerRepository.SaveChanges();
+                        return nietLid;
+                    }
+                    if (dto.Type.ToLower().Equals("beheerder"))
+                {
+                        Beheerder beheerder =(Beheerder)_gebruikerRepository.GetBy(id);
+                        if (beheerder == null) throw new Exception("Gebruiker kon niet worden gevonden!");
+                        beheerder = (Beheerder) initialiseerAttributenGebruiker(beheerder, dto);
+                        _gebruikerRepository.SaveChanges();
+                        return beheerder;
+                    }
+                    if (dto.Type.ToLower().Equals("lesgever"))
+                {
+                        Lesgever lesgever = (Lesgever)_gebruikerRepository.GetBy(id);
+                        if (lesgever == null) throw new Exception("Gebruiker kon niet worden gevonden!");
+                        lesgever = (Lesgever) initialiseerAttributenGebruiker(lesgever, dto);
+                        _gebruikerRepository.SaveChanges();
+                        return lesgever;
+                    }
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Gebruiker> Delete(int id)
+        {
+            try
+            {
+                Gebruiker g = _gebruikerRepository.GetBy(id);
+                if (g == null) return BadRequest("Gebruiker kon niet worden gevonden");
+                _gebruikerRepository.Delete(g);
                 _gebruikerRepository.SaveChanges();
                 return g;
             }
@@ -161,6 +226,38 @@ namespace SportApi.Controllers
                     return "12";
             }
             return null;
+        }
+
+        private Gebruiker initialiseerAttributenGebruiker(Gebruiker g, LidDTO dto)
+        {
+            g.Voornaam = dto.Voornaam;
+            g.Naam = dto.Naam;
+            g.Straatnaam = dto.StraatNaam;
+            g.Huisnummer = dto.Huisnummer;
+            g.Postcode = dto.Postcode;
+            g.Stad = dto.Stad;
+            g.Telefoonnummer = dto.TelefoonNummer;
+            g.Email = dto.Email;
+            //  g.GeboorteDatum = zetDatumOm(dto.Geb);
+            g.GeboorteDatum = DateTime.Parse(dto.GeboorteDatum);
+            g.Geslacht = dto.Geslacht;
+            g.Busnummer = dto.Busnummer;
+            _gebruikerRepository.Update(g);
+            return g;
+        }
+        private Lid initialiseerAttributenLid(Lid g, LidDTO dto)
+        {
+            g.Nationaliteit = dto.Nationaliteit;
+            g.EmailOuders = dto.EmailOuders;
+            g.Rijksregisternummer = dto.RijksregisterNummer;
+            g.GeborenTe = dto.GeborenTe;
+            g.Graad = dto.Graad;
+            g.WenstInfoTeKrijgenOverClubAangelegenheden = dto.WenstInfoTeKrijgenOverClubAangelegenheden;
+            g.WenstInfoTeKrijgenOverFederaleAangelegenhedenEnPromoties = dto.WenstInfoTeKrijgenOverFederaleAangelegenhedenEnPromoties;
+            g.ToestemmingAudioVisueelMateriaal = dto.ToestemmingAudioVisueelMateriaal;
+            g.AkkoordMetHuishoudelijkRegelement = dto.AkkoordMetHuishoudelijkRegelement;
+            _gebruikerRepository.Update(g);
+            return g;
         }
     }
 }

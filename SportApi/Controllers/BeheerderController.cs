@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -39,7 +40,7 @@ namespace SportApi.Controllers
             try
             {
                 Gebruiker g = new Beheerder(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
-                dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, dto.GeboorteDatum, dto.Geslacht);
+                dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
 
                 string eMailAddress = dto.Email;
                 IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
@@ -87,7 +88,7 @@ namespace SportApi.Controllers
                 g.Stad = dto.Stad;
                 g.Telefoonnummer = dto.TelefoonNummer;
                 g.Email = dto.Email;
-                g.GeboorteDatum = dto.GeboorteDatum;
+                g.GeboorteDatum = DateTime.Parse(dto.GeboorteDatum);
                 g.Geslacht = dto.Geslacht;
                 _gebruikerRepository.Update(g);
                 _gebruikerRepository.SaveChanges();
@@ -97,6 +98,58 @@ namespace SportApi.Controllers
             {
                 return BadRequest(e.Message);
             }
+        }
+
+        private DateTime zetDatumOm(string datum)
+        {
+            StringBuilder sB = new StringBuilder();
+            sB.Append(datum.Substring(4, 2)).Append("/");
+            sB.Append(kiesMaand(datum.Substring(0, 3))).Append("/");
+            sB.Append(datum.Substring(8, 4));
+            return DateTime.Parse(sB.ToString());
+        }
+
+        private string kiesMaand(string maand)
+        {
+            switch (maand.ToLower())
+            {
+                case "jan":
+                    return "01";
+
+                case "feb":
+                    return "02";
+
+                case "mrt":
+                    return "03";
+
+                case "apr":
+                    return "04";
+
+                case "mei":
+                    return "05";
+
+                case "jun":
+                    return "06";
+
+                case "jul":
+                    return "07";
+
+                case "aug":
+                    return "08";
+
+                case "sep":
+                    return "09";
+
+                case "okt":
+                    return "10";
+
+                case "nov":
+                    return "11";
+
+                case "dec":
+                    return "12";
+            }
+            return null;
         }
     }
 }
