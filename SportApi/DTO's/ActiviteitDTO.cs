@@ -23,9 +23,6 @@ namespace SportApi.DTO_s
         public DateTime EindDatum { get; set; }
 
         [Required]
-        public DayOfWeek Weekdag { get; set; }
-
-        [Required]
         public List<int> GebruikerIds { get; set; }
     }
 

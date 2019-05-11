@@ -3,6 +3,7 @@ using ProjectG05.Models.Domain;
 using SportApi.IRepos;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -18,6 +19,8 @@ namespace ProjectG05.Data
 
         private List<Gebruiker> lesgevers;
 
+        private IActiviteit _activiteitenRepository;
+
         private List<Lid> leden;
         private List<NietLid> Nietleden;
 
@@ -31,7 +34,7 @@ namespace ProjectG05.Data
 
         #region Constructors
 
-        public DataInitializer(ApplicationDbContext dbContext, ILes lesRepo, ISessie sessieRepository, UserManager<IdentityUser> userManager)
+        public DataInitializer(ApplicationDbContext dbContext, ILes lesRepo, ISessie sessieRepository, UserManager<IdentityUser> userManager, IActiviteit activiteitRepo)
         {
             _dbContext = dbContext;
             _userManager = userManager;
@@ -41,6 +44,7 @@ namespace ProjectG05.Data
             lesgevers = new List<Gebruiker>();
             leden = new List<Lid>();
             Nietleden = new List<NietLid>();
+            _activiteitenRepository = activiteitRepo;
         }
 
         #endregion Constructors
@@ -61,6 +65,11 @@ namespace ProjectG05.Data
                 Les les = new Les(lesgevers[0], startUur, duur, DayOfWeek.Tuesday, leden.GetRange(0, 3));
                 this._lesRepository.Add(les);
 
+
+                List<Gebruiker> gebruikers = new List<Gebruiker>();
+                gebruikers.Add(this.leden.First());
+                Activiteit a = new Activiteit(new DateTime(2019, 06, 11), gebruikers, new DateTime(2019, 06, 13), "Weekendje Ardennen", "ontspanning", 30);
+                _activiteitenRepository.Add(a);
                 //////les met 2 en 3 op donderdag 12:30 - 14:30
                 //Les les2 = new Les(lesgevers[1], startUur, duur, DayOfWeek.Thursday, leden.GetRange(1, 5));
                 //this._lesRepository.Add(les2);
