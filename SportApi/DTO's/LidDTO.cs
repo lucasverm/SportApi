@@ -48,5 +48,7 @@ namespace SportApi.DTO_s
         public string GeboorteDatum { get; set; }
 
         public string Type { get; set; }
+
+        public string OudType { get; set; }
     }
 }

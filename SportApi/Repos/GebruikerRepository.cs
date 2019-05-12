@@ -41,7 +41,10 @@ namespace ProjectG05.Data.Repositories
         public void Delete(Gebruiker gebruiker)
         {
             _gebruikers.Remove(gebruiker);
+            Gebruiker gebruik = GetBy(gebruiker.Id);
+            _gebruikers.Remove(gebruiker);
             SaveChanges();
+
         }
 
         public IEnumerable<Gebruiker> GetAll()

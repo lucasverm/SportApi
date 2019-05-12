@@ -38,7 +38,7 @@ namespace SportApi.Controllers
             Gebruiker g;
             try
             {
-                if (dto.Type.Equals("Lid"))
+                if (dto.Type.ToLower().Equals("lid"))
                 {
                     g = new Lid(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer, dto.Postcode,
                    dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Nationaliteit,
@@ -49,7 +49,7 @@ namespace SportApi.Controllers
                     return g;
                 }
 
-                if (dto.Type.Equals("NietLid"))
+                if (dto.Type.ToLower().Equals("nietlid"))
                 {
                     g = new NietLid(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
                 dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
@@ -57,7 +57,7 @@ namespace SportApi.Controllers
                     _gebruikerRepository.SaveChanges();
                     return g;
                 }
-                if (dto.Type.Equals("Beheerder"))
+                if (dto.Type.ToLower().Equals("beheerder"))
                 {
                     g = new Beheerder(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
                 dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
@@ -65,7 +65,7 @@ namespace SportApi.Controllers
                     _gebruikerRepository.SaveChanges();
                     return g;
                 }
-                if (dto.Type.Equals("Lesgever"))
+                if (dto.Type.ToLower().Equals("lesgever"))
                 {
                     g = new Lesgever(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
                 dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
@@ -73,19 +73,22 @@ namespace SportApi.Controllers
                     _gebruikerRepository.SaveChanges();
                     return g;
                 }
-                //if (dto.Type.Equals("OudLid"))
-                //{
-                //    g = new(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
-                //dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
-                //}
-                if (!dto.Type.Equals("NietLid"))
+                if (dto.Type.ToLower().Equals("oudlid"))
+                {
+                    g = new OudLid(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
+                dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
+                    _gebruikerRepository.Add(g);
+                    _gebruikerRepository.SaveChanges();
+                    return g;
+                }
+                if (!dto.Type.ToLower().Equals("nietlid"))
                 {
                     string eMailAddress = dto.Email;
                     IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
                     await _userManager.CreateAsync(user, "Test123@!");
                     await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, dto.Type.ToLower()));
                     _gebruikerRepository.SaveChanges();
-                }  
+                }
 
                 return null;
             }
@@ -124,31 +127,39 @@ namespace SportApi.Controllers
                     _gebruikerRepository.SaveChanges();
                     return lid;
                 }
-                else 
+                else
                 {
                     if (dto.Type.ToLower().Equals("nietlid"))
-                {
+                    {
                         NietLid nietLid = (NietLid)_gebruikerRepository.GetBy(id);
                         if (nietLid == null) throw new Exception("Gebruiker kon niet worden gevonden!");
-                        nietLid = (NietLid)initialiseerAttributenGebruiker(nietLid , dto);
+                        nietLid = (NietLid)initialiseerAttributenGebruiker(nietLid, dto);
                         _gebruikerRepository.SaveChanges();
                         return nietLid;
                     }
                     if (dto.Type.ToLower().Equals("beheerder"))
-                {
-                        Beheerder beheerder =(Beheerder)_gebruikerRepository.GetBy(id);
+                    {
+                        Beheerder beheerder = (Beheerder)_gebruikerRepository.GetBy(id);
                         if (beheerder == null) throw new Exception("Gebruiker kon niet worden gevonden!");
-                        beheerder = (Beheerder) initialiseerAttributenGebruiker(beheerder, dto);
+                        beheerder = (Beheerder)initialiseerAttributenGebruiker(beheerder, dto);
                         _gebruikerRepository.SaveChanges();
                         return beheerder;
                     }
                     if (dto.Type.ToLower().Equals("lesgever"))
-                {
+                    {
                         Lesgever lesgever = (Lesgever)_gebruikerRepository.GetBy(id);
                         if (lesgever == null) throw new Exception("Gebruiker kon niet worden gevonden!");
-                        lesgever = (Lesgever) initialiseerAttributenGebruiker(lesgever, dto);
+                        lesgever = (Lesgever)initialiseerAttributenGebruiker(lesgever, dto);
                         _gebruikerRepository.SaveChanges();
                         return lesgever;
+                    }
+                    if (dto.Type.ToLower().Equals("oudlid"))
+                    {
+                        OudLid oudLid = (OudLid)_gebruikerRepository.GetBy(id);
+                        if (oudLid == null) throw new Exception("Gebruiker kon niet worden gevonden!");
+                        oudLid = (OudLid)initialiseerAttributenGebruiker(oudLid, dto);
+                        _gebruikerRepository.SaveChanges();
+                        return oudLid;
                     }
                 }
                 return null;
