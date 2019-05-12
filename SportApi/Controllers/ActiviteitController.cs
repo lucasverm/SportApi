@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -68,7 +69,7 @@ namespace SportApi.Controllers
                 //{
                 //    return BadRequest("Gebruiker met id " + GebruikerNietGevondenId + " kon niet worden gevonden!");
                 //}
-                Activiteit l = new Activiteit(DTO.StartDatum, GebruikersVoorActiviteit,DTO.EindDatum,DTO.Naam,DTO.Type,DTO.MaxAantalGebruikers);
+                Activiteit l = new Activiteit(DateTime.Parse(DTO.StartDatum), GebruikersVoorActiviteit, DateTime.Parse(DTO.EindDatum), DTO.Naam,DTO.Type,DTO.MaxAantalGebruikers);
                 _activiteitRepository.Add(l);
                 _activiteitRepository.SaveChanges();
                 return l;
@@ -112,8 +113,8 @@ namespace SportApi.Controllers
 
                 l.MaxAantalGebruikers = DTO.MaxAantalGebruikers;
                 l.GebruikersVoorActiviteit = GebruikersVoorActiviteit;
-                l.StartDatum = DTO.StartDatum;
-                l.EindDatum = DTO.EindDatum;
+                l.StartDatum = DateTime.Parse(DTO.StartDatum.ToString());
+                l.EindDatum = DateTime.Parse(DTO.EindDatum.ToString());
                 l.Naam = DTO.Naam;
                 _activiteitRepository.Update(l);
                 _activiteitRepository.SaveChanges();
@@ -134,6 +135,58 @@ namespace SportApi.Controllers
             if (activiteit == null) return BadRequest("Activiteit kon niet worden gevonden!");
             _activiteitRepository.Delete(activiteit);
             return activiteit;
+        }
+
+        private DateTime zetDatumOm(string datum)
+        {
+            StringBuilder sB = new StringBuilder();
+            sB.Append(datum.Substring(4, 2)).Append("/");
+            sB.Append(kiesMaand(datum.Substring(0, 3))).Append("/");
+            sB.Append(datum.Substring(8, 4));
+            return DateTime.Parse(sB.ToString());
+        }
+
+        private string kiesMaand(string maand)
+        {
+            switch (maand.ToLower())
+            {
+                case "jan":
+                    return "01";
+
+                case "feb":
+                    return "02";
+
+                case "mrt":
+                    return "03";
+
+                case "apr":
+                    return "04";
+
+                case "mei":
+                    return "05";
+
+                case "jun":
+                    return "06";
+
+                case "jul":
+                    return "07";
+
+                case "aug":
+                    return "08";
+
+                case "sep":
+                    return "09";
+
+                case "okt":
+                    return "10";
+
+                case "nov":
+                    return "11";
+
+                case "dec":
+                    return "12";
+            }
+            return null;
         }
     }
 }
