@@ -38,6 +38,15 @@ namespace ProjectG05.Models.Domain
             MaxAantalGebruikers = maxAantalGebruikers;
         }
 
+        public Activiteit(DateTime startDatum, DateTime eindDatum, string naam, string type, int maxAantalGebruikers)
+        {
+            StartDatum = startDatum;
+            EindDatum = eindDatum;
+            Naam = naam;
+            Type = type;
+            MaxAantalGebruikers = maxAantalGebruikers;
+        }
+
 
 
         #endregion Constructors

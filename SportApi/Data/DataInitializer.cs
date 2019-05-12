@@ -69,6 +69,8 @@ namespace ProjectG05.Data
                 //Les les3 = new Les(beheerders[0], startUur, duur, DayOfWeek.Thursday, leden.GetRange(1, 5));
                 //this._lesRepository.Add(les3);
 
+                Activiteit activiteit = new Activiteit(new DateTime(2019, 6, 1), new DateTime(2019,6,6), "JiuJitsu Beerpong", "type murde", 8);
+                _dbContext.Activiteiten.Add(activiteit);
                 _dbContext.SaveChanges();
             }
         }

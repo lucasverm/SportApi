@@ -49,25 +49,25 @@ namespace SportApi.Controllers
                 List<Gebruiker> GebruikersVoorActiviteit = new List<Gebruiker>();
                 Boolean GebruikerNietGevonden = false;
                 int GebruikerNietGevondenId = 0;
-                DTO.GebruikerIds.ForEach(GebruikerId =>
-                {
-                    Gebruiker gebruiker = _gebruikerRepository.GetBy(GebruikerId);
-                    if (gebruiker == null)
-                    {
-                        GebruikerNietGevonden = true;
-                        GebruikerNietGevondenId = GebruikerId;
-                    }
+                //DTO.GebruikerIds.ForEach(GebruikerId =>
+                //{
+                //    Gebruiker gebruiker = _gebruikerRepository.GetBy(GebruikerId);
+                //    if (gebruiker == null)
+                //    {
+                //        GebruikerNietGevonden = true;
+                //        GebruikerNietGevondenId = GebruikerId;
+                //    }
 
-                    else
-                    {
-                        GebruikersVoorActiviteit.Add((Gebruiker)gebruiker);
-                    }
+                //    else
+                //    {
+                //        GebruikersVoorActiviteit.Add((Gebruiker)gebruiker);
+                //    }
                         
-                });
-                if (GebruikerNietGevonden)
-                {
-                    return BadRequest("Gebruiker met id " + GebruikerNietGevondenId + " kon niet worden gevonden!");
-                }
+                //});
+                //if (GebruikerNietGevonden)
+                //{
+                //    return BadRequest("Gebruiker met id " + GebruikerNietGevondenId + " kon niet worden gevonden!");
+                //}
                 Activiteit l = new Activiteit(DTO.StartDatum, GebruikersVoorActiviteit,DTO.EindDatum,DTO.Naam,DTO.Type,DTO.MaxAantalGebruikers);
                 _activiteitRepository.Add(l);
                 _activiteitRepository.SaveChanges();
@@ -90,25 +90,25 @@ namespace SportApi.Controllers
                 List<Gebruiker> GebruikersVoorActiviteit = new List<Gebruiker>();
                 Boolean GebruikerNietGevonden = false;
                 int GebruikerNietGevondenId = 0;
-                DTO.GebruikerIds.ForEach(GebruikerId =>
-                {
-                    Gebruiker gebruiker = _gebruikerRepository.GetBy(GebruikerId);
-                    if (gebruiker == null)
-                    {
-                        GebruikerNietGevonden = true;
-                        GebruikerNietGevondenId = GebruikerId;
-                    }
+                //DTO.GebruikerIds.ForEach(GebruikerId =>
+                //{
+                //    Gebruiker gebruiker = _gebruikerRepository.GetBy(GebruikerId);
+                //    if (gebruiker == null)
+                //    {
+                //        GebruikerNietGevonden = true;
+                //        GebruikerNietGevondenId = GebruikerId;
+                //    }
 
-                    else
-                    {
-                        GebruikersVoorActiviteit.Add((Gebruiker)gebruiker);
-                    }
+                //    else
+                //    {
+                //        GebruikersVoorActiviteit.Add((Gebruiker)gebruiker);
+                //    }
 
-                });
-                if (GebruikerNietGevonden)
-                {
-                    return BadRequest("Gebruiker met id " + GebruikerNietGevondenId + " kon niet worden gevonden!");
-                }
+                //});
+                //if (GebruikerNietGevonden)
+                //{
+                //    return BadRequest("Gebruiker met id " + GebruikerNietGevondenId + " kon niet worden gevonden!");
+                //}
 
                 l.MaxAantalGebruikers = DTO.MaxAantalGebruikers;
                 l.GebruikersVoorActiviteit = GebruikersVoorActiviteit;
@@ -117,7 +117,8 @@ namespace SportApi.Controllers
                 l.Naam = DTO.Naam;
                 _activiteitRepository.Update(l);
                 _activiteitRepository.SaveChanges();
-                return CreatedAtAction(nameof(GetBy), new { id = l.Id }, l);
+                //     return CreatedAtAction(nameof(GetBy), new { id = l.Id }, l);
+                return l;
             }
             catch (Exception e)
             {
