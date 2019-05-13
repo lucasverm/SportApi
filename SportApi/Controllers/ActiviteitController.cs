@@ -69,7 +69,7 @@ namespace SportApi.Controllers
                 //{
                 //    return BadRequest("Gebruiker met id " + GebruikerNietGevondenId + " kon niet worden gevonden!");
                 //}
-                if(DTO.GebruikersVoorActiviteit == null)
+                if(DTO.GebruikersVoorActiviteit != null)
                 {
                     foreach(int i in DTO.GebruikersVoorActiviteit)
                     {
