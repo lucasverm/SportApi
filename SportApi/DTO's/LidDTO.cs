@@ -6,7 +6,7 @@ namespace SportApi.DTO_s
 {
     public class LidDTO
     {
-
+        public int IdApi { get; set; }
         public string Voornaam { get; set; }
 
         public string Naam { get; set; }

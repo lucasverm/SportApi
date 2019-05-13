@@ -44,7 +44,9 @@ namespace SportApi.Controllers
                    dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Nationaliteit,
                    dto.EmailOuders, dto.RijksregisterNummer, dto.GeborenTe, dto.Geslacht,
                    inschrijvingsdatum, dto.AkkoordMetHuishoudelijkRegelement, dto.ToestemmingAudioVisueelMateriaal, dto.WenstInfoTeKrijgenOverClubAangelegenheden, dto.WenstInfoTeKrijgenOverFederaleAangelegenhedenEnPromoties, dto.Graad);
-                    _gebruikerRepository.Add(g);
+                    if (dto.OudType != null)
+                        g.IdApi = dto.IdApi;
+                        _gebruikerRepository.Add(g);
                     _gebruikerRepository.SaveChanges();
                     return g;
                 }
@@ -53,33 +55,44 @@ namespace SportApi.Controllers
                 {
                     g = new NietLid(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
                 dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
+                    if (dto.OudType != null)
+                        g.IdApi = dto.IdApi;
                     _gebruikerRepository.Add(g);
                     _gebruikerRepository.SaveChanges();
                     return g;
                 }
                 if (dto.Type.ToLower().Equals("beheerder"))
                 {
-                    g = new Beheerder(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
+                    Beheerder beheerder = new Beheerder(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
                 dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
-                    _gebruikerRepository.Add(g);
+                    beheerder.Graad = dto.Graad;
+                    if (dto.OudType != null)
+                        beheerder.IdApi = dto.IdApi;
+                    _gebruikerRepository.Add(beheerder);
                     _gebruikerRepository.SaveChanges();
-                    return g;
+                    return beheerder;
                 }
                 if (dto.Type.ToLower().Equals("lesgever"))
                 {
-                    g = new Lesgever(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
+                    Lesgever lesgever = new Lesgever(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
                 dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
-                    _gebruikerRepository.Add(g);
+                    lesgever.Graad = dto.Graad;
+                    if (dto.OudType != null)
+                        lesgever.IdApi = dto.IdApi;
+                    _gebruikerRepository.Add(lesgever);
                     _gebruikerRepository.SaveChanges();
-                    return g;
+                    return lesgever;
                 }
                 if (dto.Type.ToLower().Equals("oudlid"))
                 {
-                    g = new OudLid(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
+                    OudLid oudLid = new OudLid(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
                 dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
-                    _gebruikerRepository.Add(g);
+                    oudLid.Graad = dto.Graad;
+                    if (dto.OudType != null)
+                        oudLid.IdApi = dto.IdApi;
+                    _gebruikerRepository.Add(oudLid);
                     _gebruikerRepository.SaveChanges();
-                    return g;
+                    return oudLid;
                 }
                 if (!dto.Type.ToLower().Equals("nietlid"))
                 {

@@ -7,6 +7,7 @@ namespace ProjectG05.Models.Domain
         #region Properties
 
         public DateTime UitschrijvingsDatum { get; set; }
+        public int Graad { get; set; }
 
         #endregion Properties
 

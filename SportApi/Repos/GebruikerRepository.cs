@@ -47,6 +47,12 @@ namespace ProjectG05.Data.Repositories
 
         }
 
+        public void Replace(Gebruiker gebruiker, int id)
+        {
+            Gebruiker geb = GetBy(id);
+            geb = gebruiker;
+        }
+
         public IEnumerable<Gebruiker> GetAll()
         {
             return _gebruikers.OrderBy(t => t.Voornaam).ToList();
@@ -74,7 +80,8 @@ namespace ProjectG05.Data.Repositories
 
         public Gebruiker GetBy(int id)
         {
-            return _gebruikers.SingleOrDefault(g => g.Id == id);
+            Gebruiker gebruiker = _gebruikers.SingleOrDefault(g => g.Id == id);
+            return gebruiker;
         }
 
         public Gebruiker GetBy(string email)
