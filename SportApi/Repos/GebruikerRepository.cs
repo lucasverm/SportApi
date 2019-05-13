@@ -84,6 +84,12 @@ namespace ProjectG05.Data.Repositories
             return gebruiker;
         }
 
+        public Gebruiker GetByApiId(int id)
+        {
+            Gebruiker gebruiker = _gebruikers.SingleOrDefault(g => g.IdApi == id);
+            return gebruiker;
+        }
+
         public Gebruiker GetBy(string email)
         {
             return _gebruikers.SingleOrDefault(g => g.Email == email);

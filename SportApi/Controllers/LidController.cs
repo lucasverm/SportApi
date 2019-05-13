@@ -221,11 +221,15 @@ namespace SportApi.Controllers
 
                 case "mrt":
                     return "03";
+                case "mar":
+                    return "03";
 
                 case "apr":
                     return "04";
 
                 case "mei":
+                    return "05";
+                case "may":
                     return "05";
 
                 case "jun":
@@ -242,7 +246,8 @@ namespace SportApi.Controllers
 
                 case "okt":
                     return "10";
-
+                case "oct":
+                    return "10";
                 case "nov":
                     return "11";
 

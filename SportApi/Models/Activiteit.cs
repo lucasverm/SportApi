@@ -6,14 +6,11 @@ namespace ProjectG05.Models.Domain
     public class Activiteit
     {
         #region Properties
-
+        public List<int> GebruikersVoorActiviteit { get; set; }
+        public List<Gebruiker> GebruikersApi { get; set; }
         public DateTime StartDatum { get; set; }
 
         public int Id { get; set; }
-
-        public List<Gebruiker> GebruikersVoorActiviteit { get; set; }
-
-
         public DateTime EindDatum { get; set; }
 
         public String Naam { get; set; }
@@ -28,10 +25,10 @@ namespace ProjectG05.Models.Domain
         {
         }
 
-        public Activiteit(DateTime startDatum, List<Gebruiker> gebruikersVoorActiviteit, DateTime eindDatum, string naam, string type, int maxAantalGebruikers)
+        public Activiteit(DateTime startDatum, List<Gebruiker> gebruikersApi, DateTime eindDatum, string naam, string type, int maxAantalGebruikers)
         {
             StartDatum = startDatum;
-            GebruikersVoorActiviteit = gebruikersVoorActiviteit;
+            GebruikersApi = gebruikersApi;
             EindDatum = eindDatum;
             Naam = naam;
             Type = type;

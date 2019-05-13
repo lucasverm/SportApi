@@ -47,7 +47,7 @@ namespace SportApi.Controllers
         {
             try
             {
-                List<Gebruiker> GebruikersVoorActiviteit = new List<Gebruiker>();
+                List<Gebruiker> gebruikers = new List<Gebruiker>();
                 Boolean GebruikerNietGevonden = false;
                 int GebruikerNietGevondenId = 0;
                 //DTO.GebruikerIds.ForEach(GebruikerId =>
@@ -69,7 +69,15 @@ namespace SportApi.Controllers
                 //{
                 //    return BadRequest("Gebruiker met id " + GebruikerNietGevondenId + " kon niet worden gevonden!");
                 //}
-                Activiteit l = new Activiteit(DateTime.Parse(DTO.StartDatum), GebruikersVoorActiviteit, DateTime.Parse(DTO.EindDatum), DTO.Naam,DTO.Type,DTO.MaxAantalGebruikers);
+                if(DTO.GebruikersVoorActiviteit == null)
+                {
+                    foreach(int i in DTO.GebruikersVoorActiviteit)
+                    {
+                        gebruikers.Add(_gebruikerRepository.GetByApiId(i));
+                    }
+                }
+                Activiteit l = new Activiteit(DateTime.Parse(DTO.StartDatum), gebruikers, DateTime.Parse(DTO.EindDatum), DTO.Naam,DTO.Type,DTO.MaxAantalGebruikers);
+                l.GebruikersVoorActiviteit = DTO.GebruikersVoorActiviteit;
                 _activiteitRepository.Add(l);
                 _activiteitRepository.SaveChanges();
                 return l;
@@ -88,7 +96,7 @@ namespace SportApi.Controllers
             {
                 Activiteit l = _activiteitRepository.GetBy(id);
                 if (l == null) return BadRequest("Activiteit kon niet worden gevonden");
-                List<Gebruiker> GebruikersVoorActiviteit = new List<Gebruiker>();
+                List<Gebruiker> gebruikers = new List<Gebruiker>();
                 Boolean GebruikerNietGevonden = false;
                 int GebruikerNietGevondenId = 0;
                 //DTO.GebruikerIds.ForEach(GebruikerId =>
@@ -111,8 +119,17 @@ namespace SportApi.Controllers
                 //    return BadRequest("Gebruiker met id " + GebruikerNietGevondenId + " kon niet worden gevonden!");
                 //}
 
+                foreach(int i in DTO.GebruikersVoorActiviteit)
+                {
+                    Gebruiker gebruiker = _gebruikerRepository.GetBy(i);
+                    if (gebruiker == null)
+                        gebruiker = _gebruikerRepository.GetByApiId(i);
+                    gebruikers.Add(gebruiker);
+                }
+
                 l.MaxAantalGebruikers = DTO.MaxAantalGebruikers;
-                l.GebruikersVoorActiviteit = GebruikersVoorActiviteit;
+                l.GebruikersApi = gebruikers;
+                l.GebruikersVoorActiviteit = DTO.GebruikersVoorActiviteit;
                 l.StartDatum = DateTime.Parse(DTO.StartDatum.ToString());
                 l.EindDatum = DateTime.Parse(DTO.EindDatum.ToString());
                 l.Naam = DTO.Naam;
@@ -158,11 +175,15 @@ namespace SportApi.Controllers
 
                 case "mrt":
                     return "03";
+                case "mar":
+                    return "03";
 
                 case "apr":
                     return "04";
 
                 case "mei":
+                    return "05";
+                case "may":
                     return "05";
 
                 case "jun":
@@ -179,7 +200,8 @@ namespace SportApi.Controllers
 
                 case "okt":
                     return "10";
-
+                case "oct":
+                    return "10";
                 case "nov":
                     return "11";
 

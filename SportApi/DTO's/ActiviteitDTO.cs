@@ -24,7 +24,8 @@ namespace SportApi.DTO_s
         [Required]
         public DayOfWeek Weekdag { get; set; }
 
-        public List<int> GebruikerIds { get; set; }
+        public List<int> GebruikersVoorActiviteit { get; set; }
+
     }
 
    

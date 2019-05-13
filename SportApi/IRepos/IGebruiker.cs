@@ -25,6 +25,8 @@ namespace ProjectG05.Models.Domain
 
         Gebruiker GetBy(int id);
 
+        Gebruiker GetByApiId(int id);
+
         Gebruiker GetBy(string email);
 
         void SaveChanges();
