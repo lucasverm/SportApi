@@ -17,6 +17,8 @@ namespace ProjectG05.Data.Repositories
 
         private readonly DbSet<GebruikerSessie> _gebruikerSessies;
 
+        private readonly DbSet<Les> _lessen;
+
         #endregion Fields
 
         #region Constructors
@@ -26,6 +28,7 @@ namespace ProjectG05.Data.Repositories
             _context = context;
             _gebruikers = context.Gebruikers;
             _gebruikerSessies = context.GebruikerSessie;
+            _lessen = context.Lessen;
         }
 
         #endregion Constructors
@@ -40,16 +43,28 @@ namespace ProjectG05.Data.Repositories
         public int GeefScoreBord()
         {
             int puntenVanGebruiker = 0;
+            int aantalLessenVanGebruiker = 0;
             int puntenToevoegenBijAanwezigheid = 0;
             var gebruiker = (Lid) this.GetBy(1);
             if (gebruiker == null) return 0;
-            if (gebruiker.LessenVanLid.Count == 1)
-            {
-                puntenToevoegenBijAanwezigheid = 10;
-            }
-            else if (gebruiker.LessenVanLid.Count == 2)
+
+            _lessen.ToList().ForEach(t =>
+           {
+               t.LedenVoorLes.ForEach(i =>
+               {
+                   if (i.Id == 1)
+                   {
+                       aantalLessenVanGebruiker += 1;
+                   }
+               });
+           });
+            if(aantalLessenVanGebruiker == 2)
             {
                 puntenToevoegenBijAanwezigheid = 5;
+            }
+            else if (aantalLessenVanGebruiker == 1)
+            {
+                puntenToevoegenBijAanwezigheid = 10;
             }
             else
             {
