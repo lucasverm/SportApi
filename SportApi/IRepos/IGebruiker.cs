@@ -14,6 +14,7 @@ namespace ProjectG05.Models.Domain
 
         void Delete(Gebruiker gebruiker);
 
+        void Replace(Gebruiker gebruiker, int id);
         IEnumerable<Gebruiker> GetAll();
 
         IEnumerable<Gebruiker> GetAllLedenNietLeden();
@@ -23,6 +24,8 @@ namespace ProjectG05.Models.Domain
         IEnumerable<Gebruiker> GetAllLeden();
 
         Gebruiker GetBy(int id);
+
+        Gebruiker GetByApiId(int id);
 
         Gebruiker GetBy(string email);
 

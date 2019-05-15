@@ -4,6 +4,7 @@ namespace ProjectG05.Models.Domain
 {
     public class Beheerder : Gebruiker
     {
+        public int Graad { get; set; }
         #region Constructors
 
         public Beheerder()

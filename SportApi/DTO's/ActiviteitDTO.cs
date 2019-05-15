@@ -15,15 +15,17 @@ namespace SportApi.DTO_s
         public string Type { get; set; }
         [Required]
         public int MaxAantalGebruikers { get; set; }
+        public string StartDatum { get; set; }
+        public string EindDatum { get; set; }
+
+        public string Start { get; set; }
+        public string Eind { get; set; }
 
         [Required]
-        public DateTime StartDatum { get; set; }
+        public DayOfWeek Weekdag { get; set; }
 
-        [Required]
-        public DateTime EindDatum { get; set; }
+        public List<int> GebruikersVoorActiviteit { get; set; }
 
-        [Required]
-        public List<int> GebruikerIds { get; set; }
     }
 
    

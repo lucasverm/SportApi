@@ -59,11 +59,11 @@ namespace ProjectG05.Data
             {
                 await InitializeUsers();
                 ////leden die deelnemen aan sessie
-                ////les met 1 en 2 op dinsdag 12:30 - 14:30
-                TimeSpan duur = new TimeSpan(2, 0, 0);
-                TimeSpan startUur = new TimeSpan(13, 30, 0);
-                Les les = new Les(lesgevers[0], startUur, duur, DayOfWeek.Tuesday, leden.GetRange(0, 3));
-                this._lesRepository.Add(les);
+                //////les met 1 en 2 op dinsdag 12:30 - 14:30
+                //TimeSpan duur = new TimeSpan(2, 0, 0);
+                //TimeSpan startUur = new TimeSpan(13, 30, 0);
+                //Les les = new Les(lesgevers[0], startUur, duur, DayOfWeek.Tuesday, leden.GetRange(0, 1));
+                //this._lesRepository.Add(les);
 
 
                 List<Gebruiker> gebruikers = new List<Gebruiker>();
@@ -78,6 +78,8 @@ namespace ProjectG05.Data
                 //Les les3 = new Les(beheerders[0], startUur, duur, DayOfWeek.Thursday, leden.GetRange(1, 5));
                 //this._lesRepository.Add(les3);
 
+                Activiteit activiteit = new Activiteit(new DateTime(2019, 6, 1), new DateTime(2019, 6, 6), "JiuJitsu Beerpong", "type murde", 8);
+                _dbContext.Activiteiten.Add(activiteit);
                 _dbContext.SaveChanges();
             }
         }
@@ -85,31 +87,31 @@ namespace ProjectG05.Data
         private async Task InitializeUsers()
         {
             //beheerder
-            string eMailAddress = "alain.lescur@jiu-jitsu-gent.be";
-            IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
-            await _userManager.CreateAsync(user, "Test123@!");
-            await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "beheerder"));
-            Beheerder beheerder = new Beheerder("Alain", "Lescur", "nederstraat", "5", "B", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1992, 5, 24), "M");
-            _dbContext.Gebruikers.Add(beheerder);
-            beheerders.Add(beheerder);
-
-            //eMailAddress = "beheerder2@hogent.be";
-            //user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
+            //string eMailAddress = "alain.lescur@jiu-jitsu-gent.be";
+            //IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
             //await _userManager.CreateAsync(user, "Test123@!");
             //await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "beheerder"));
-            //beheerder = new Beheerder("Beheerder2", "beheerder2", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "M");
-            //_dbContext.Gebruikers.Add(beheerder);
-            //beheerders.Add(beheerder);
-            //lesgevers.Add(beheerder);
+            //Lesgever lesgever = new Lesgever("Alain", "Lescur", "nederstraat", "5", "B", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1992, 5, 24), "M");
+            //_dbContext.Gebruikers.Add(lesgever);
+            //lesgevers.Add(lesgever);
 
-            ////lesgever
-            eMailAddress = "lesgever2@hogent.be";
-            user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
-            await _userManager.CreateAsync(user, "Test123@!");
-            await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "lesgever"));
-            Lesgever lesgever = new Lesgever("Tom", "De Bakker", "nederstraat", "5", "B", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "M");
-            _dbContext.Gebruikers.Add(lesgever);
-            lesgevers.Add(lesgever);
+            ////eMailAddress = "beheerder2@hogent.be";
+            ////user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
+            ////await _userManager.CreateAsync(user, "Test123@!");
+            ////await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "beheerder"));
+            ////beheerder = new Beheerder("Beheerder2", "beheerder2", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "M");
+            ////_dbContext.Gebruikers.Add(beheerder);
+            ////beheerders.Add(beheerder);
+            ////lesgevers.Add(beheerder);
+
+            //////lesgever
+            //eMailAddress = "lesgever2@hogent.be";
+            //user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
+            //await _userManager.CreateAsync(user, "Test123@!");
+            //await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "lesgever"));
+            //Lesgever lesgever = new Lesgever("Tom", "De Bakker", "nederstraat", "5", "B", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "M");
+            //_dbContext.Gebruikers.Add(lesgever);
+            //lesgevers.Add(lesgever);
 
             //eMailAddress = "tom@jiu-jitsu-gent.be";
             //user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
@@ -128,18 +130,18 @@ namespace ProjectG05.Data
             //Lid lid = new Lid("Wouter", "Opsommer", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 50);
             //_dbContext.Gebruikers.Add(lid);
             //leden.Add(lid);
-            Lid lid1 = new Lid("Lucas", "Vermeulen", "nederstraat", "5", "B", "9000", "Gent", "0495192770", "lid2@Lid2.com", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 2);
-            _dbContext.Gebruikers.Add(lid1);
-            leden.Add(lid1);
-            Lid lid2 = new Lid("Bert", "Van Eeckhoutte", "nederstraat", "5", "B", "9000", "Gent", "0495192770", "lid3@Lid3.com", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
-            _dbContext.Gebruikers.Add(lid2);
-            leden.Add(lid2);
-            Lid lid3 = new Lid("Elias", "Gryp", "nederstraat", "5", "B", "9000", "Gent", "0495192770", "elias.gryp@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
-            _dbContext.Gebruikers.Add(lid3);
-            leden.Add(lid3);
-            Lid lid = new Lid("Adam", "Maertens", "nederstraat", "5", "B", "9000", "Gent", "0495192770", "adam.maertens@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
-            _dbContext.Gebruikers.Add(lid);
-            leden.Add(lid);
+            //Lid lid = new Lid("Lucas", "Vermeulen", "nederstraat", "5", "B", "9000", "Gent", "0495192770", "lid2@Lid2.com", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 2);
+            //_dbContext.Gebruikers.Add(lid);
+            //leden.Add(lid);
+            //lid = new Lid("Bert", "Van Eeckhoutte", "nederstraat", "5", "B", "9000", "Gent", "0495192770", "lid3@Lid3.com", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
+            //_dbContext.Gebruikers.Add(lid);
+            //leden.Add(lid);
+            //Lid lid = new Lid("Elias", "Gryp", "nederstraat", "5", "B", "9000", "Gent", "0495192770", "elias.gryp@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
+            //_dbContext.Gebruikers.Add(lid);
+            //leden.Add(lid);
+            //lid = new Lid("Adam", "Maertens", "nederstraat", "5", "B", "9000", "Gent", "0495192770", "adam.maertens@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
+            //_dbContext.Gebruikers.Add(lid);
+            //leden.Add(lid);
             //Lid lid4 = new Lid("Jan", "Muysons", "nederstraat", "5", "9000", "Gent", "0495192770", "Jan.Muysons@student.hogent.be", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 3);
             //_dbContext.Gebruikers.Add(lid4);
             //leden.Add(lid4);
@@ -178,14 +180,14 @@ namespace ProjectG05.Data
             //leden.Add(lid);
 
             ////nietLid
-            eMailAddress = "Nietlid@hogent.be";
-            user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
-            user.SecurityStamp = Guid.NewGuid().ToString();
-            await _userManager.CreateAsync(user, "Test123@!");
-            await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "nietLid"));
-            NietLid nietLid = new NietLid("Lucas", "Vermeulen", "nederstraat", "5", "B", "9000", "Gent", "0499764654", eMailAddress, new DateTime(1998, 5, 24), "M");
-            _dbContext.Gebruikers.Add(nietLid);
-            //nietLid = new NietLid("Thomas", "Schuddinck", "nederstraat", "5", "9000", "Gent", "0499764654", eMailAddress, new DateTime(1998, 5, 24), "M");
+            //eMailAddress = "Nietlid@hogent.be";
+            //user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
+            //user.SecurityStamp = Guid.NewGuid().ToString();
+            //await _userManager.CreateAsync(user, "Test123@!");
+            //await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "nietLid"));
+            //NietLid nietLid = new NietLid("Lucas", "Vermeulen", "nederstraat", "5", "B", "9000", "Gent", "0499764654", eMailAddress, new DateTime(1998, 5, 24), "M");
+            //_dbContext.Gebruikers.Add(nietLid);
+            ////nietLid = new NietLid("Thomas", "Schuddinck", "nederstraat", "5", "9000", "Gent", "0499764654", eMailAddress, new DateTime(1998, 5, 24), "M");
             //_dbContext.Gebruikers.Add(nietLid);
             //nietLid = new NietLid("Keelan", "Savat", "nederstraat", "5", "9000", "Gent", "0499764654", eMailAddress, new DateTime(1998, 5, 24), "M");
             //_dbContext.Gebruikers.Add(nietLid);

@@ -41,6 +41,16 @@ namespace ProjectG05.Data.Repositories
         public void Delete(Gebruiker gebruiker)
         {
             _gebruikers.Remove(gebruiker);
+            Gebruiker gebruik = GetBy(gebruiker.Id);
+            _gebruikers.Remove(gebruiker);
+            SaveChanges();
+
+        }
+
+        public void Replace(Gebruiker gebruiker, int id)
+        {
+            Gebruiker geb = GetBy(id);
+            geb = gebruiker;
         }
 
         public IEnumerable<Gebruiker> GetAll()
@@ -70,7 +80,14 @@ namespace ProjectG05.Data.Repositories
 
         public Gebruiker GetBy(int id)
         {
-            return _gebruikers.SingleOrDefault(g => g.Id == id);
+            Gebruiker gebruiker = _gebruikers.SingleOrDefault(g => g.Id == id);
+            return gebruiker;
+        }
+
+        public Gebruiker GetByApiId(int id)
+        {
+            Gebruiker gebruiker = _gebruikers.SingleOrDefault(g => g.IdApi == id);
+            return gebruiker;
         }
 
         public Gebruiker GetBy(string email)

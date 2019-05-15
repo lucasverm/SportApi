@@ -10,6 +10,8 @@ namespace ProjectG05.Models.Domain
 
         void Delete(Gebruiker gebruiker);
 
+        void Replace(Gebruiker gebruiker);
+
         IEnumerable<Gebruiker> GetAll();
 
         IEnumerable<Gebruiker> GetAllLedenNietLeden();
