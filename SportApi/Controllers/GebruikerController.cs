@@ -56,7 +56,7 @@ namespace SportApi.Controllers
         }
 
         // UPDATE
-        [HttpPut("{id}")]
+        /*[HttpPut("{id}")]
         public ActionResult<Gebruiker> Update(int id)
         {
             try
@@ -72,6 +72,6 @@ namespace SportApi.Controllers
                 return BadRequest(e.Message);
             }
 
-        }
+        }*/
     }
 }
