@@ -50,11 +50,11 @@ namespace SportApi.Controllers
                     DTO.Categorie, DTO.Afbeeldingen, DTO.Videos, DTO.Commentaren);
                 if (DTO.Afbeeldingen == null)
                 {
-                    DTO.Afbeeldingen = new List<Afbeelding>();
+                    DTO.Afbeeldingen = new List<string>();
                 }
                 if (DTO.Videos == null)
                 {
-                    DTO.Videos = new List<Video>();
+                    DTO.Videos = new List<string>();
                 }
                 if (DTO.Commentaren == null)
                 {

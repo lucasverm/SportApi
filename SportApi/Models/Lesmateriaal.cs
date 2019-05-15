@@ -16,9 +16,9 @@ namespace ProjectG05.Models.Domain
 
         public string OefeningUitlegTekst { get; set; }
 
-        public List<Afbeelding> Afbeeldingen { get; set; }
+        public List<string> Afbeeldingen { get; set; }
 
-        public List<Video> Videos { get; set; }
+        public List<string> Videos { get; set; }
 
         public List<Raadpleging> Raadplegingen { get; set; }
 
@@ -44,13 +44,13 @@ namespace ProjectG05.Models.Domain
             Categorie = categorie;
         }
 
-        public Lesmateriaal(int graad, string naam, string oefeningUitlegTekst, string categorie, List<Afbeelding> afbeeldingen, List<Video> videos) : this(graad, naam, oefeningUitlegTekst, categorie)
+        public Lesmateriaal(int graad, string naam, string oefeningUitlegTekst, string categorie, List<string> afbeeldingen, List<string> videos) : this(graad, naam, oefeningUitlegTekst, categorie)
         {
             Afbeeldingen = afbeeldingen;
             Videos = videos;
         }
 
-        public Lesmateriaal(int graad, string naam, string oefeningUitlegTekst, string categorie, List<Afbeelding> afbeeldingen, List<Video> videos, List<Commentaar> commentaren) : this(graad, naam, oefeningUitlegTekst, categorie, afbeeldingen, videos)
+        public Lesmateriaal(int graad, string naam, string oefeningUitlegTekst, string categorie, List<string> afbeeldingen, List<string> videos, List<Commentaar> commentaren) : this(graad, naam, oefeningUitlegTekst, categorie, afbeeldingen, videos)
         {
             Commentaren = commentaren;
         }
