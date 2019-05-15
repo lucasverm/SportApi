@@ -16,6 +16,8 @@ namespace ProjectG05.Data.Mappers
 
             builder.HasMany(t => t.Aanwezigen).WithOne();
             builder.Ignore(t => t.Aanwezigen);
+
+
         }
 
         #endregion Methods
