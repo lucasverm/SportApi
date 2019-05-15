@@ -6,7 +6,7 @@ namespace ProjectG05.Models.Domain
     {
         #region Properties
 
-        public DateTime UitschrijvingsDatum { get; set; }
+        //public DateTime UitschrijvingsDatum { get; set; }
         public int Graad { get; set; }
 
         #endregion Properties
@@ -15,12 +15,14 @@ namespace ProjectG05.Models.Domain
 
         public OudLid()
         {
-            UitschrijvingsDatum = DateTime.Today;
         }
 
-        public OudLid(string voornaam, string naam, string straatnaam, string huisnummer, string busnummer, string postcode, string stad, string telefoonnummer, string email, DateTime geboortedatum, string geslacht, int graad = 1) : base(voornaam, naam, straatnaam, huisnummer, busnummer, postcode, stad, telefoonnummer, email, geboortedatum, geslacht, "Oudlid")
+        public OudLid(string voornaam, string naam, string straatnaam, string huisnummer, string busnummer, string postcode, string stad, string telefoonnummer, string email, DateTime geboortedatum, string geslacht) : base(voornaam, naam, straatnaam, huisnummer, busnummer, postcode, stad, telefoonnummer, email, geboortedatum, geslacht, "OudLid")
         {
-            UitschrijvingsDatum = DateTime.Today;
+        }
+
+        public OudLid(string voornaam, string naam, string straatnaam, string huisnummer, string postcode, string stad, string telefoonnummer, string email, DateTime geboortedatum, string geslacht) : base(voornaam, naam, straatnaam, huisnummer, postcode, stad, telefoonnummer, email, geboortedatum, geslacht, "OudLid")
+        {
         }
 
         #endregion Constructors

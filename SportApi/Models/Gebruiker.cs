@@ -24,6 +24,8 @@ namespace ProjectG05.Models.Domain
 
         #region Properties
 
+    //    public int Graad { get; set; }
+
         public String Email { get; set; }
 
         public string Geslacht { get; set; }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SportApi.Controllers
 {
@@ -127,7 +128,7 @@ namespace SportApi.Controllers
 
         // PUT: api/Gebruiker/5
         [HttpPut("{id}")]
-        public ActionResult<Gebruiker> Put(int id, LidDTO dto)
+        public async System.Threading.Tasks.Task<ActionResult<Gebruiker>> Put(int id, LidDTO dto)
         {
             try
             {
@@ -146,7 +147,9 @@ namespace SportApi.Controllers
                     {
                         NietLid nietLid = (NietLid)_gebruikerRepository.GetBy(id);
                         if (nietLid == null) throw new Exception("Gebruiker kon niet worden gevonden!");
+                        nietLid.Graad = dto.Graad;
                         nietLid = (NietLid)initialiseerAttributenGebruiker(nietLid, dto);
+
                         _gebruikerRepository.SaveChanges();
                         return nietLid;
                     }
@@ -155,6 +158,7 @@ namespace SportApi.Controllers
                         Beheerder beheerder = (Beheerder)_gebruikerRepository.GetBy(id);
                         if (beheerder == null) throw new Exception("Gebruiker kon niet worden gevonden!");
                         beheerder = (Beheerder)initialiseerAttributenGebruiker(beheerder, dto);
+                        beheerder.Graad = dto.Graad;
                         _gebruikerRepository.SaveChanges();
                         return beheerder;
                     }
@@ -163,14 +167,16 @@ namespace SportApi.Controllers
                         Lesgever lesgever = (Lesgever)_gebruikerRepository.GetBy(id);
                         if (lesgever == null) throw new Exception("Gebruiker kon niet worden gevonden!");
                         lesgever = (Lesgever)initialiseerAttributenGebruiker(lesgever, dto);
+                        lesgever.Graad = dto.Graad;
                         _gebruikerRepository.SaveChanges();
                         return lesgever;
                     }
                     if (dto.Type.ToLower().Equals("oudlid"))
                     {
                         OudLid oudLid = (OudLid)_gebruikerRepository.GetBy(id);
-                        if (oudLid == null) throw new Exception("Gebruiker kon niet worden gevonden!");
+                   if (oudLid == null) throw new Exception("Gebruiker kon niet worden gevonden!");
                         oudLid = (OudLid)initialiseerAttributenGebruiker(oudLid, dto);
+                        oudLid.Graad = dto.Graad;
                         _gebruikerRepository.SaveChanges();
                         return oudLid;
                     }
