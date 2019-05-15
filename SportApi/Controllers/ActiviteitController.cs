@@ -76,7 +76,7 @@ namespace SportApi.Controllers
                         gebruikers.Add(_gebruikerRepository.GetByApiId(i));
                     }
                 }
-                Activiteit l = new Activiteit(DateTime.Parse(DTO.StartDatum), gebruikers, DateTime.Parse(DTO.EindDatum), DTO.Naam,DTO.Type,DTO.MaxAantalGebruikers);
+                Activiteit l = new Activiteit(DateTime.Parse(DTO.StartDatum), gebruikers, DateTime.Parse(DTO.EindDatum), DTO.Naam, DTO.Type, DTO.MaxAantalGebruikers, DTO.Straat, DTO.Huisnr, DTO.Postcode, DTO.Stad, DTO.Startuur, DTO.Email, DTO.Telefoonnummer);
                 l.GebruikersVoorActiviteit = DTO.GebruikersVoorActiviteit;
                 _activiteitRepository.Add(l);
                 _activiteitRepository.SaveChanges();

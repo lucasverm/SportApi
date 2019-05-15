@@ -26,6 +26,16 @@ namespace SportApi.DTO_s
 
         public List<int> GebruikersVoorActiviteit { get; set; }
 
+        public String Straat { get; set; }
+
+        public String Huisnr { get; set; }
+        public String Postcode { get; set; }
+        public String Stad { get; set; }
+        public String Startuur { get; set; }
+
+        public String Email { get; set; }
+
+        public String Telefoonnummer { get; set; }
     }
 
    
