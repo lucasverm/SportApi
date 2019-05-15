@@ -36,6 +36,8 @@ namespace ProjectG05.Data
 
         public DbSet<Video> Videos { get; set; }
 
+        public DbSet<OudLid> OudLeden { get; set; }
+
         #endregion Properties
 
         #region Constructors
@@ -68,6 +70,7 @@ namespace ProjectG05.Data
             builder.ApplyConfiguration(new CommentaarConfiguration());
             builder.ApplyConfiguration(new AfbeeldingConfiguration());
             builder.ApplyConfiguration(new VideoConfiguration());
+            builder.ApplyConfiguration(new OudLidConfiguration());
         }
 
         #endregion Methods

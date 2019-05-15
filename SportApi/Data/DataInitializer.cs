@@ -86,14 +86,14 @@ namespace ProjectG05.Data
             //_dbContext.Gebruikers.Add(lesgever);
             //lesgevers.Add(lesgever);
 
-            ////eMailAddress = "beheerder2@hogent.be";
-            ////user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
-            ////await _userManager.CreateAsync(user, "Test123@!");
-            ////await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "beheerder"));
-            ////beheerder = new Beheerder("Beheerder2", "beheerder2", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "M");
-            ////_dbContext.Gebruikers.Add(beheerder);
-            ////beheerders.Add(beheerder);
-            ////lesgevers.Add(beheerder);
+            //eMailAddress = "beheerder2@hogent.be";
+            //user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
+            //await _userManager.CreateAsync(user, "Test123@!");
+            //await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "beheerder"));
+            //Beheerder beheerder = new Beheerder("Beheerder2", "beheerder2", "nederstraat", "5","0" , "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "M");
+            //_dbContext.Gebruikers.Add(beheerder);
+            //beheerders.Add(beheerder);
+            //lesgevers.Add(beheerder);
 
             //////lesgever
             //eMailAddress = "lesgever2@hogent.be";
