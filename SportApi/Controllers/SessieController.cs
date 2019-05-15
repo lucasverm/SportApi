@@ -50,17 +50,29 @@ namespace SportApi.Controllers
                 if (lesgever == null)
                     return BadRequest("De lesgever bestaat niet");
                 List<Lid> ledenVoorLes = new List<Lid>();
-                if(DTO.Leden == null)
+                List<Gebruiker> Aanwezigen = new List<Gebruiker>();
+                if (DTO.LedenVoorLes == null)
                 {
-                    DTO.Leden = new List<int>();
+                    DTO.LedenVoorLes = new List<int>();
                 }
-                DTO.Leden.ForEach(t =>
+                DTO.LedenVoorLes.ForEach(t =>
                 {
                     var gebruiker = (Lid) _gebruikerRepository.GetBy(t);
                     ledenVoorLes.Add(gebruiker);
                 });
+                if (DTO.Aanwezigen == null)
+                {
+                    DTO.Aanwezigen = new List<int>();
+                }
+                DTO.Aanwezigen.ForEach(t =>
+                {
+                    var gebruiker = (Gebruiker)_gebruikerRepository.GetBy(t);
+                    Aanwezigen.Add(gebruiker);
+                });
                 Sessie sessie = new Sessie(lesgever, DTO.Datum, DTO.Duur, DTO.StartUur, DTO.Weekdag, ledenVoorLes);
+                sessie.Aanwezigen = Aanwezigen;
                 _sessieRepository.Add(sessie);
+                _sessieRepository.SaveChanges();
                 return CreatedAtAction(nameof(GetBy), new { id = sessie.Id }, sessie);
             }
             catch (Exception e)
@@ -87,7 +99,7 @@ namespace SportApi.Controllers
                 sessie.StartUur = DTO.StartUur;
                 sessie.Weekdag = DTO.Weekdag;
                 List<Lid> ledenVoorLes = new List<Lid>();
-                DTO.Leden.ForEach(t =>
+                DTO.LedenVoorLes.ForEach(t =>
                 {
                     var gebruiker = (Lid)_gebruikerRepository.GetBy(t);
                     ledenVoorLes.Add(gebruiker);

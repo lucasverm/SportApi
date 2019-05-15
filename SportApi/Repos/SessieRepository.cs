@@ -2,6 +2,7 @@
 using ProjectG05.Models.Domain;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace ProjectG05.Data.Repositories
