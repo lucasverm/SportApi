@@ -53,10 +53,10 @@ namespace ProjectG05.Data
 
         public async Task InitializeData()
         {
-           // _dbContext.Database.EnsureDeleted();
+            _dbContext.Database.EnsureDeleted();
 
-           // if (_dbContext.Database.EnsureCreated())
-            //{
+            if (_dbContext.Database.EnsureCreated())
+            {
                 await InitializeUsers();
                 ////leden die deelnemen aan sessie
                 //////les met 1 en 2 op dinsdag 12:30 - 14:30
@@ -66,10 +66,7 @@ namespace ProjectG05.Data
                 //this._lesRepository.Add(les);
 
 
-                List<Gebruiker> gebruikers = new List<Gebruiker>();
-                gebruikers.Add(this.leden.First());
-                Activiteit a = new Activiteit(new DateTime(2019, 06, 11), gebruikers, new DateTime(2019, 06, 13), "Weekendje Ardennen", "ontspanning", 30);
-                _activiteitenRepository.Add(a);
+
                 //////les met 2 en 3 op donderdag 12:30 - 14:30
                 //Les les2 = new Les(lesgevers[1], startUur, duur, DayOfWeek.Thursday, leden.GetRange(1, 5));
                 //this._lesRepository.Add(les2);
@@ -81,7 +78,8 @@ namespace ProjectG05.Data
                 //Activiteit activiteit = new Activiteit(new DateTime(2019, 6, 1), new DateTime(2019, 6, 6), "JiuJitsu Beerpong", "type murde", 8);
                 //_dbContext.Activiteiten.Add(activiteit);
                 //_dbContext.SaveChanges();
-            //}
+                //}
+            }
         }
 
         private async Task InitializeUsers()

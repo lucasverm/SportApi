@@ -49,11 +49,17 @@ namespace SportApi.Controllers
                 Lesgever lesgever = (Lesgever)_gebruikerRepository.GetBy(DTO.LesgeverId);
                 if (lesgever == null)
                     return BadRequest("De lesgever bestaat niet");
+                List<Lid> ledenVoorLes = new List<Lid>();
                 if(DTO.Leden == null)
                 {
-                    DTO.Leden = new List<Lid>();
+                    DTO.Leden = new List<int>();
                 }
-                Sessie sessie = new Sessie(lesgever, DTO.Datum, DTO.Duur, DTO.StartUur, DTO.Weekdag, DTO.Leden);
+                DTO.Leden.ForEach(t =>
+                {
+                    var gebruiker = (Lid) _gebruikerRepository.GetBy(t);
+                    ledenVoorLes.Add(gebruiker);
+                });
+                Sessie sessie = new Sessie(lesgever, DTO.Datum, DTO.Duur, DTO.StartUur, DTO.Weekdag, ledenVoorLes);
                 _sessieRepository.Add(sessie);
                 return CreatedAtAction(nameof(GetBy), new { id = sessie.Id }, sessie);
             }
@@ -80,7 +86,13 @@ namespace SportApi.Controllers
                 sessie.Duur = DTO.Duur;
                 sessie.StartUur = DTO.StartUur;
                 sessie.Weekdag = DTO.Weekdag;
-                sessie.LedenVoorLes = DTO.Leden;
+                List<Lid> ledenVoorLes = new List<Lid>();
+                DTO.Leden.ForEach(t =>
+                {
+                    var gebruiker = (Lid)_gebruikerRepository.GetBy(t);
+                    ledenVoorLes.Add(gebruiker);
+                });
+                sessie.LedenVoorLes = ledenVoorLes;
                 _sessieRepository.Update(sessie);
                 return sessie;
             }

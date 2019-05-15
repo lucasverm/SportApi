@@ -26,6 +26,7 @@ namespace ProjectG05.Data.Repositories
                 sessie.Aanwezigen.ForEach(a =>
                 {
                     _gebruikerSessies.Add(new GebruikerSessie(sessie, a));
+                    SaveChanges();
                 });
             }
 

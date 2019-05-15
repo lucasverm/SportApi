@@ -25,6 +25,6 @@ namespace SportApi.DTO_s
         public DayOfWeek Weekdag { get; set; }
 
         [Required]
-        public List<Lid> Leden { get; set; }
+        public List<int> Leden { get; set; }
     }
 }
