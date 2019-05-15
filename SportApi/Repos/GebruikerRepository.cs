@@ -2,6 +2,7 @@
 using ProjectG05.Models.Domain;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace ProjectG05.Data.Repositories
@@ -14,6 +15,8 @@ namespace ProjectG05.Data.Repositories
 
         private readonly DbSet<Gebruiker> _gebruikers;
 
+        private readonly DbSet<GebruikerSessie> _gebruikerSessies;
+
         #endregion Fields
 
         #region Constructors
@@ -22,6 +25,7 @@ namespace ProjectG05.Data.Repositories
         {
             _context = context;
             _gebruikers = context.Gebruikers;
+            _gebruikerSessies = context.GebruikerSessie;
         }
 
         #endregion Constructors
@@ -33,9 +37,45 @@ namespace ProjectG05.Data.Repositories
             _gebruikers.Add(gebruiker);
         }
 
+        public int GeefScoreBord()
+        {
+            int puntenVanGebruiker = 0;
+            int puntenToevoegenBijAanwezigheid = 0;
+            var gebruiker = (Lid) this.GetBy(1);
+            if (gebruiker == null) return 0;
+            if (gebruiker.LessenVanLid.Count == 1)
+            {
+                puntenToevoegenBijAanwezigheid = 10;
+            }
+            else if (gebruiker.LessenVanLid.Count == 2)
+            {
+                puntenToevoegenBijAanwezigheid = 5;
+            }
+            else
+            {
+                Debug.WriteLine("----------------------------------------");
+                Debug.WriteLine("De gebruiker bezit geen 1/2 lessen!!");
+            }
+            _gebruikerSessies.ToList().ForEach(t =>
+            {
+                if (t.Gebruiker.Id == gebruiker.Id)
+                {
+                    puntenVanGebruiker += puntenToevoegenBijAanwezigheid;
+                }
+            });
+
+            Debug.WriteLine("---------------------------");
+            Debug.WriteLine(gebruiker.Naam + " heeft " + puntenVanGebruiker);
+            return puntenVanGebruiker;
+
+
+        }
+
         public void Update(Gebruiker gebruiker)
         {
+
             _gebruikers.Update(gebruiker);
+
         }
 
         public void Delete(Gebruiker gebruiker)

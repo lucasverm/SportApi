@@ -10,6 +10,8 @@ namespace ProjectG05.Models.Domain
 
         IEnumerable<Gebruiker> GetAllBeheerders();
 
+        int GeefScoreBord();
+
         void Add(Gebruiker gebruiker);
 
         void Delete(Gebruiker gebruiker);

@@ -28,6 +28,13 @@ namespace SportApi.Controllers
             return _gebruikerRepository.GetAll();
         }
 
+        [HttpGet("geefScore")]
+        public int GeefScoreBord()
+        {
+           return _gebruikerRepository.GeefScoreBord();
+        
+        }
+
         // GET: api/Gebruiker/5
         [HttpGet("{id}")]
         public ActionResult<Gebruiker> GetBy(int id)
