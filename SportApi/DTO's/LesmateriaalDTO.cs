@@ -18,9 +18,9 @@ namespace SportApi.DTO_s
 
         public string Categorie { get; set; }
 
-        public List<string> Afbeeldingen { get; set; }
+        public List<Afbeelding> Afbeeldingen { get; set; }
 
-        public List<string> Videos { get; set; }
+        public List<Video> Videos { get; set; }
 
         public List<Commentaar> Commentaren { get; set; }
 
