@@ -10,7 +10,7 @@ namespace ProjectG05.Data.Mappers
 
         public void Configure(EntityTypeBuilder<Sessie> builder)
         {
-            builder.ToTable("Sessies").Ignore(s => s.Id);
+            builder.ToTable("Sessies");
             builder.HasKey(t => t.Id);
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
 

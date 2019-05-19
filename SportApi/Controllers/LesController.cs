@@ -75,6 +75,7 @@ namespace SportApi.Controllers
                 {
                     return BadRequest("Lid met id " + LidNietGevondenId + " kon niet worden gevonden!");
                 }
+
                 Les l = new Les(lesgever, DTO.StartUur, DTO.Duur, DTO.Weekdag, LedenVoorLes);
                 _lesRepository.Add(l);
                 _lesRepository.SaveChanges();

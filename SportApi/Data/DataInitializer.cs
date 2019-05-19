@@ -132,19 +132,20 @@ namespace ProjectG05.Data
             await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "lid"));
             Lid lid = new Lid("Wouter", "Opsommer", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 50);
             _dbContext.Gebruikers.Add(lid);
-            leden.Add(lid);
             _dbContext.SaveChanges();
+
             List<Lid> LedenVoorLes = new List<Lid>();
             LedenVoorLes.Add(lid);
             Les les = new Les(lesgever, new TimeSpan(2, 0, 0), new TimeSpan(2, 0, 0), DateTime.Now.DayOfWeek, LedenVoorLes);
             _dbContext.Lessen.Add(les);
-
-            Sessie s = new Sessie();
-            s.StartSessieVanLes(les);
-
-            s.Aanwezigen.Add(lid);
-            _dbContext.Add(s);
             _dbContext.SaveChanges();
+
+            //Sessie s = new Sessie();
+            //s.StartSessieVanLes(les);
+
+            //s.Aanwezigen.Add(lid);
+            //_dbContext.Sessies.Add(s);
+            //_dbContext.SaveChanges();
 
             //Lid lid = new Lid("Lucas", "Vermeulen", "nederstraat", "5", "B", "9000", "Gent", "0495192770", "lid2@Lid2.com", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 2);
             //_dbContext.Gebruikers.Add(lid);
