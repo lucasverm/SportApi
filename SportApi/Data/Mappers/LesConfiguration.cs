@@ -14,8 +14,8 @@ namespace ProjectG05.Data.Mappers
             builder.HasKey(t => t.Id);
             builder.Property(t => t.Id).ValueGeneratedOnAdd();
 
-            builder.HasMany(t => t.LedenVoorLes).WithOne();
-            builder.Ignore(t => t.LedenVoorLes);
+            builder.HasMany(t => t.LedenVoorLes).WithOne().HasForeignKey(t => t.Id);
+            //builder.Ignore(t => t.LedenVoorLes);
         }
 
         #endregion Methods
