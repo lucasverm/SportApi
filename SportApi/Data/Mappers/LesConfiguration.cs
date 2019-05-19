@@ -10,6 +10,7 @@ namespace ProjectG05.Data.Mappers
 
         public void Configure(EntityTypeBuilder<Les> builder)
         {
+            builder.Ignore(t => t.Id);
             builder.ToTable("Lessen");
             builder.HasKey(t => t.Id);
             builder.Property(t => t.Id).ValueGeneratedOnAdd();

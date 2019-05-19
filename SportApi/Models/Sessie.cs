@@ -33,11 +33,14 @@ namespace ProjectG05.Models.Domain
 
         public Sessie()
         {
+            LedenVoorLes = new List<Lid>();
+            Aanwezigen = new List<Gebruiker>();
         }
 
         public Sessie(Lesgever leraar, DateTime datum, TimeSpan duur, TimeSpan startUur, DayOfWeek weekdag, List<Lid> leden)
         {
             Lesgever = leraar;
+            LedenVoorLes = new List<Lid>();
             Datum = datum;
             StartUur = startUur;
             Weekdag = weekdag;
