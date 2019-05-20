@@ -113,17 +113,13 @@ namespace SportApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Lid> GetBy(int id)
+        public ActionResult<Gebruiker> GetBy(int id)
         {
             Gebruiker g = _gebruikerRepository.GetBy(id);
             if (g == null) return NotFound("Het Lid kon niet worden gevonden");
-            if (g.Type != "Lid")
-            {
-                return BadRequest("De gevraagde gebruiker is niet van het type lid");
-            }
-            Lid l = (Lid)_gebruikerRepository.GetBy(id);
+     //       Lid l = (Lid)_gebruikerRepository.GetBy(id);
 
-            return l;
+            return g;
         }
 
         // PUT: api/Gebruiker/5
