@@ -24,7 +24,7 @@ namespace ProjectG05.Models.Domain
 
         #region Properties
 
-    //    public int Graad { get; set; }
+        public int Graad { get; set; }
 
         public String Email { get; set; }
 
@@ -64,7 +64,7 @@ namespace ProjectG05.Models.Domain
         {
         }
 
-        public Gebruiker(string voornaam, string naam, string straatnaam, string huisnummer, string busnummer, string postcode, string stad, string telefoonnummer, string email, DateTime geboortedatum, string geslacht, string type)
+        public Gebruiker(string voornaam, string naam, string straatnaam, string huisnummer, string busnummer, string postcode, string stad, string telefoonnummer, string email, DateTime geboortedatum, string geslacht, string type, int graad=1)
         {
             Voornaam = voornaam;
             Naam = naam;
@@ -79,9 +79,11 @@ namespace ProjectG05.Models.Domain
             Geslacht = geslacht;
             Type = type;
             Busnummer = busnummer;
+
+            Graad = graad;
         }
 
-        public Gebruiker(string voornaam, string naam, string straatnaam, string huisnummer, string postcode, string stad, string telefoonnummer, string email, DateTime geboortedatum, string geslacht, string type)
+        public Gebruiker(string voornaam, string naam, string straatnaam, string huisnummer, string postcode, string stad, string telefoonnummer, string email, DateTime geboortedatum, string geslacht, string type, int graad = 1)
         {
             Voornaam = voornaam;
             Naam = naam;
@@ -95,6 +97,7 @@ namespace ProjectG05.Models.Domain
             GeboorteDatum = geboortedatum;
             Geslacht = geslacht;
             Type = type;
+            Graad = graad;
         }
 
         public override string ToString()

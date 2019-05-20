@@ -40,7 +40,7 @@ namespace SportApi.Controllers
             try
             {
                 Gebruiker g = new Beheerder(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
-                dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
+                dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht, 1);
 
                 string eMailAddress = dto.Email;
                 IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };

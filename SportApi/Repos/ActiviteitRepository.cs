@@ -95,11 +95,13 @@ namespace SportApi.Repos
                 _gebruikerActiviteit.Where(a => a.Activiteit == act).Include(i => i.Activiteit).Include(t => t.Gebruiker).ToList().ForEach(t =>
                 {
                     //     act.GebruikersVoorActiviteit = new List<int>();
-                    if (t.Gebruiker.IdApi != 0) {
+                    if (t.Gebruiker.IdApi != 0)
+                    {
                         //    act.GebruikersVoorActiviteit.Add(t.Gebruiker.IdApi);
                         gebruikersAct.Add(t.Gebruiker.IdApi);
                     }
-                    else {
+                    else
+                    {
                         gebruikersAct.Add(t.Gebruiker.Id);
                         //     act.GebruikersVoorActiviteit.Add(t.Gebruiker.Id);
                     }
@@ -107,18 +109,18 @@ namespace SportApi.Repos
                     //act.GebruikersApi.Add(t.Gebruiker);
                 });
             });
-                return alleActiviteitsen;
+            return alleActiviteitsen;
         }
 
         public Activiteit GetBy(int id)
         {
             Activiteit act = _activiteiten.SingleOrDefault(s => s.Id == id);
-
+            if (act != null)
+            {
+                act.GebruikersApi = new List<Gebruiker>();
+                _gebruikerActiviteit.Where(a => a.Activiteit == act).Include(i => i.Activiteit).Include(t => t.Gebruiker).ToList().ForEach(t =>
                 {
-                    act.GebruikersApi = new List<Gebruiker>();
-                    _gebruikerActiviteit.Where(a => a.Activiteit == act).Include(i => i.Activiteit).Include(t => t.Gebruiker).ToList().ForEach(t =>
-                    {
-                        act.GebruikersVoorActiviteit = new List<int>();
+                    act.GebruikersVoorActiviteit = new List<int>();
                         //Gebruiker gebruiker = new Gebruiker(t.Gebruiker.Voornaam, t.Gebruiker.Naam, t.Gebruiker.Straatnaam, t.Gebruiker.Huisnummer, t.Gebruiker.Busnummer, t.Gebruiker.Postcode, t.Gebruiker.Stad, t.Gebruiker.Telefoonnummer, t.Gebruiker.Email, t.Gebruiker.GeboorteDatum, t.Gebruiker.Geslacht, t.Gebruiker.Type);
                         // Gebruiker gebruiker = _
                         //    if (t.Id != 0)
@@ -128,14 +130,14 @@ namespace SportApi.Repos
                         //          act.GebruikersVoorActiviteit.Add(gebruiker.Id);
                         //      else
                         if (t.Gebruiker.IdApi != 0)
-                            act.GebruikersVoorActiviteit.Add(t.Gebruiker.IdApi);
-                        else
-                            act.GebruikersVoorActiviteit.Add(t.Gebruiker.Id);
-                        act.GebruikersApi.Add(t.Gebruiker);
-                    });
-                }
-          //      _activiteiten.SingleOrDefault(s => s.Id == id);
-   //        if (act != null)
+                        act.GebruikersVoorActiviteit.Add(t.Gebruiker.IdApi);
+                    else
+                        act.GebruikersVoorActiviteit.Add(t.Gebruiker.Id);
+                    act.GebruikersApi.Add(t.Gebruiker);
+                });
+            }
+            //      _activiteiten.SingleOrDefault(s => s.Id == id);
+            //        if (act != null)
             //List<int> ids = new List<int>();
             //foreach(Gebruiker gebruiker in act.GebruikersApi)
             //{

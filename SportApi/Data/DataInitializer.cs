@@ -94,7 +94,7 @@ namespace ProjectG05.Data
             IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
             await _userManager.CreateAsync(user, "Test123@!");
             await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "beheerder"));
-            Lesgever lesgever = new Lesgever("Alain", "Lescur", "nederstraat", "5", "1", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1992, 5, 24), "M");
+            Lesgever lesgever = new Lesgever("Alain", "Lescur", "nederstraat", "5", "1", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1992, 5, 24), "M", 1);
             _dbContext.Gebruikers.Add(lesgever);
             lesgevers.Add(lesgever);
             _dbContext.SaveChanges();
