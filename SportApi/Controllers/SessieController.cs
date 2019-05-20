@@ -70,7 +70,7 @@ namespace SportApi.Controllers
                     Aanwezigen.Add(gebruiker);
                 });
                 Sessie sessie = new Sessie(lesgever, DTO.Datum, DTO.Duur, DTO.StartUur, DTO.Weekdag, ledenVoorLes);
-                sessie.Aanwezigen = Aanwezigen;
+               //sessie.Aanwezigen = Aanwezigen;
                 _sessieRepository.Add(sessie);
                 _sessieRepository.SaveChanges();
                 return CreatedAtAction(nameof(GetBy), new { id = sessie.Id }, sessie);

@@ -93,7 +93,7 @@ namespace ProjectG05.Data.Repositories
 
         public IEnumerable<Sessie> GetAll()
         {
-            List<Sessie> alleSessies = _sessies.ToList();
+            List<Sessie> alleSessies = _sessies.Include(t => t.Lesgever).ToList();
             alleSessies.ForEach(sesh =>
             {
                 sesh.Aanwezigen = new List<Gebruiker>();

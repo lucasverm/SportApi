@@ -10,18 +10,12 @@ namespace ProjectG05.Data.Mappers
 
         public void Configure(EntityTypeBuilder<Sessie> builder)
         {
-            builder.Ignore(t => t.Id);
-            builder.Property(t => t.Id).HasDefaultValue(0);
             builder.ToTable("Sessies");
             builder.HasKey(t => t.Id);
-            
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
             builder.HasMany(t => t.Aanwezigen).WithOne();
             builder.Ignore(t => t.Aanwezigen);
-
-            builder.HasMany(t => t.LedenVoorLes).WithOne();
-            builder.Ignore(t => t.LedenVoorLes);
 
 
         }
