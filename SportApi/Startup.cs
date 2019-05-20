@@ -73,6 +73,6 @@ namespace SportApi
             app.UseSwaggerUi3();
             app.UseSwagger();
             dataInitializer.InitializeData().Wait();
-        }
+       }
     }
 }

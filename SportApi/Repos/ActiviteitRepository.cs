@@ -84,6 +84,7 @@ namespace SportApi.Repos
         public IEnumerable<Activiteit> GetAll()
         {
             List<Activiteit> alleActiviteitsen = _activiteiten.ToList();
+            List<int> gebruikersAct = new List<int>();
             alleActiviteitsen.ForEach(act =>
             {
                 //    activiteit.GebruikersVoorActiviteit = new List<Gebruiker>();
@@ -93,11 +94,16 @@ namespace SportApi.Repos
                 //});
                 _gebruikerActiviteit.Where(a => a.Activiteit == act).Include(i => i.Activiteit).Include(t => t.Gebruiker).ToList().ForEach(t =>
                 {
-                    act.GebruikersVoorActiviteit = new List<int>();
-                    if (t.Gebruiker.IdApi != 0)
-                        act.GebruikersVoorActiviteit.Add(t.Gebruiker.IdApi);
-                    else
-                        act.GebruikersVoorActiviteit.Add(t.Gebruiker.Id);
+                    //     act.GebruikersVoorActiviteit = new List<int>();
+                    if (t.Gebruiker.IdApi != 0) {
+                        //    act.GebruikersVoorActiviteit.Add(t.Gebruiker.IdApi);
+                        gebruikersAct.Add(t.Gebruiker.IdApi);
+                    }
+                    else {
+                        gebruikersAct.Add(t.Gebruiker.Id);
+                        //     act.GebruikersVoorActiviteit.Add(t.Gebruiker.Id);
+                    }
+                    act.GebruikersVoorActiviteit = gebruikersAct;
                     //act.GebruikersApi.Add(t.Gebruiker);
                 });
             });
