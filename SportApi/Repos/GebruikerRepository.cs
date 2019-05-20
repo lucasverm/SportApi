@@ -72,9 +72,14 @@ namespace ProjectG05.Data.Repositories
             return _gebruikers.Where(c => c.GetType() == typeof(NietLid)).OrderBy(t => t.Voornaam).ToList();
         }
 
-        public IEnumerable<Gebruiker> GetAllLeden()
+        public IEnumerable<Lid> GetAllLeden()
         {
-            return _gebruikers.Where(c => c.GetType() == typeof(Lid)).OrderBy(t => t.Voornaam).ToList();
+            List<Lid> uitvoer = new List<Lid>();
+            _gebruikers.Where(c => c.GetType() == typeof(Lid)).OrderBy(t => t.Voornaam).ToList().ForEach(gebruiker =>
+            {
+                uitvoer.Add((Lid)gebruiker);
+            });
+            return uitvoer;
         }
 
         public void SaveChanges()

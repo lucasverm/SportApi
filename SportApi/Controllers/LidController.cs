@@ -65,8 +65,7 @@ namespace SportApi.Controllers
                 if (dto.Type.ToLower().Equals("beheerder"))
                 {
                     Beheerder beheerder = new Beheerder(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
-                dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
-                    beheerder.Graad = dto.Graad;
+                dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht, dto.Graad);
                     if (dto.OudType != null)
                         beheerder.IdApi = dto.IdApi;
                     _gebruikerRepository.Add(beheerder);
@@ -76,8 +75,7 @@ namespace SportApi.Controllers
                 if (dto.Type.ToLower().Equals("lesgever"))
                 {
                     Lesgever lesgever = new Lesgever(dto.Voornaam, dto.Naam, dto.StraatNaam, dto.Huisnummer, dto.Busnummer,
-                dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht);
-                    lesgever.Graad = dto.Graad;
+                dto.Postcode, dto.Stad, dto.TelefoonNummer, dto.Email, zetDatumOm(dto.Geb), dto.Geslacht, dto.Graad);
                     if (dto.OudType != null)
                         lesgever.IdApi = dto.IdApi;
                     _gebruikerRepository.Add(lesgever);

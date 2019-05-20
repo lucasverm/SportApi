@@ -107,18 +107,19 @@ namespace SportApi.Repos
 
         public Les GetBy(int id)
         {
-            Les l = _lessen.Include(t => t.Lesgever).Include(a => a.LedenVoorLes).SingleOrDefault(s => s.Id == id);
-            if (l != null)
-            {
-                l.LedenVoorLes = new List<Lid>();
-                _LesLid.Where(a => a.Les == l).Include(i => i.Les).Include(t => t.Lid).ToList().ForEach(t =>
+            Les testwouter = _lessen.SingleOrDefault(t => t.Id == id);
+            Les l = _lessen.Include(s => s.Lesgever).SingleOrDefault(s => s.Id == id);
+                if (l != null)
                 {
-                    Lid lid = new Lid(t.Lid.Naam, t.Lid.Voornaam, t.Lid.Straatnaam, t.Lid.Huisnummer, t.Lid.Busnummer, t.Lid.Postcode, t.Lid.Stad, t.Lid.Telefoonnummer, t.Lid.Email, t.Lid.GeboorteDatum, t.Lid.Nationaliteit, t.Lid.EmailOuders, t.Lid.Rijksregisternummer, t.Lid.GeborenTe, t.Lid.Geslacht, t.Lid.InschrijvingsDatum, t.Lid.Graad);
-                    l.LedenVoorLes.Add(lid);
-                });
-            }
+                    l.LedenVoorLes = new List<Lid>();
+                    _LesLid.Where(a => a.Les == l).Include(i => i.Les).Include(p => p.Lid).ToList().ForEach(t =>
+                    {
+                        Lid lid = new Lid(t.Lid.Naam, t.Lid.Voornaam, t.Lid.Straatnaam, t.Lid.Huisnummer, t.Lid.Busnummer, t.Lid.Postcode, t.Lid.Stad, t.Lid.Telefoonnummer, t.Lid.Email, t.Lid.GeboorteDatum, t.Lid.Nationaliteit, t.Lid.EmailOuders, t.Lid.Rijksregisternummer, t.Lid.GeborenTe, t.Lid.Geslacht, t.Lid.InschrijvingsDatum, t.Lid.Graad);
+                        l.LedenVoorLes.Add(lid);
+                    });
+                }
 
-            return l;
+                return l;
         }
 
         public void SaveChanges()

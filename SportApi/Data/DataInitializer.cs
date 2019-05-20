@@ -89,12 +89,27 @@ namespace ProjectG05.Data
 
         private async Task InitializeUsers()
         {
+            Afbeelding afb1 = new Afbeelding(1, "adrasNaarAfb1");
+            _dbContext.Afbeeldingen.Add(afb1);
+            Video vid1 = new Video(1, "adresNaarVid1");
+            _dbContext.Videos.Add(vid1);
+            List<Afbeelding> listafb1 = new List<Afbeelding>();
+            listafb1.Add(afb1);
+            List<Video> listvid1 = new List<Video>();
+            listvid1.Add(vid1);
+            Lesmateriaal lesm1 = new Lesmateriaal(1, "lesm1", "dit is uitleg", "categorie1", listafb1, listvid1);
+            _dbContext.Lesmaterialen.Add(lesm1);
+            _dbContext.SaveChanges();
+
+            Lesmateriaal lesmTest = new Lesmateriaal(1, "ditiseentest", "ditiseenuitleg", "ditiseencategorie");
+            _dbContext.Lesmaterialen.Add(lesmTest);
+            _dbContext.SaveChanges();
             
             string eMailAddress = "alain.lescur@jiu-jitsu-gent.be";
             IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
             await _userManager.CreateAsync(user, "Test123@!");
             await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "beheerder"));
-            Lesgever lesgever = new Lesgever("Alain", "Lescur", "nederstraat", "5", "B", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1992, 5, 24), "M");
+            Lesgever lesgever = new Lesgever("Alain", "Lescur", "nederstraat", "5", "1", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1992, 5, 24), "M", 1);
             _dbContext.Gebruikers.Add(lesgever);
             lesgevers.Add(lesgever);
             _dbContext.SaveChanges();
@@ -130,7 +145,7 @@ namespace ProjectG05.Data
             user.SecurityStamp = Guid.NewGuid().ToString();
             await _userManager.CreateAsync(user, "Test123@!");
             await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "lid"));
-            Lid lid = new Lid("Wouter", "Opsommer", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 50);
+            Lid lid = new Lid("Wouter", "Opsommer", "nederstraat", "5","1", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 50);
             _dbContext.Gebruikers.Add(lid);
             _dbContext.SaveChanges();
 
@@ -140,12 +155,11 @@ namespace ProjectG05.Data
             _dbContext.Lessen.Add(les);
             _dbContext.SaveChanges();
 
-            //Sessie s = new Sessie();
-            //s.StartSessieVanLes(les);
+            Sessie s = new Sessie();
+            s.StartSessieVanLes(les);
 
-            //s.Aanwezigen.Add(lid);
-            //_dbContext.Sessies.Add(s);
-            //_dbContext.SaveChanges();
+            s.Aanwezigen.Add(lid);
+           _dbContext.SaveChanges();
 
             //Lid lid = new Lid("Lucas", "Vermeulen", "nederstraat", "5", "B", "9000", "Gent", "0495192770", "lid2@Lid2.com", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 2);
             //_dbContext.Gebruikers.Add(lid);

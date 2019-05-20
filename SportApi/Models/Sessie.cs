@@ -9,7 +9,7 @@ namespace ProjectG05.Models.Domain
     {
         #region Properties
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int Id { get; set; }
 
         public DateTime Datum { get; set; }
@@ -38,6 +38,7 @@ namespace ProjectG05.Models.Domain
         public Sessie(Lesgever leraar, DateTime datum, TimeSpan duur, TimeSpan startUur, DayOfWeek weekdag, List<Lid> leden)
         {
             Lesgever = leraar;
+            LedenVoorLes = new List<Lid>();
             Datum = datum;
             StartUur = startUur;
             Weekdag = weekdag;

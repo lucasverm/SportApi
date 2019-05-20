@@ -23,7 +23,7 @@ namespace ProjectG05.Models.Domain
 
         IEnumerable<Gebruiker> GetAllNietLeden();
 
-        IEnumerable<Gebruiker> GetAllLeden();
+        IEnumerable<Lid> GetAllLeden();
 
         Gebruiker GetBy(int id);
 

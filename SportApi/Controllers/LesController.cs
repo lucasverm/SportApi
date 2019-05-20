@@ -144,6 +144,7 @@ namespace SportApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult<Les> Delete(int id)
         {
+           
             Les les = _lesRepository.GetBy(id);
             if (les == null) return BadRequest("Les kon niet worden gevonden!");
             _lesRepository.Delete(les);
