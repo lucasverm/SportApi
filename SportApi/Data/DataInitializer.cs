@@ -94,7 +94,7 @@ namespace ProjectG05.Data
             IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
             await _userManager.CreateAsync(user, "Test123@!");
             await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "beheerder"));
-            Lesgever lesgever = new Lesgever("Alain", "Lescur", "nederstraat", "5", "B", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1992, 5, 24), "M");
+            Lesgever lesgever = new Lesgever("Alain", "Lescur", "nederstraat", "5", "1", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1992, 5, 24), "M");
             _dbContext.Gebruikers.Add(lesgever);
             lesgevers.Add(lesgever);
             _dbContext.SaveChanges();
@@ -130,7 +130,7 @@ namespace ProjectG05.Data
             user.SecurityStamp = Guid.NewGuid().ToString();
             await _userManager.CreateAsync(user, "Test123@!");
             await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "lid"));
-            Lid lid = new Lid("Wouter", "Opsommer", "nederstraat", "5","B", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 50);
+            Lid lid = new Lid("Wouter", "Opsommer", "nederstraat", "5","1", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 50);
             _dbContext.Gebruikers.Add(lid);
             _dbContext.SaveChanges();
 
