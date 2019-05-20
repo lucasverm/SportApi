@@ -90,7 +90,7 @@ namespace SportApi.Controllers
 
         // PUT: api/Activiteit/5
         [HttpPut("{id}")]
-        public ActionResult<Activiteit> Put(int id, ActiviteitDTO DTO)
+        public async System.Threading.Tasks.Task<ActionResult<Activiteit>> Put(int id, ActiviteitDTO DTO)
         {
             try
             {
@@ -133,6 +133,14 @@ namespace SportApi.Controllers
                 l.StartDatum = DateTime.Parse(DTO.StartDatum.ToString());
                 l.EindDatum = DateTime.Parse(DTO.EindDatum.ToString());
                 l.Naam = DTO.Naam;
+                l.Email = DTO.Email;
+                l.Huisnr = DTO.Huisnr;
+                l.Postcode = DTO.Postcode;
+                l.Stad = DTO.Stad;
+                l.Startuur = DTO.Startuur;
+                l.Straat = DTO.Straat;
+                l.Telefoonnummer = DTO.Telefoonnummer;
+                l.Type = DTO.Type;
                 _activiteitRepository.Update(l);
                 _activiteitRepository.SaveChanges();
                 //     return CreatedAtAction(nameof(GetBy), new { id = l.Id }, l);

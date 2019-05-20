@@ -102,30 +102,53 @@ namespace SportApi.Repos
         {
             List<Activiteit> alleActiviteitsen = _activiteiten.ToList();
             List<int> gebruikersAct = new List<int>();
+            List<Activiteit> hulpList = new List<Activiteit>();
             alleActiviteitsen.ForEach(act =>
             {
-                //    activiteit.GebruikersVoorActiviteit = new List<Gebruiker>();
-                ////    _gebruikerActiviteit.Where(k => k.Activiteit == activiteit).Include(l => l.Activiteit).Include(l => l.Gebruiker).ToList().ForEach(t =>
-                ////    {
-                ////        activiteit.GebruikersVoorActiviteit.Add(t.Gebruiker);
-                //});
-                _gebruikerActiviteit.Where(a => a.Activiteit == act).Include(i => i.Activiteit).Include(t => t.Gebruiker).ToList().ForEach(t =>
+                gebruikersAct.Clear();
+                if (act.GebruikersApi == null)
+                    act.GebruikersApi = new List<Gebruiker>();
+                List<GebruikerActiviteit> gebruikerActiviteits = _gebruikerActiviteit.Where(a => a.Activiteit.Id == act.Id).Include(i => i.Activiteit).Include(t => t.Gebruiker).ToList();
+                foreach(GebruikerActiviteit geb in gebruikerActiviteits)
                 {
-                    //     act.GebruikersVoorActiviteit = new List<int>();
-                    if (t.Gebruiker.IdApi != 0)
+                    if (geb.Activiteit.Id == act.Id)
                     {
-                        //    act.GebruikersVoorActiviteit.Add(t.Gebruiker.IdApi);
-                        gebruikersAct.Add(t.Gebruiker.IdApi);
+                        if(geb.Gebruiker != null)
+                        gebruikersAct.Add(geb.Gebruiker.Id);
+                        act.GebruikersApi.Add(geb.Gebruiker);
                     }
-                    else
-                    {
-                        gebruikersAct.Add(t.Gebruiker.Id);
-                        //     act.GebruikersVoorActiviteit.Add(t.Gebruiker.Id);
-                    }
-                    act.GebruikersVoorActiviteit = gebruikersAct;
-                    //act.GebruikersApi.Add(t.Gebruiker);
-                });
+                       
+                }
+                //_gebruikerActiviteit.Where(a => a.Activiteit.Id == act.Id).Include(i => i.Activiteit).Include(t => t.Gebruiker).ToList().ForEach(t =>
+                //{
+                //    if (t.Gebruiker.IdApi != 0)
+                //    {
+                //        gebruikersAct.Add(t.Gebruiker.IdApi);
+                //    }
+                //    else
+                //    {
+                //        if(t.Activiteit.Id == t.Activiteit.Id)
+                //        gebruikersAct.Add(t.Gebruiker.Id);
+                //    }
+                //});
+                hulpList.Add(act);
+                Activiteit hulpact = act;
+      //          hulpList.Add(hulpact);
+      //          hulpact = null;
             });
+            alleActiviteitsen.Clear();
+            foreach(Activiteit a in hulpList)
+            {
+                List<int> hulpints = new List<int>();
+                foreach(Gebruiker gebruiker in a.GebruikersApi)
+                {
+                    if(gebruiker != null)
+                    hulpints.Add(gebruiker.Id);
+                }
+                a.GebruikersVoorActiviteit = hulpints;
+                alleActiviteitsen.Add(a);
+                hulpints.Clear();
+            }
             return alleActiviteitsen;
         }
 
@@ -135,9 +158,12 @@ namespace SportApi.Repos
             if (act != null)
             {
                 act.GebruikersApi = new List<Gebruiker>();
-                _gebruikerActiviteit.Where(a => a.Activiteit == act).Include(i => i.Activiteit).Include(t => t.Gebruiker).ToList().ForEach(t =>
+                List<Gebruiker> geb = new List<Gebruiker>();
+                try
                 {
-                    act.GebruikersVoorActiviteit = new List<int>();
+                    _gebruikerActiviteit.Where(a => a.Activiteit == act).Include(i => i.Activiteit).Include(t => t.Gebruiker).ToList().ForEach(t =>
+                    {
+                        act.GebruikersVoorActiviteit = new List<int>();
                         //Gebruiker gebruiker = new Gebruiker(t.Gebruiker.Voornaam, t.Gebruiker.Naam, t.Gebruiker.Straatnaam, t.Gebruiker.Huisnummer, t.Gebruiker.Busnummer, t.Gebruiker.Postcode, t.Gebruiker.Stad, t.Gebruiker.Telefoonnummer, t.Gebruiker.Email, t.Gebruiker.GeboorteDatum, t.Gebruiker.Geslacht, t.Gebruiker.Type);
                         // Gebruiker gebruiker = _
                         //    if (t.Id != 0)
@@ -147,11 +173,21 @@ namespace SportApi.Repos
                         //          act.GebruikersVoorActiviteit.Add(gebruiker.Id);
                         //      else
                         if (t.Gebruiker.IdApi != 0)
-                        act.GebruikersVoorActiviteit.Add(t.Gebruiker.IdApi);
-                    else
-                        act.GebruikersVoorActiviteit.Add(t.Gebruiker.Id);
-                    act.GebruikersApi.Add(t.Gebruiker);
-                });
+                            //act.GebruikersVoorActiviteit.Add(t.Gebruiker.IdApi);
+                            geb.Add(t.Gebruiker);
+                        else
+                            //act.GebruikersVoorActiviteit.Add(t.Gebruiker.Id);
+                            geb.Add(t.Gebruiker);
+                        act.GebruikersApi = geb;
+                    });
+
+                }
+                catch(Exception e)
+                {
+                   act = _activiteiten.SingleOrDefault(s => s.Id == id);
+                    return act;
+                }
+              
             }
             //      _activiteiten.SingleOrDefault(s => s.Id == id);
             //        if (act != null)
