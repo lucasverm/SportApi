@@ -89,6 +89,21 @@ namespace ProjectG05.Data
 
         private async Task InitializeUsers()
         {
+            Afbeelding afb1 = new Afbeelding(1, "adrasNaarAfb1");
+            _dbContext.Afbeeldingen.Add(afb1);
+            Video vid1 = new Video(1, "adresNaarVid1");
+            _dbContext.Videos.Add(vid1);
+            List<Afbeelding> listafb1 = new List<Afbeelding>();
+            listafb1.Add(afb1);
+            List<Video> listvid1 = new List<Video>();
+            listvid1.Add(vid1);
+            Lesmateriaal lesm1 = new Lesmateriaal(1, "lesm1", "dit is uitleg", "categorie1", listafb1, listvid1);
+            _dbContext.Lesmaterialen.Add(lesm1);
+            _dbContext.SaveChanges();
+
+            Lesmateriaal lesmTest = new Lesmateriaal(1, "ditiseentest", "ditiseenuitleg", "ditiseencategorie");
+            _dbContext.Lesmaterialen.Add(lesmTest);
+            _dbContext.SaveChanges();
             
             string eMailAddress = "alain.lescur@jiu-jitsu-gent.be";
             IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
