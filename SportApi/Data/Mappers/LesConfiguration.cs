@@ -16,6 +16,7 @@ namespace ProjectG05.Data.Mappers
 
             builder.HasMany(t => t.LedenVoorLes).WithOne();
             builder.Ignore(t => t.LedenVoorLes);
+
         }
 
         #endregion Methods

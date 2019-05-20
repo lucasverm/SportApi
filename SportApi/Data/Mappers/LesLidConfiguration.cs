@@ -10,11 +10,11 @@ namespace ProjectG05.Data.Mappers
 
         public void Configure(EntityTypeBuilder<LesLid> builder)
         {
+
             builder.ToTable("LesLid");
             builder.HasKey(t => t.Id);
             builder.Property(t => t.Id).ValueGeneratedOnAdd();
         }
-
         #endregion Methods
     }
 }

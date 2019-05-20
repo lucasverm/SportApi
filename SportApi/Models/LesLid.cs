@@ -1,13 +1,13 @@
-﻿namespace ProjectG05.Models.Domain
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ProjectG05.Models.Domain
 {
     public class LesLid
     {
         #region Properties
 
         public int Id { get; set; }
-
         public Les Les { get; set; }
-
         public Lid Lid { get; set; }
 
         #endregion Properties

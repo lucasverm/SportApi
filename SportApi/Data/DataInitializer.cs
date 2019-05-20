@@ -58,6 +58,8 @@ namespace ProjectG05.Data
             if (_dbContext.Database.EnsureCreated())
             {
                 await InitializeUsers();
+                
+               
                 ////leden die deelnemen aan sessie
                 //////les met 1 en 2 op dinsdag 12:30 - 14:30
                 //TimeSpan duur = new TimeSpan(2, 0, 0);
@@ -87,15 +89,15 @@ namespace ProjectG05.Data
 
         private async Task InitializeUsers()
         {
-            //beheerder
-            //string eMailAddress = "alain.lescur@jiu-jitsu-gent.be";
-            //IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
-            //await _userManager.CreateAsync(user, "Test123@!");
-            //await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "beheerder"));
-            //Lesgever lesgever = new Lesgever("Alain", "Lescur", "nederstraat", "5", "B", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1992, 5, 24), "M");
-            //_dbContext.Gebruikers.Add(lesgever);
-            //lesgevers.Add(lesgever);
-
+            
+            string eMailAddress = "alain.lescur@jiu-jitsu-gent.be";
+            IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
+            await _userManager.CreateAsync(user, "Test123@!");
+            await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "beheerder"));
+            Lesgever lesgever = new Lesgever("Alain", "Lescur", "nederstraat", "5", "B", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1992, 5, 24), "M");
+            _dbContext.Gebruikers.Add(lesgever);
+            lesgevers.Add(lesgever);
+            _dbContext.SaveChanges();
             //eMailAddress = "beheerder2@hogent.be";
             //user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
             //await _userManager.CreateAsync(user, "Test123@!");
@@ -123,14 +125,28 @@ namespace ProjectG05.Data
             //lesgevers.Add(lesgever);
 
             ////lid
-            //eMailAddress = "lid@hogent.be";
-            //user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
-            //user.SecurityStamp = Guid.NewGuid().ToString();
-            //await _userManager.CreateAsync(user, "Test123@!");
-            //await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "lid"));
-            //Lid lid = new Lid("Wouter", "Opsommer", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 50);
-            //_dbContext.Gebruikers.Add(lid);
-            //leden.Add(lid);
+            eMailAddress = "lid@hogent.be";
+            user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
+            user.SecurityStamp = Guid.NewGuid().ToString();
+            await _userManager.CreateAsync(user, "Test123@!");
+            await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "lid"));
+            Lid lid = new Lid("Wouter", "Opsommer", "nederstraat", "5", "9000", "Gent", "0495192770", eMailAddress, new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 50);
+            _dbContext.Gebruikers.Add(lid);
+            _dbContext.SaveChanges();
+
+            List<Lid> LedenVoorLes = new List<Lid>();
+            LedenVoorLes.Add(lid);
+            Les les = new Les(lesgever, new TimeSpan(2, 0, 0), new TimeSpan(2, 0, 0), DateTime.Now.DayOfWeek, LedenVoorLes);
+            _dbContext.Lessen.Add(les);
+            _dbContext.SaveChanges();
+
+            //Sessie s = new Sessie();
+            //s.StartSessieVanLes(les);
+
+            //s.Aanwezigen.Add(lid);
+            //_dbContext.Sessies.Add(s);
+            //_dbContext.SaveChanges();
+
             //Lid lid = new Lid("Lucas", "Vermeulen", "nederstraat", "5", "B", "9000", "Gent", "0495192770", "lid2@Lid2.com", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 2);
             //_dbContext.Gebruikers.Add(lid);
             //leden.Add(lid);

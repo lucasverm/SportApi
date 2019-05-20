@@ -107,7 +107,7 @@ namespace SportApi.Repos
 
         public Les GetBy(int id)
         {
-            Les l = _lessen.Include(t => t.Lesgever).SingleOrDefault(s => s.Id == id);
+            Les l = _lessen.Include(t => t.Lesgever).Include(a => a.LedenVoorLes).SingleOrDefault(s => s.Id == id);
             if (l != null)
             {
                 l.LedenVoorLes = new List<Lid>();
