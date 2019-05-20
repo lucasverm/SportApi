@@ -33,7 +33,7 @@ namespace ProjectG05.Data.Repositories
         }
         public IEnumerable<Lesmateriaal> GetAll()
         {
-            return _lesmaterialen.ToList();
+            return _lesmaterialen.Include(t => t.Afbeeldingen).Include(t => t.Videos).ToList();
         }
 
         public Lesmateriaal GetByGraad(int graad)
