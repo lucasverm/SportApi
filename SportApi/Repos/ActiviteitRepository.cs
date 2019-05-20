@@ -34,10 +34,27 @@ namespace SportApi.Repos
 
         public void Add(Activiteit activiteit)
         {
-            activiteit.GebruikersApi.ForEach(a =>
+            //activiteit.GebruikersApi.ForEach(a =>
+            //{
+            //    _gebruikerActiviteit.Add(new GebruikerActiviteit(activiteit, a));
+            //});
+            List<GebruikerActiviteit> alleActiviteitLeden = _gebruikerActiviteit.ToList();
+            alleActiviteitLeden.ForEach(gebruikerActiviteit =>
             {
-                _gebruikerActiviteit.Add(new GebruikerActiviteit(activiteit, a));
+                if (gebruikerActiviteit.Activiteit == activiteit)
+                {
+                    _gebruikerActiviteit.Remove(gebruikerActiviteit);
+                }
             });
+
+            //alle activiteitleden van deze activiteit opnieuw toevoegen
+            if (activiteit.GebruikersApi != null)
+            {
+                activiteit.GebruikersApi.ForEach(a =>
+                {
+                    _gebruikerActiviteit.Add(new GebruikerActiviteit(activiteit, a));
+                });
+            }
             _activiteiten.Add(activiteit);
             SaveChanges();
         }
@@ -95,7 +112,7 @@ namespace SportApi.Repos
                 _gebruikerActiviteit.Where(a => a.Activiteit == act).Include(i => i.Activiteit).Include(t => t.Gebruiker).ToList().ForEach(t =>
                 {
                     //     act.GebruikersVoorActiviteit = new List<int>();
-                    if (t.Gebruiker.IdApi != 0) {
+                    if (t.Gebruiker.IdApi != null || t.Gebruiker.IdApi != 0) {
                         //    act.GebruikersVoorActiviteit.Add(t.Gebruiker.IdApi);
                         gebruikersAct.Add(t.Gebruiker.IdApi);
                     }
@@ -114,6 +131,8 @@ namespace SportApi.Repos
         {
             Activiteit act = _activiteiten.SingleOrDefault(s => s.Id == id);
 
+                {
+                if(act.GebruikersApi != null)
                 {
                     act.GebruikersApi = new List<Gebruiker>();
                     _gebruikerActiviteit.Where(a => a.Activiteit == act).Include(i => i.Activiteit).Include(t => t.Gebruiker).ToList().ForEach(t =>
@@ -134,6 +153,8 @@ namespace SportApi.Repos
                         act.GebruikersApi.Add(t.Gebruiker);
                     });
                 }
+            }
+               
           //      _activiteiten.SingleOrDefault(s => s.Id == id);
    //        if (act != null)
             //List<int> ids = new List<int>();
