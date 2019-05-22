@@ -46,7 +46,7 @@ namespace SportApi.Controllers
         {
             try
             {
-                Lesmateriaal l = new Lesmateriaal(DTO.Graad, DTO.Naam, DTO.UitlegOefeningTekst,
+                Lesmateriaal l = new Lesmateriaal(DTO.Graad, DTO.Naam, DTO.OefeningUitlegTekst,
                     DTO.Categorie, DTO.Afbeeldingen, DTO.Videos, DTO.Commentaren);
                 if (DTO.Afbeeldingen == null)
                 {
@@ -83,9 +83,15 @@ namespace SportApi.Controllers
                
                 l.Graad = DTO.Graad;
                 l.Naam = DTO.Naam;
-                l.OefeningUitlegTekst = DTO.UitlegOefeningTekst;
+                l.OefeningUitlegTekst = DTO.OefeningUitlegTekst;
                 l.Categorie = DTO.Categorie;
                 l.Afbeeldingen = DTO.Afbeeldingen;
+                //if(DTO.Afbeeldingen != null)
+                //foreach (Afbeelding afb in DTO.Afbeeldingen)
+                //{
+                //    afbeeldingRepository.Add(afb);
+                //    afbeeldingRepository.SaveChanges();
+                //}
                 l.Videos = DTO.Videos;
                 l.Commentaren = DTO.Commentaren;
                 _lesmateriaalRepository.Update(l);
