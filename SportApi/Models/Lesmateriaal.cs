@@ -13,6 +13,7 @@ namespace ProjectG05.Models.Domain
 
         public string Naam { get; set; }
         public string Categorie { get; set; }
+        public List<string> RaadplegingenApi { get; set; }
 
         public string OefeningUitlegTekst { get; set; }
 

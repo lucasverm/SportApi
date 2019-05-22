@@ -18,6 +18,7 @@ namespace ProjectG05.Data.Mappers
             builder.HasMany(t => t.Commentaren).WithOne().HasForeignKey(l => l.Id);
             builder.Ignore(t => t.Commentaren);
             builder.HasMany(t => t.Afbeeldingen).WithOne().HasForeignKey(l => l.LesmateriaalId);
+            builder.Ignore(t => t.RaadplegingenApi);
             
             builder.HasMany(t => t.Videos).WithOne().HasForeignKey(l => l.LesmateriaalId);
             

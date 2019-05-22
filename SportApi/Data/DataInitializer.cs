@@ -89,21 +89,11 @@ namespace ProjectG05.Data
 
         private async Task InitializeUsers()
         {
-            Afbeelding afb1 = new Afbeelding(1, "adrasNaarAfb1");
-            _dbContext.Afbeeldingen.Add(afb1);
-            Video vid1 = new Video(1, "adresNaarVid1");
-            _dbContext.Videos.Add(vid1);
-            List<Afbeelding> listafb1 = new List<Afbeelding>();
-            listafb1.Add(afb1);
-            List<Video> listvid1 = new List<Video>();
-            listvid1.Add(vid1);
-            Lesmateriaal lesm1 = new Lesmateriaal(1, "lesm1", "dit is uitleg", "categorie1", listafb1, listvid1);
-            _dbContext.Lesmaterialen.Add(lesm1);
-            _dbContext.SaveChanges();
+            
 
-            Lesmateriaal lesmTest = new Lesmateriaal(1, "ditiseentest", "ditiseenuitleg", "ditiseencategorie");
-            _dbContext.Lesmaterialen.Add(lesmTest);
-            _dbContext.SaveChanges();
+            //Lesmateriaal lesmTest = new Lesmateriaal(1, "ditiseentest", "ditiseenuitleg", "ditiseencategorie");
+            //_dbContext.Lesmaterialen.Add(lesmTest);
+            //_dbContext.SaveChanges();
             
             string eMailAddress = "alain.lescur@jiu-jitsu-gent.be";
             IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
@@ -159,7 +149,35 @@ namespace ProjectG05.Data
             s.StartSessieVanLes(les);
 
             s.Aanwezigen.Add(lid);
-           _dbContext.SaveChanges();
+
+            //_dbContext.SaveChanges();
+            //Afbeelding afb12 = new Afbeelding(1, "adrasNaarAfb1");
+            //_dbContext.Afbeeldingen.Add(afb12);
+            //Video vid12 = new Video(1, "adresNaarVid1");
+            //_dbContext.Videos.Add(vid12);
+            //List<Afbeelding> listafb12 = new List<Afbeelding>();
+            //listafb1.Add(afb12);
+            //List<Video> listvid12 = new List<Video>();
+            //listvid1.Add(vid12);
+            //Lesmateriaal lesm12 = new Lesmateriaal(1, "lesm1", "dit is uitleg", "categorie1", listafb1, listvid1);
+            //_dbContext.Lesmaterialen.Add(lesm1);
+            //_dbContext.SaveChanges();
+
+            Lesmateriaal lesmTest2 = new Lesmateriaal(1, "ditiseentest", "ditiseenuitleg", "ditiseencategorie");
+            _dbContext.Lesmaterialen.Add(lesmTest2);
+            _dbContext.SaveChanges();
+
+            Afbeelding afb1 = new Afbeelding(1, "adrasNaarAfb1");
+            _dbContext.Afbeeldingen.Add(afb1);
+            Video vid1 = new Video(1, "adresNaarVid1");
+            _dbContext.Videos.Add(vid1);
+            List<Afbeelding> listafb1 = new List<Afbeelding>();
+            listafb1.Add(afb1);
+            List<Video> listvid1 = new List<Video>();
+            listvid1.Add(vid1);
+            Lesmateriaal lesm1 = new Lesmateriaal(1, "lesm1", "dit is uitleg", "categorie1", listafb1, listvid1);
+            _dbContext.Lesmaterialen.Add(lesm1);
+            _dbContext.SaveChanges();
 
             //Lid lid = new Lid("Lucas", "Vermeulen", "nederstraat", "5", "B", "9000", "Gent", "0495192770", "lid2@Lid2.com", new DateTime(1998, 5, 24), "Belg", "mama@hotmail.com", "98.05.24-381.22", "Roeselare", "M", 2);
             //_dbContext.Gebruikers.Add(lid);
