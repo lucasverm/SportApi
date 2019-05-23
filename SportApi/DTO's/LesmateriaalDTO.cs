@@ -14,7 +14,7 @@ namespace SportApi.DTO_s
 
         public string Naam { get; set; }
 
-        public string UitlegOefeningTekst { get; set; }
+        public string OefeningUitlegTekst { get; set; }
 
         public string Categorie { get; set; }
 
