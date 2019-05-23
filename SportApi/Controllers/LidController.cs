@@ -49,6 +49,11 @@ namespace SportApi.Controllers
                         g.IdApi = dto.IdApi;
                         _gebruikerRepository.Add(g);
                     _gebruikerRepository.SaveChanges();
+                    string eMailAddress = dto.Email;
+                    IdentityUser user = new IdentityUser { UserName = eMailAddress, Email = eMailAddress };
+                    await _userManager.CreateAsync(user, "Test123@!");
+                    await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, dto.Type.ToLower()));
+                    _gebruikerRepository.SaveChanges();
                     return g;
                 }
 
